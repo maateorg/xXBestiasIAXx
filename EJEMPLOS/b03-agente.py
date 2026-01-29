@@ -15,7 +15,7 @@ CANTIDAD_C = 2
 
 local_llm = GoogleGenAI(
     model="gemini-2.5-flash",
-    api_key="AIzaSyCyNG-LslhOba3BA2okaDgA35DhnPNke3w"
+    api_key=""
 )
 
 Settings.llm = local_llm

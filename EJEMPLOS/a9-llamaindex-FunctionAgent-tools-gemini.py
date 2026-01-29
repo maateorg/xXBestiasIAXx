@@ -29,7 +29,7 @@ def get_population(city: str) -> str:
 # === Inicializa el modelo de Google Gemini ===
 llm = GoogleGenAI(
     model="gemini-2.5-flash",
-    api_key="AIzaSyCDbOSn9BoDnRjsf_Sal4IhJBkR3DJ1b18",
+    api_key="",
     generation_config=types.GenerateContentConfig(
         thinking_config=types.ThinkingConfig(thinking_budget=0)  # deshabilita thinking
     )

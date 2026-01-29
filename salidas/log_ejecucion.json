@@ -1,0 +1,63 @@
+{
+  "grid": [
+    [
+      "-",
+      "X",
+      "C",
+      "O",
+      "-"
+    ],
+    [
+      "X",
+      "C",
+      "T",
+      "-",
+      "E"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "X",
+      "O"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ]
+  ],
+  "success": true,
+  "transformers_placed": 2,
+  "constraints_satisfied": true,
+  "iterations": 8,
+  "history": [
+    {
+      "action": "place",
+      "position": [
+        0,
+        2
+      ],
+      "reason": "Colocaci\u00f3n forzada por loop detection",
+      "timestamp": "2026-01-29T20:48:13.126830"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        1
+      ],
+      "reason": "Colocaci\u00f3n forzada por loop detection",
+      "timestamp": "2026-01-29T20:48:22.579521"
+    }
+  ],
+  "final_check": {
+    "success": true,
+    "message": "\u2713 Todas las restricciones cumplidas",
+    "data": {
+      "violations": 0
+    }
+  }
+}

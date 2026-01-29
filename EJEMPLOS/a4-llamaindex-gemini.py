@@ -6,7 +6,7 @@ from llama_index.llms.google_genai import GoogleGenAI
 # Inicializa el modelo de Google Gemini
 llm = GoogleGenAI(
     model="gemini-2.5-flash",  # puedes cambiar a gemini-1.5-flash si quieres más velocidad
-    api_key="AIzaSyCDbOSn9BoDnRjsf_Sal4IhJBkR3DJ1b18"  # o usar variable de entorno GOOGLE_API_KEY
+    api_key=""  # o usar variable de entorno GOOGLE_API_KEY
 )
 
 # Establece este modelo como predeterminado
