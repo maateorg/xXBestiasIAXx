@@ -32,7 +32,7 @@
   "success": true,
   "transformers_placed": 2,
   "constraints_satisfied": true,
-  "iterations": 3,
+  "iterations": 1,
   "history": [
     {
       "action": "place",
@@ -40,8 +40,8 @@
         0,
         2
       ],
-      "reason": "Candidato #1 con score 105.0",
-      "timestamp": "2026-01-29T22:19:38.287250"
+      "reason": "Fallback heur\u00edstico",
+      "timestamp": "2026-01-30T00:08:31.923970"
     },
     {
       "action": "place",
@@ -49,8 +49,8 @@
         1,
         1
       ],
-      "reason": "Candidato #2 con score 93.0",
-      "timestamp": "2026-01-29T22:19:38.288033"
+      "reason": "Es el \u00fanico candidato que cubre una industria, contribuyendo a la restricci\u00f3n cr\u00edtica de \u22652 transformadores por industria (actualmente 0/1 satisfechas). Adem\u00e1s, tiene el score m\u00e1s alto.",
+      "timestamp": "2026-01-30T00:08:36.177681"
     }
   ],
   "final_check": {

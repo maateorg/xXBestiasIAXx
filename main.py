@@ -1,7 +1,7 @@
 """
-Agente Autónomo de Colocación de Transformadores - VERSIÓN MEJORADA
-Implementación usando LlamaIndex + Google Gemini con patrón ReAct optimizado
-Cambios principales: Más acción directa, menos análisis, mejor estrategia
+Agente Autónomo de Colocación de Transformadores - VERSIÓN HÍBRIDA
+Implementación usando LlamaIndex + Google Gemini con patrón ReAct
+HÍBRIDO: Heurística genera candidatos + LLM elige el mejor (RÁPIDO + INTELIGENTE)
 """
 
 import os
@@ -248,6 +248,45 @@ class TransformerTools:
             }
         )
     
+    def place_multiple_transformers(self, positions: List[Dict[str, Any]]) -> ToolResult:
+        """Coloca múltiples transformadores a la vez"""
+        placed = []
+        failed = []
+        
+        for pos_data in positions:
+            row = pos_data.get('row')
+            col = pos_data.get('col')
+            reason = pos_data.get('reason', '')
+            
+            if row is None or col is None:
+                failed.append({"position": "unknown", "reason": "Coordenadas faltantes"})
+                continue
+            
+            result = self.place_transformer(row, col, reason)
+            if result.success:
+                placed.append((row, col))
+            else:
+                failed.append({"position": (row, col), "reason": result.message})
+        
+        if not placed:
+            return ToolResult(
+                success=False,
+                message=f"No se pudo colocar ningún transformador. Errores: {len(failed)}",
+                data={"placed": 0, "failed": failed}
+            )
+        
+        return ToolResult(
+            success=True,
+            message=f"✓ {len(placed)} transformadores colocados. Fallos: {len(failed)}",
+            data={
+                "placed": len(placed),
+                "positions": placed,
+                "failed": failed,
+                "total_placed": self.transformers_placed,
+                "remaining": self.n_transformers - self.transformers_placed
+            }
+        )
+    
     def check_constraints(self) -> ToolResult:
         """Verifica que se cumplan las restricciones de industrias"""
         violations = []
@@ -346,7 +385,7 @@ class TransformerTools:
 class TransformerAgentWorkflow(Workflow):
     """Workflow principal del agente usando patrón ReAct optimizado"""
     
-    def __init__(self, tools: TransformerTools,key_rotator, max_iterations: int = 200, verbose: bool = True, *args, **kwargs):
+    def __init__(self, tools: TransformerTools, key_rotator, max_iterations: int = 200, verbose: bool = True, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tools = tools
         self.key_rotator = key_rotator
@@ -355,10 +394,6 @@ class TransformerAgentWorkflow(Workflow):
         self.llm = Settings.llm
         self.verbose = verbose
         self.recent_actions = deque(maxlen=5)
-        self.best_candidates = None
-        self.consecutive_non_placements = 0  # Contador mejorado
-        self.last_candidate_refresh = 0
-        self.placements_since_refresh = 0
     
     def _log(self, message: str):
         """Log condicional basado en verbose"""
@@ -366,26 +401,30 @@ class TransformerAgentWorkflow(Workflow):
             print(message)
 
     async def _with_key_rotation(self, coro):
+        """Ejecuta una coroutine con rotación automática de API key si hay error de cuota"""
         try:
             return await coro
         except Exception as e:
             msg = str(e).lower()
-            if "429" in msg or "quota" in msg:
-                self._log("🚨 429 / quota detectado → rotando API key")
+            if "429" in msg or "quota" in msg or "resource_exhausted" in msg:
+                self._log("🚨 429 / quota detectado → rotando API key (SIN contar iteración)")
                 self.key_rotator.rotate()
                 initialize_llm(self.key_rotator)
+                self.llm = Settings.llm  # Actualizar referencia
+                # Decrementar iteración porque vamos a reintentar
+                self.iteration -= 1
                 return await coro
             raise
     
     @step
     async def think(self, ev: Union[StartEvent, LoopEvent]) -> ThoughtEvent:
-        """Paso de razonamiento: decisión directa y eficiente"""
+        """Paso de razonamiento: HÍBRIDO (heurística + LLM)"""
         self.iteration += 1
         self._log(f"\n{'='*60}\n🔄 ITERACIÓN {self.iteration}/{self.max_iterations}\n{'='*60}")
         
         state = self.tools.get_state().to_dict()
         
-        # Caso 1: Objetivo alcanzado
+        # Objetivo alcanzado - verificar restricciones
         if self.tools.transformers_placed >= self.tools.n_transformers:
             self._log("🎯 Objetivo alcanzado. Verificando restricciones...")
             return ThoughtEvent(
@@ -393,91 +432,168 @@ class TransformerAgentWorkflow(Workflow):
                 state=state
             )
         
-        # Caso 2: Primera iteración - obtener candidatos
-        if self.iteration == 1:
-            self._log("🚀 Primera iteración: obteniendo candidatos iniciales")
+        remaining = self.tools.n_transformers - self.tools.transformers_placed
+        
+        # PASO 1: Usar heurística para generar CANDIDATOS (RÁPIDO)
+        # Si quedan muchos transformadores, generar más candidatos
+        if remaining >= 500:
+            num_candidates = min(30, remaining // 20)  # Más candidatos para batches grandes
+        elif remaining >= 100:
+            num_candidates = min(20, remaining // 10)
+        elif remaining >= 20:
+            num_candidates = min(15, remaining // 3)
+        else:
+            num_candidates = min(10, max(5, remaining // 2))
+        
+        self._log(f"⚡ Generando {num_candidates} candidatos con heurística...")
+        candidates_result = self.tools.find_best_candidates(top_n=num_candidates)
+        
+        if not candidates_result.success or not candidates_result.data.get('candidates'):
+            self._log("⚠️ No hay candidatos disponibles")
             return ThoughtEvent(
-                thought='{"thought": "Inicio: buscando mejores posiciones", "action": "find_best_candidates", "parameters": {"top_n": 15}}',
+                thought='{"thought": "No hay posiciones válidas", "action": "check_constraints", "parameters": {}}',
                 state=state
             )
         
-        # Caso 3: Tenemos candidatos válidos - COLOCAR DIRECTAMENTE
-        if self.best_candidates and self.best_candidates.get('candidates'):
-            candidates = self.best_candidates['candidates']
-            
-            # Buscar el primer candidato válido
-            for i, candidate in enumerate(candidates[:10]):  # Revisar top 10
-                pos = candidate['position']
-                if self.tools.is_valid_position(pos[0], pos[1]):
-                    self._log(f"✅ Usando candidato #{i+1} (score: {candidate['score']:.1f})")
-                    self.placements_since_refresh += 1
-                    
-                    return ThoughtEvent(
-                        thought=f'{{"thought": "Colocando en mejor posición disponible", "action": "place_transformer", "parameters": {{"row": {pos[0]}, "col": {pos[1]}, "reason": "Candidato #{i+1} con score {candidate["score"]:.1f}"}}}}',
-                        state=state
-                    )
-            
-            # Si ningún candidato es válido, refrescar
-            self._log("⚠️ Candidatos no válidos. Refrescando lista...")
-            self.best_candidates = None
+        candidates = candidates_result.data['candidates']
+        coverage = self.tools.get_industry_coverage()
         
-        # Caso 4: Refrescar candidatos cada 8 colocaciones o si no hay
-        if self.placements_since_refresh >= 8 or not self.best_candidates:
-            self._log("🔄 Refrescando lista de candidatos...")
-            self.placements_since_refresh = 0
-            self.last_candidate_refresh = self.iteration
+        # Decidir si colocar múltiples transformadores - BATCHING ESCALADO
+        batch_size = 1
+        if remaining >= 500:
+            batch_size = 20  # Batch grande para 500+
+        elif remaining >= 100:
+            batch_size = 10  # Batch medio para 100+
+        elif remaining >= 20:
+            batch_size = min(5, remaining // 4)  # Hasta 5 para 20+
+        elif remaining >= 10:
+            batch_size = min(3, remaining // 3)  # Hasta 3 para 10+
+        
+        # PASO 2: LLM elige entre los candidatos (RÁPIDO porque son pocos)
+        candidates_str = "\n".join([
+            f"{i+1}. Posición ({c['position'][0]}, {c['position'][1]}) - Score: {c['score']:.1f}\n"
+            f"   Vecinos: {c['neighbors']['X']} casas, {c['neighbors']['O']} hospitales, {c['neighbors']['T']} industrias"
+            for i, c in enumerate(candidates[:num_candidates])
+        ])
+        
+        if batch_size > 1:
+            prompt = f"""Eres un agente experto en colocar transformadores.
+
+**ESTADO:**
+- Colocados: {self.tools.transformers_placed}/{self.tools.n_transformers}
+- Restantes: {remaining}
+
+**COBERTURA INDUSTRIAS:**
+{coverage.message}
+
+**TOP {num_candidates} CANDIDATOS (pre-filtrados por heurística):**
+{candidates_str}
+
+**RESTRICCIÓN CRÍTICA:**
+Cada industria (T) DEBE tener ≥2 transformadores en radio Manhattan ≤3.
+
+**DECIDE:**
+Quedan MUCHOS transformadores ({remaining}). Elige {batch_size} candidatos de la lista para colocar MÚLTIPLES transformadores a la vez.
+Prioriza industrias con <2 transformadores y evita posiciones redundantes.
+
+**RESPONDE JSON:**
+{{
+  "thought": "[Tu decisión breve]",
+  "action": "place_multiple_transformers",
+  "parameters": {{
+    "positions": [
+      {{"row": <fila>, "col": <columna>, "reason": "[razón]"}},
+      {{"row": <fila>, "col": <columna>, "reason": "[razón]"}},
+      ...
+    ]
+  }}
+}}
+
+SOLO JSON, sin más texto."""
+        else:
+            prompt = f"""Eres un agente experto en colocar transformadores.
+
+**ESTADO:**
+- Colocados: {self.tools.transformers_placed}/{self.tools.n_transformers}
+- Restantes: {remaining}
+
+**COBERTURA INDUSTRIAS:**
+{coverage.message}
+
+**TOP {num_candidates} CANDIDATOS (pre-filtrados por heurística):**
+{candidates_str}
+
+**RESTRICCIÓN CRÍTICA:**
+Cada industria (T) DEBE tener ≥2 transformadores en radio Manhattan ≤3.
+
+**DECIDE:**
+Elige UNO de los candidatos. Prioriza industrias con <2 transformadores.
+
+**RESPONDE JSON:**
+{{
+  "thought": "[Tu decisión breve]",
+  "action": "place_transformer",
+  "parameters": {{
+    "row": <fila del candidato elegido>,
+    "col": <columna del candidato elegido>,
+    "reason": "[Por qué este candidato]"
+  }}
+}}
+
+SOLO JSON, sin más texto."""
+        
+        try:
+            self._log(f"🤖 LLM eligiendo {batch_size} transformador{'es' if batch_size > 1 else ''}...")
+            response = await self._with_key_rotation(
+                asyncio.to_thread(self.llm.complete, prompt)
+            )
+            thought = response.text.strip()
+            self._log(f"💬 LLM decidió: {thought[:100]}...")
+            
             return ThoughtEvent(
-                thought='{"thought": "Actualizando candidatos disponibles", "action": "find_best_candidates", "parameters": {"top_n": 15}}',
+                thought=thought,
                 state=state
             )
-        
-        # Caso 5: Fallback - obtener candidatos
-        self._log("⚠️ Estado inesperado. Obteniendo candidatos...")
-        return ThoughtEvent(
-            thought='{"thought": "Fallback: buscando candidatos", "action": "find_best_candidates", "parameters": {"top_n": 15}}',
-            state=state
-        )
+        except Exception as e:
+            self._log(f"❌ Error LLM: {e} → usando mejor candidato")
+            # Fallback: usar el mejor candidato heurístico
+            best = candidates[0]
+            return ThoughtEvent(
+                thought=f'{{"thought": "Fallback: mejor candidato heurístico", "action": "place_transformer", "parameters": {{"row": {best["position"][0]}, "col": {best["position"][1]}, "reason": "Fallback heurístico"}}}}',
+                state=state
+            )
     
     @step
     async def act(self, ev: ThoughtEvent) -> ObservationEvent:
-        """Paso de acción: ejecuta la decisión del agente"""
+        """Paso de acción: ejecuta la decisión de la LLM"""
         decision = self._parse_llm_response(ev.thought)
         
         if not decision or 'action' not in decision:
-            self._log("⚠️ Error al parsear respuesta. Usando acción por defecto.")
-            decision = {
-                "thought": "Fallback por error de parseo",
-                "action": "find_best_candidates",
-                "parameters": {"top_n": 15}
-            }
+            self._log("⚠️ Error al parsear respuesta de LLM.")
+            # Buscar cualquier posición válida como fallback
+            for r in range(self.tools.rows):
+                for c in range(self.tools.cols):
+                    if self.tools.is_valid_position(r, c):
+                        decision = {
+                            "thought": "Fallback por error de parseo",
+                            "action": "place_transformer",
+                            "parameters": {"row": r, "col": c, "reason": "Posición de fallback"}
+                        }
+                        break
+                if decision and 'action' in decision:
+                    break
+            
+            if not decision or 'action' not in decision:
+                # Si no hay posiciones válidas, verificar restricciones
+                decision = {
+                    "thought": "No hay posiciones válidas",
+                    "action": "check_constraints",
+                    "parameters": {}
+                }
         
-        action = decision.get('action', 'find_best_candidates')
+        action = decision.get('action', 'check_constraints')
         params = decision.get('parameters', {})
         thought = decision.get('thought', 'Sin pensamiento')
-        
-        # MEJORADO: Tracking de acciones no-placement
-        if action != 'place_transformer':
-            self.consecutive_non_placements += 1
-        else:
-            self.consecutive_non_placements = 0
-        
-        # CRÍTICO: Forzar colocación si hay demasiadas acciones sin colocar
-        if self.consecutive_non_placements >= 3:
-            self._log(f"🚨 FORZANDO COLOCACIÓN después de {self.consecutive_non_placements} acciones sin colocar")
-            
-            if self.best_candidates and self.best_candidates.get('candidates'):
-                # Buscar cualquier candidato válido
-                for candidate in self.best_candidates['candidates'][:15]:
-                    pos = candidate['position']
-                    if self.tools.is_valid_position(pos[0], pos[1]):
-                        action = 'place_transformer'
-                        params = {
-                            'row': pos[0],
-                            'col': pos[1],
-                            'reason': f'FORZADO: después de {self.consecutive_non_placements} iteraciones sin colocar'
-                        }
-                        self.consecutive_non_placements = 0
-                        break
         
         self.recent_actions.append(action)
         
@@ -489,11 +605,6 @@ class TransformerAgentWorkflow(Workflow):
         tool_result = await self._with_key_rotation(
             asyncio.to_thread(self._execute_tool, action, params)
         )
-        
-        # Guardar candidatos
-        if action == 'find_best_candidates' and tool_result.success:
-            self.best_candidates = tool_result.data
-            self._log(f"📊 Actualizados {len(tool_result.data.get('candidates', []))} candidatos")
         
         self._log(f"📤 RESULTADO: {tool_result.message}")
         
@@ -564,6 +675,7 @@ class TransformerAgentWorkflow(Workflow):
         """Ejecuta una herramienta del agente"""
         tool_mapping = {
             "place_transformer": self.tools.place_transformer,
+            "place_multiple_transformers": self.tools.place_multiple_transformers,
             "check_constraints": self.tools.check_constraints,
             "find_best_candidates": self.tools.find_best_candidates,
             "get_industry_coverage": self.tools.get_industry_coverage,
@@ -611,9 +723,9 @@ def save_solution(grid: List[List[str]], filepath: str = "salidas/solucion.txt")
 
 async def main():
     """Función principal"""
-    print("🤖 AGENTE AUTÓNOMO DE COLOCACIÓN DE TRANSFORMADORES v2.0")
+    print("🤖 AGENTE AUTÓNOMO DE COLOCACIÓN DE TRANSFORMADORES v3.5")
     print("="*60)
-    print("✨ Versión mejorada: Más resolución, menos análisis")
+    print("⚡ Versión HÍBRIDA: Heurística + LLM (rápido e inteligente)")
     print("="*60)
     
     # Configurar API key
@@ -663,7 +775,7 @@ async def main():
     workflow = TransformerAgentWorkflow(
         tools=tools,
         key_rotator=key_rotator,
-        max_iterations=max(200, n_transformers * 3),
+        max_iterations=max(400, n_transformers * 3),
         verbose=True,
         timeout=600
     )

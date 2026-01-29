@@ -31,8 +31,8 @@
       "X",
       "-",
       "-",
-      "C",
-      "C",
+      "-",
+      "-",
       "-",
       "-"
     ],
@@ -80,7 +80,7 @@
       "-",
       "-",
       "-",
-      "-",
+      "C",
       "-",
       "-"
     ],
@@ -103,7 +103,7 @@
       "X",
       "-",
       "-",
-      "-",
+      "C",
       "X",
       "T",
       "-"
@@ -124,7 +124,7 @@
   "success": true,
   "transformers_placed": 7,
   "constraints_satisfied": true,
-  "iterations": 28,
+  "iterations": 4,
   "history": [
     {
       "action": "place",
@@ -132,8 +132,8 @@
         9,
         7
       ],
-      "reason": "Colocaci\u00f3n forzada por loop detection",
-      "timestamp": "2026-01-29T21:01:25.380705"
+      "reason": "Fallback heur\u00edstico",
+      "timestamp": "2026-01-30T00:08:54.750787"
     },
     {
       "action": "place",
@@ -141,8 +141,26 @@
         7,
         7
       ],
-      "reason": "Colocaci\u00f3n forzada por loop detection",
-      "timestamp": "2026-01-29T21:01:25.765624"
+      "reason": "Cubre directamente una industria, esencial para iniciar el cumplimiento de la restricci\u00f3n cr\u00edtica de \u22652 transformadores por industria.",
+      "timestamp": "2026-01-30T00:09:05.875373"
+    },
+    {
+      "action": "place",
+      "position": [
+        6,
+        7
+      ],
+      "reason": "Proporciona el segundo transformador necesario para la industria (vecina de (7,7)), asegurando el cumplimiento de la restricci\u00f3n de \u22652 transformadores en radio Manhattan \u22643.",
+      "timestamp": "2026-01-30T00:09:05.875392"
+    },
+    {
+      "action": "place",
+      "position": [
+        8,
+        6
+      ],
+      "reason": "Seleccionado por su alto score (36.0) y por cubrir 2 casas, optimizando la cobertura general en una zona adyacente.",
+      "timestamp": "2026-01-30T00:09:05.875399"
     },
     {
       "action": "place",
@@ -150,8 +168,8 @@
         1,
         2
       ],
-      "reason": "Colocaci\u00f3n forzada por loop detection",
-      "timestamp": "2026-01-29T21:01:26.209676"
+      "reason": "Selected the candidate with the highest heuristic score (9.0) as there are no explicit industries needing prioritization based on the 'less than 2 transformers' rule.",
+      "timestamp": "2026-01-30T00:09:10.885845"
     },
     {
       "action": "place",
@@ -159,8 +177,8 @@
         0,
         2
       ],
-      "reason": "Colocaci\u00f3n forzada por loop detection",
-      "timestamp": "2026-01-29T21:01:26.743205"
+      "reason": "La \u00fanica industria existente ya cumple con la restricci\u00f3n de tener \u22652 transformadores. Todos los candidatos restantes tienen el mismo score y configuraci\u00f3n de vecinos, por lo que se elige el primero de la lista.",
+      "timestamp": "2026-01-30T00:09:14.306059"
     },
     {
       "action": "place",
@@ -168,26 +186,8 @@
         2,
         2
       ],
-      "reason": "Colocaci\u00f3n forzada por loop detection",
-      "timestamp": "2026-01-29T21:01:27.297852"
-    },
-    {
-      "action": "place",
-      "position": [
-        2,
-        6
-      ],
-      "reason": "Colocaci\u00f3n forzada por loop detection",
-      "timestamp": "2026-01-29T21:01:27.795306"
-    },
-    {
-      "action": "place",
-      "position": [
-        2,
-        7
-      ],
-      "reason": "Colocaci\u00f3n forzada por loop detection",
-      "timestamp": "2026-01-29T21:01:30.374732"
+      "reason": "La \u00fanica industria existente ya est\u00e1 satisfecha con su requisito de transformadores. Todos los candidatos restantes tienen el mismo score y no hay una raz\u00f3n espec\u00edfica para priorizar uno sobre otro en este contexto, por lo que se elige el primero de la lista.",
+      "timestamp": "2026-01-30T00:09:17.434948"
     }
   ],
   "final_check": {

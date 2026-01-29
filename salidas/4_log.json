@@ -175,15 +175,15 @@
       "-",
       "-",
       "-",
-      "-",
+      "C",
       "C",
       "X",
-      "-",
-      "-",
+      "C",
       "-",
       "-",
       "-",
       "C",
+      "-",
       "C",
       "T",
       "-",
@@ -719,7 +719,7 @@
       "-",
       "-",
       "-",
-      "C",
+      "-",
       "X",
       "-",
       "-",
@@ -851,7 +851,7 @@
       "-",
       "-",
       "-",
-      "C",
+      "-",
       "-",
       "-",
       "X",
@@ -1060,7 +1060,7 @@
   "success": true,
   "transformers_placed": 140,
   "constraints_satisfied": true,
-  "iterations": 154,
+  "iterations": 29,
   "history": [
     {
       "action": "place",
@@ -1068,8 +1068,8 @@
         22,
         3
       ],
-      "reason": "Candidato #1 con score 105.0",
-      "timestamp": "2026-01-29T22:27:33.245916"
+      "reason": "Fallback heur\u00edstico",
+      "timestamp": "2026-01-30T00:12:47.115411"
     },
     {
       "action": "place",
@@ -1077,8 +1077,8 @@
         0,
         25
       ],
-      "reason": "Candidato #2 con score 90.0",
-      "timestamp": "2026-01-29T22:27:33.246724"
+      "reason": "Alto score (90.0) y sirve a una industria insatisfecha.",
+      "timestamp": "2026-01-30T00:12:57.225850"
     },
     {
       "action": "place",
@@ -1086,8 +1086,8 @@
         1,
         6
       ],
-      "reason": "Candidato #3 con score 90.0",
-      "timestamp": "2026-01-29T22:27:33.247327"
+      "reason": "Alto score (90.0) y sirve a una industria insatisfecha.",
+      "timestamp": "2026-01-30T00:12:57.225866"
     },
     {
       "action": "place",
@@ -1095,8 +1095,8 @@
         1,
         26
       ],
-      "reason": "Candidato #4 con score 90.0",
-      "timestamp": "2026-01-29T22:27:33.247864"
+      "reason": "Alto score (90.0) y sirve a una industria insatisfecha.",
+      "timestamp": "2026-01-30T00:12:57.225871"
     },
     {
       "action": "place",
@@ -1104,8 +1104,8 @@
         2,
         7
       ],
-      "reason": "Candidato #5 con score 90.0",
-      "timestamp": "2026-01-29T22:27:33.248376"
+      "reason": "Alto score (90.0) y sirve a una industria insatisfecha.",
+      "timestamp": "2026-01-30T00:12:57.225875"
     },
     {
       "action": "place",
@@ -1113,8 +1113,8 @@
         5,
         18
       ],
-      "reason": "Candidato #6 con score 90.0",
-      "timestamp": "2026-01-29T22:27:33.249238"
+      "reason": "Alto score (90.0) y sirve a una industria insatisfecha.",
+      "timestamp": "2026-01-30T00:12:57.225879"
     },
     {
       "action": "place",
@@ -1122,8 +1122,8 @@
         8,
         9
       ],
-      "reason": "Candidato #7 con score 90.0",
-      "timestamp": "2026-01-29T22:27:33.249799"
+      "reason": "Alto score (90.0) y sirve a una industria insatisfecha.",
+      "timestamp": "2026-01-30T00:12:57.225882"
     },
     {
       "action": "place",
@@ -1131,8 +1131,8 @@
         11,
         3
       ],
-      "reason": "Candidato #8 con score 90.0",
-      "timestamp": "2026-01-29T22:27:33.250415"
+      "reason": "Alto score (90.0) y sirve a una industria insatisfecha.",
+      "timestamp": "2026-01-30T00:12:57.225886"
     },
     {
       "action": "place",
@@ -1140,8 +1140,8 @@
         12,
         23
       ],
-      "reason": "Candidato #9 con score 90.0",
-      "timestamp": "2026-01-29T22:27:33.251102"
+      "reason": "Alto score (90.0) y sirve a una industria insatisfecha.",
+      "timestamp": "2026-01-30T00:12:57.225888"
     },
     {
       "action": "place",
@@ -1149,8 +1149,8 @@
         17,
         11
       ],
-      "reason": "Candidato #10 con score 90.0",
-      "timestamp": "2026-01-29T22:27:33.251657"
+      "reason": "Alto score (90.0) y sirve a una industria insatisfecha.",
+      "timestamp": "2026-01-30T00:12:57.225892"
     },
     {
       "action": "place",
@@ -1158,8 +1158,8 @@
         22,
         25
       ],
-      "reason": "Candidato #1 con score 90.0",
-      "timestamp": "2026-01-29T22:27:33.264733"
+      "reason": "Alto score (90.0) y sirve a una industria insatisfecha.",
+      "timestamp": "2026-01-30T00:12:57.225895"
     },
     {
       "action": "place",
@@ -1167,8 +1167,89 @@
         25,
         12
       ],
-      "reason": "Candidato #2 con score 90.0",
-      "timestamp": "2026-01-29T22:27:33.265367"
+      "reason": "Fallback heur\u00edstico",
+      "timestamp": "2026-01-30T00:12:57.988276"
+    },
+    {
+      "action": "place",
+      "position": [
+        12,
+        3
+      ],
+      "reason": "Fallback heur\u00edstico",
+      "timestamp": "2026-01-30T00:12:58.886553"
+    },
+    {
+      "action": "place",
+      "position": [
+        21,
+        4
+      ],
+      "reason": "Fallback heur\u00edstico",
+      "timestamp": "2026-01-30T00:12:59.786385"
+    },
+    {
+      "action": "place",
+      "position": [
+        6,
+        18
+      ],
+      "reason": "Candidato con industria vecina, contribuye a la cobertura cr\u00edtica.",
+      "timestamp": "2026-01-30T00:13:07.742076"
+    },
+    {
+      "action": "place",
+      "position": [
+        7,
+        9
+      ],
+      "reason": "Candidato con industria vecina, contribuye a la cobertura cr\u00edtica.",
+      "timestamp": "2026-01-30T00:13:07.742097"
+    },
+    {
+      "action": "place",
+      "position": [
+        12,
+        22
+      ],
+      "reason": "Candidato con industria vecina, contribuye a la cobertura cr\u00edtica.",
+      "timestamp": "2026-01-30T00:13:07.742106"
+    },
+    {
+      "action": "place",
+      "position": [
+        12,
+        24
+      ],
+      "reason": "Candidato con industria vecina, contribuye a la cobertura cr\u00edtica.",
+      "timestamp": "2026-01-30T00:13:07.742112"
+    },
+    {
+      "action": "place",
+      "position": [
+        14,
+        24
+      ],
+      "reason": "Candidato con industria vecina, contribuye a la cobertura cr\u00edtica.",
+      "timestamp": "2026-01-30T00:13:07.742118"
+    },
+    {
+      "action": "place",
+      "position": [
+        15,
+        12
+      ],
+      "reason": "Candidato con industria vecina, contribuye a la cobertura cr\u00edtica.",
+      "timestamp": "2026-01-30T00:13:07.742123"
+    },
+    {
+      "action": "place",
+      "position": [
+        17,
+        10
+      ],
+      "reason": "Candidato con industria vecina, contribuye a la cobertura cr\u00edtica.",
+      "timestamp": "2026-01-30T00:13:07.742129"
     },
     {
       "action": "place",
@@ -1176,8 +1257,8 @@
         22,
         26
       ],
-      "reason": "Candidato #3 con score 65.0",
-      "timestamp": "2026-01-29T22:27:33.265922"
+      "reason": "Candidato con industria vecina, contribuye a la cobertura cr\u00edtica.",
+      "timestamp": "2026-01-30T00:13:07.742135"
     },
     {
       "action": "place",
@@ -1185,8 +1266,8 @@
         25,
         13
       ],
-      "reason": "Candidato #4 con score 65.0",
-      "timestamp": "2026-01-29T22:27:33.266947"
+      "reason": "Candidato con industria vecina, contribuye a la cobertura cr\u00edtica.",
+      "timestamp": "2026-01-30T00:13:07.742140"
     },
     {
       "action": "place",
@@ -1194,53 +1275,8 @@
         27,
         11
       ],
-      "reason": "Candidato #5 con score 65.0",
-      "timestamp": "2026-01-29T22:27:33.267896"
-    },
-    {
-      "action": "place",
-      "position": [
-        12,
-        3
-      ],
-      "reason": "Candidato #6 con score 60.0",
-      "timestamp": "2026-01-29T22:27:33.268535"
-    },
-    {
-      "action": "place",
-      "position": [
-        21,
-        4
-      ],
-      "reason": "Candidato #7 con score 60.0",
-      "timestamp": "2026-01-29T22:27:33.269052"
-    },
-    {
-      "action": "place",
-      "position": [
-        24,
-        12
-      ],
-      "reason": "Candidato #8 con score 56.0",
-      "timestamp": "2026-01-29T22:27:33.269635"
-    },
-    {
-      "action": "place",
-      "position": [
-        21,
-        25
-      ],
-      "reason": "Candidato #9 con score 53.0",
-      "timestamp": "2026-01-29T22:27:33.270173"
-    },
-    {
-      "action": "place",
-      "position": [
-        25,
-        25
-      ],
-      "reason": "Candidato #10 con score 53.0",
-      "timestamp": "2026-01-29T22:27:33.270669"
+      "reason": "Candidato con industria vecina, contribuye a la cobertura cr\u00edtica.",
+      "timestamp": "2026-01-30T00:13:07.742146"
     },
     {
       "action": "place",
@@ -1248,89 +1284,8 @@
         31,
         5
       ],
-      "reason": "Candidato #1 con score 53.0",
-      "timestamp": "2026-01-29T22:27:33.283736"
-    },
-    {
-      "action": "place",
-      "position": [
-        18,
-        11
-      ],
-      "reason": "Candidato #2 con score 48.0",
-      "timestamp": "2026-01-29T22:27:33.284483"
-    },
-    {
-      "action": "place",
-      "position": [
-        6,
-        18
-      ],
-      "reason": "Candidato #3 con score 45.0",
-      "timestamp": "2026-01-29T22:27:33.285106"
-    },
-    {
-      "action": "place",
-      "position": [
-        7,
-        9
-      ],
-      "reason": "Candidato #4 con score 45.0",
-      "timestamp": "2026-01-29T22:27:33.285643"
-    },
-    {
-      "action": "place",
-      "position": [
-        12,
-        22
-      ],
-      "reason": "Candidato #5 con score 45.0",
-      "timestamp": "2026-01-29T22:27:33.286187"
-    },
-    {
-      "action": "place",
-      "position": [
-        12,
-        24
-      ],
-      "reason": "Candidato #6 con score 45.0",
-      "timestamp": "2026-01-29T22:27:33.286762"
-    },
-    {
-      "action": "place",
-      "position": [
-        14,
-        24
-      ],
-      "reason": "Candidato #7 con score 45.0",
-      "timestamp": "2026-01-29T22:27:33.287278"
-    },
-    {
-      "action": "place",
-      "position": [
-        15,
-        12
-      ],
-      "reason": "Candidato #8 con score 45.0",
-      "timestamp": "2026-01-29T22:27:33.287894"
-    },
-    {
-      "action": "place",
-      "position": [
-        17,
-        10
-      ],
-      "reason": "Candidato #9 con score 45.0",
-      "timestamp": "2026-01-29T22:27:33.288780"
-    },
-    {
-      "action": "place",
-      "position": [
-        5,
-        17
-      ],
-      "reason": "Candidato #10 con score 33.0",
-      "timestamp": "2026-01-29T22:27:33.289439"
+      "reason": "Fallback heur\u00edstico",
+      "timestamp": "2026-01-30T00:13:08.600444"
     },
     {
       "action": "place",
@@ -1338,8 +1293,8 @@
         2,
         24
       ],
-      "reason": "Candidato #1 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.302399"
+      "reason": "Candidato de alta puntuaci\u00f3n para cobertura general (1 casa, 1 hospital).",
+      "timestamp": "2026-01-30T00:13:16.426570"
     },
     {
       "action": "place",
@@ -1347,8 +1302,8 @@
         7,
         4
       ],
-      "reason": "Candidato #2 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.302970"
+      "reason": "Candidato de alta puntuaci\u00f3n para cobertura general (1 casa, 1 hospital).",
+      "timestamp": "2026-01-30T00:13:16.426584"
     },
     {
       "action": "place",
@@ -1356,8 +1311,8 @@
         10,
         22
       ],
-      "reason": "Candidato #3 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.303526"
+      "reason": "Candidato de alta puntuaci\u00f3n para cobertura general (1 casa, 1 hospital).",
+      "timestamp": "2026-01-30T00:13:16.426588"
     },
     {
       "action": "place",
@@ -1365,8 +1320,8 @@
         10,
         23
       ],
-      "reason": "Candidato #4 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.304347"
+      "reason": "Candidato de alta puntuaci\u00f3n para cobertura general (1 casa, 1 hospital).",
+      "timestamp": "2026-01-30T00:13:16.426591"
     },
     {
       "action": "place",
@@ -1374,8 +1329,8 @@
         10,
         24
       ],
-      "reason": "Candidato #5 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.305106"
+      "reason": "Candidato de alta puntuaci\u00f3n para cobertura general (1 casa, 1 hospital).",
+      "timestamp": "2026-01-30T00:13:16.426594"
     },
     {
       "action": "place",
@@ -1383,8 +1338,8 @@
         13,
         1
       ],
-      "reason": "Candidato #6 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.305706"
+      "reason": "Candidato de alta puntuaci\u00f3n para cobertura general (1 casa, 1 hospital).",
+      "timestamp": "2026-01-30T00:13:16.426598"
     },
     {
       "action": "place",
@@ -1392,8 +1347,8 @@
         13,
         3
       ],
-      "reason": "Candidato #7 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.306361"
+      "reason": "Candidato de alta puntuaci\u00f3n para cobertura general (1 casa, 1 hospital).",
+      "timestamp": "2026-01-30T00:13:16.426601"
     },
     {
       "action": "place",
@@ -1401,8 +1356,8 @@
         14,
         1
       ],
-      "reason": "Candidato #8 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.306935"
+      "reason": "Candidato de alta puntuaci\u00f3n para cobertura general (1 casa, 1 hospital).",
+      "timestamp": "2026-01-30T00:13:16.426603"
     },
     {
       "action": "place",
@@ -1410,8 +1365,8 @@
         16,
         16
       ],
-      "reason": "Candidato #9 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.307459"
+      "reason": "Candidato de alta puntuaci\u00f3n para cobertura general (1 casa, 1 hospital).",
+      "timestamp": "2026-01-30T00:13:16.426607"
     },
     {
       "action": "place",
@@ -1419,8 +1374,8 @@
         16,
         17
       ],
-      "reason": "Candidato #10 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.307959"
+      "reason": "Candidato de alta puntuaci\u00f3n para cobertura general (1 casa, 1 hospital).",
+      "timestamp": "2026-01-30T00:13:16.426610"
     },
     {
       "action": "place",
@@ -1428,8 +1383,8 @@
         16,
         18
       ],
-      "reason": "Candidato #1 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.319708"
+      "reason": "Proporciona energ\u00eda a casas y hospitales cercanos, y su ubicaci\u00f3n estrat\u00e9gica podr\u00eda contribuir a la futura cobertura de industrias.",
+      "timestamp": "2026-01-30T00:13:36.038867"
     },
     {
       "action": "place",
@@ -1437,8 +1392,17 @@
         18,
         9
       ],
-      "reason": "Candidato #2 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.320576"
+      "reason": "Proporciona energ\u00eda a casas y hospitales cercanos, y su ubicaci\u00f3n estrat\u00e9gica podr\u00eda contribuir a la futura cobertura de industrias.",
+      "timestamp": "2026-01-30T00:13:36.038877"
+    },
+    {
+      "action": "place",
+      "position": [
+        18,
+        11
+      ],
+      "reason": "Proporciona energ\u00eda a casas y hospitales cercanos, y su ubicaci\u00f3n estrat\u00e9gica podr\u00eda contribuir a la futura cobertura de industrias.",
+      "timestamp": "2026-01-30T00:13:36.038881"
     },
     {
       "action": "place",
@@ -1446,8 +1410,8 @@
         19,
         9
       ],
-      "reason": "Candidato #3 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.321266"
+      "reason": "Proporciona energ\u00eda a casas y hospitales cercanos, y su ubicaci\u00f3n estrat\u00e9gica podr\u00eda contribuir a la futura cobertura de industrias.",
+      "timestamp": "2026-01-30T00:13:36.038884"
     },
     {
       "action": "place",
@@ -1455,8 +1419,8 @@
         19,
         11
       ],
-      "reason": "Candidato #4 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.322119"
+      "reason": "Proporciona energ\u00eda a casas y hospitales cercanos, y su ubicaci\u00f3n estrat\u00e9gica podr\u00eda contribuir a la futura cobertura de industrias.",
+      "timestamp": "2026-01-30T00:13:36.038887"
     },
     {
       "action": "place",
@@ -1464,8 +1428,8 @@
         23,
         1
       ],
-      "reason": "Candidato #5 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.322729"
+      "reason": "Proporciona energ\u00eda a casas y hospitales cercanos, y su ubicaci\u00f3n estrat\u00e9gica podr\u00eda contribuir a la futura cobertura de industrias.",
+      "timestamp": "2026-01-30T00:13:36.038890"
     },
     {
       "action": "place",
@@ -1473,8 +1437,8 @@
         23,
         3
       ],
-      "reason": "Candidato #6 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.323250"
+      "reason": "Proporciona energ\u00eda a casas y hospitales cercanos, y su ubicaci\u00f3n estrat\u00e9gica podr\u00eda contribuir a la futura cobertura de industrias.",
+      "timestamp": "2026-01-30T00:13:36.038893"
     },
     {
       "action": "place",
@@ -1482,8 +1446,8 @@
         24,
         1
       ],
-      "reason": "Candidato #7 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.323775"
+      "reason": "Proporciona energ\u00eda a casas y hospitales cercanos, y su ubicaci\u00f3n estrat\u00e9gica podr\u00eda contribuir a la futura cobertura de industrias.",
+      "timestamp": "2026-01-30T00:13:36.038895"
     },
     {
       "action": "place",
@@ -1491,8 +1455,8 @@
         28,
         3
       ],
-      "reason": "Candidato #8 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.324361"
+      "reason": "Proporciona energ\u00eda a casas cercanas, y su ubicaci\u00f3n estrat\u00e9gica podr\u00eda contribuir a la futura cobertura de industrias.",
+      "timestamp": "2026-01-30T00:13:36.038898"
     },
     {
       "action": "place",
@@ -1500,8 +1464,8 @@
         28,
         9
       ],
-      "reason": "Candidato #9 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.324893"
+      "reason": "Proporciona energ\u00eda a casas y hospitales cercanos, y su ubicaci\u00f3n estrat\u00e9gica podr\u00eda contribuir a la futura cobertura de industrias.",
+      "timestamp": "2026-01-30T00:13:36.038901"
     },
     {
       "action": "place",
@@ -1509,8 +1473,8 @@
         29,
         7
       ],
-      "reason": "Candidato #10 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.325557"
+      "reason": "Fallback heur\u00edstico",
+      "timestamp": "2026-01-30T00:13:36.803058"
     },
     {
       "action": "place",
@@ -1518,8 +1482,8 @@
         29,
         9
       ],
-      "reason": "Candidato #1 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.337312"
+      "reason": "M\u00e1xima puntuaci\u00f3n, cubre casas y hospitales en una zona de alta demanda.",
+      "timestamp": "2026-01-30T00:13:54.769050"
     },
     {
       "action": "place",
@@ -1527,8 +1491,8 @@
         30,
         7
       ],
-      "reason": "Candidato #2 con score 18.0",
-      "timestamp": "2026-01-29T22:27:33.338080"
+      "reason": "M\u00e1xima puntuaci\u00f3n, cubre casas y hospitales en una zona distinta pero cercana a (29,9).",
+      "timestamp": "2026-01-30T00:13:54.769060"
     },
     {
       "action": "place",
@@ -1536,8 +1500,8 @@
         10,
         1
       ],
-      "reason": "Candidato #3 con score 15.0",
-      "timestamp": "2026-01-29T22:27:33.338631"
+      "reason": "Alta puntuaci\u00f3n, es el \u00fanico candidato que cubre una industria, crucial para la robustez de la red.",
+      "timestamp": "2026-01-30T00:13:54.769065"
     },
     {
       "action": "place",
@@ -1545,8 +1509,17 @@
         4,
         11
       ],
-      "reason": "Candidato #4 con score 9.0",
-      "timestamp": "2026-01-29T22:27:33.339156"
+      "reason": "Buena puntuaci\u00f3n, cubre m\u00faltiples casas, expandiendo la cobertura residencial en una nueva \u00e1rea.",
+      "timestamp": "2026-01-30T00:13:54.769069"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        1
+      ],
+      "reason": "Proporciona cobertura adicional de casas en una regi\u00f3n distinta, evitando la redundancia con las posiciones ya seleccionadas.",
+      "timestamp": "2026-01-30T00:13:54.769073"
     },
     {
       "action": "place",
@@ -1554,17 +1527,8 @@
         1,
         14
       ],
-      "reason": "Candidato #5 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.339698"
-    },
-    {
-      "action": "place",
-      "position": [
-        2,
-        1
-      ],
-      "reason": "Candidato #6 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.340238"
+      "reason": "Sirve a 2 casas, contribuyendo a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:01.996576"
     },
     {
       "action": "place",
@@ -1572,8 +1536,8 @@
         2,
         12
       ],
-      "reason": "Candidato #7 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.340839"
+      "reason": "Sirve a 2 casas, contribuyendo a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:01.996586"
     },
     {
       "action": "place",
@@ -1581,8 +1545,8 @@
         2,
         14
       ],
-      "reason": "Candidato #8 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.341390"
+      "reason": "Sirve a 2 casas, contribuyendo a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:01.996590"
     },
     {
       "action": "place",
@@ -1590,8 +1554,8 @@
         3,
         11
       ],
-      "reason": "Candidato #9 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.342027"
+      "reason": "Sirve a 2 casas, contribuyendo a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:01.996594"
     },
     {
       "action": "place",
@@ -1599,8 +1563,8 @@
         3,
         13
       ],
-      "reason": "Candidato #10 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.342647"
+      "reason": "Sirve a 2 casas, contribuyendo a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:01.996597"
     },
     {
       "action": "place",
@@ -1608,8 +1572,8 @@
         4,
         1
       ],
-      "reason": "Candidato #1 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.354018"
+      "reason": "Sirve a 2 casas y contribuye a la cobertura general de transformadores.",
+      "timestamp": "2026-01-30T00:14:06.909307"
     },
     {
       "action": "place",
@@ -1617,8 +1581,8 @@
         4,
         2
       ],
-      "reason": "Candidato #2 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.354768"
+      "reason": "Sirve a 2 casas y contribuye a la cobertura general de transformadores.",
+      "timestamp": "2026-01-30T00:14:06.909325"
     },
     {
       "action": "place",
@@ -1626,8 +1590,8 @@
         4,
         12
       ],
-      "reason": "Candidato #3 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.355698"
+      "reason": "Sirve a 2 casas y contribuye a la cobertura general de transformadores.",
+      "timestamp": "2026-01-30T00:14:06.909333"
     },
     {
       "action": "place",
@@ -1635,8 +1599,8 @@
         5,
         0
       ],
-      "reason": "Candidato #4 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.356292"
+      "reason": "Sirve a 2 casas y contribuye a la cobertura general de transformadores.",
+      "timestamp": "2026-01-30T00:14:06.909340"
     },
     {
       "action": "place",
@@ -1644,8 +1608,8 @@
         5,
         10
       ],
-      "reason": "Candidato #5 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.356933"
+      "reason": "Sirve a 2 casas y contribuye a la cobertura general de transformadores.",
+      "timestamp": "2026-01-30T00:14:06.909346"
     },
     {
       "action": "place",
@@ -1653,8 +1617,8 @@
         6,
         1
       ],
-      "reason": "Candidato #6 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.357518"
+      "reason": "Todas las industrias est\u00e1n satisfechas (11/11), y esta posici\u00f3n sirve a 2 casas, contribuyendo a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:13.073547"
     },
     {
       "action": "place",
@@ -1662,8 +1626,8 @@
         7,
         17
       ],
-      "reason": "Candidato #7 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.358076"
+      "reason": "Todas las industrias est\u00e1n satisfechas (11/11), y esta posici\u00f3n sirve a 2 casas, contribuyendo a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:13.073559"
     },
     {
       "action": "place",
@@ -1671,8 +1635,8 @@
         7,
         18
       ],
-      "reason": "Candidato #8 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.358608"
+      "reason": "Todas las industrias est\u00e1n satisfechas (11/11), y esta posici\u00f3n sirve a 2 casas, contribuyendo a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:13.073563"
     },
     {
       "action": "place",
@@ -1680,8 +1644,8 @@
         9,
         18
       ],
-      "reason": "Candidato #9 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.359113"
+      "reason": "Todas las industrias est\u00e1n satisfechas (11/11), y esta posici\u00f3n sirve a 2 casas, contribuyendo a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:13.073566"
     },
     {
       "action": "place",
@@ -1689,8 +1653,8 @@
         9,
         19
       ],
-      "reason": "Candidato #10 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.359775"
+      "reason": "Todas las industrias est\u00e1n satisfechas (11/11), y esta posici\u00f3n sirve a 2 casas, contribuyendo a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:13.073569"
     },
     {
       "action": "place",
@@ -1698,8 +1662,8 @@
         11,
         5
       ],
-      "reason": "Candidato #1 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.371254"
+      "reason": "Candidato con score 6.0, sirve a 2 casas y contribuye a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:19.251340"
     },
     {
       "action": "place",
@@ -1707,8 +1671,8 @@
         11,
         18
       ],
-      "reason": "Candidato #2 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.371856"
+      "reason": "Candidato con score 6.0, sirve a 2 casas y contribuye a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:19.251355"
     },
     {
       "action": "place",
@@ -1716,8 +1680,8 @@
         11,
         19
       ],
-      "reason": "Candidato #3 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.372572"
+      "reason": "Candidato con score 6.0, sirve a 2 casas y contribuye a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:19.251360"
     },
     {
       "action": "place",
@@ -1725,8 +1689,8 @@
         15,
         24
       ],
-      "reason": "Candidato #4 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.373113"
+      "reason": "Candidato con score 6.0, sirve a 2 casas y contribuye a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:19.251363"
     },
     {
       "action": "place",
@@ -1734,8 +1698,8 @@
         16,
         24
       ],
-      "reason": "Candidato #5 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.373654"
+      "reason": "Candidato con score 6.0, sirve a 2 casas y contribuye a la cobertura general.",
+      "timestamp": "2026-01-30T00:14:19.251366"
     },
     {
       "action": "place",
@@ -1743,8 +1707,8 @@
         17,
         16
       ],
-      "reason": "Candidato #6 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.374232"
+      "reason": "Alto score, sirve a 2 casas, y todas las industrias ya est\u00e1n cubiertas.",
+      "timestamp": "2026-01-30T00:14:25.687371"
     },
     {
       "action": "place",
@@ -1752,8 +1716,8 @@
         17,
         18
       ],
-      "reason": "Candidato #7 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.374744"
+      "reason": "Alto score, sirve a 2 casas, y todas las industrias ya est\u00e1n cubiertas.",
+      "timestamp": "2026-01-30T00:14:25.687382"
     },
     {
       "action": "place",
@@ -1761,8 +1725,8 @@
         18,
         1
       ],
-      "reason": "Candidato #8 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.375239"
+      "reason": "Alto score, sirve a 2 casas, y todas las industrias ya est\u00e1n cubiertas.",
+      "timestamp": "2026-01-30T00:14:25.687387"
     },
     {
       "action": "place",
@@ -1770,8 +1734,8 @@
         18,
         16
       ],
-      "reason": "Candidato #9 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.375808"
+      "reason": "Alto score, sirve a 2 casas, y todas las industrias ya est\u00e1n cubiertas.",
+      "timestamp": "2026-01-30T00:14:25.687390"
     },
     {
       "action": "place",
@@ -1779,8 +1743,8 @@
         18,
         18
       ],
-      "reason": "Candidato #10 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.376615"
+      "reason": "Alto score, sirve a 2 casas, y todas las industrias ya est\u00e1n cubiertas.",
+      "timestamp": "2026-01-30T00:14:25.687393"
     },
     {
       "action": "place",
@@ -1788,8 +1752,8 @@
         19,
         21
       ],
-      "reason": "Candidato #1 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.387898"
+      "reason": "Alta puntuaci\u00f3n heur\u00edstica (6.0) y cobertura de 2 casas.",
+      "timestamp": "2026-01-30T00:14:31.257548"
     },
     {
       "action": "place",
@@ -1797,8 +1761,8 @@
         20,
         21
       ],
-      "reason": "Candidato #2 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.389083"
+      "reason": "Alta puntuaci\u00f3n heur\u00edstica (6.0) y cobertura de 2 casas.",
+      "timestamp": "2026-01-30T00:14:31.257578"
     },
     {
       "action": "place",
@@ -1806,8 +1770,8 @@
         21,
         5
       ],
-      "reason": "Candidato #3 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.389651"
+      "reason": "Alta puntuaci\u00f3n heur\u00edstica (6.0) y cobertura de 2 casas.",
+      "timestamp": "2026-01-30T00:14:31.257582"
     },
     {
       "action": "place",
@@ -1815,8 +1779,17 @@
         23,
         12
       ],
-      "reason": "Candidato #4 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.390188"
+      "reason": "Alta puntuaci\u00f3n heur\u00edstica (6.0) y cobertura de 2 casas.",
+      "timestamp": "2026-01-30T00:14:31.257585"
+    },
+    {
+      "action": "place",
+      "position": [
+        24,
+        12
+      ],
+      "reason": "Alta puntuaci\u00f3n heur\u00edstica (6.0) y cobertura de 2 casas.",
+      "timestamp": "2026-01-30T00:14:31.257588"
     },
     {
       "action": "place",
@@ -1824,8 +1797,8 @@
         28,
         1
       ],
-      "reason": "Candidato #5 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.390910"
+      "reason": "Fallback heur\u00edstico",
+      "timestamp": "2026-01-30T00:14:32.010357"
     },
     {
       "action": "place",
@@ -1833,8 +1806,8 @@
         28,
         21
       ],
-      "reason": "Candidato #6 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.391499"
+      "reason": "Candidato con el score m\u00e1s alto (6.0) y sirve a 2 casas.",
+      "timestamp": "2026-01-30T00:14:47.271243"
     },
     {
       "action": "place",
@@ -1842,8 +1815,8 @@
         29,
         19
       ],
-      "reason": "Candidato #7 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.392010"
+      "reason": "Candidato con el score m\u00e1s alto (6.0) y sirve a 2 casas.",
+      "timestamp": "2026-01-30T00:14:47.271255"
     },
     {
       "action": "place",
@@ -1851,8 +1824,8 @@
         29,
         20
       ],
-      "reason": "Candidato #8 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.392518"
+      "reason": "Candidato con el score m\u00e1s alto (6.0) y sirve a 2 casas.",
+      "timestamp": "2026-01-30T00:14:47.271259"
     },
     {
       "action": "place",
@@ -1860,8 +1833,8 @@
         29,
         21
       ],
-      "reason": "Candidato #9 con score 6.0",
-      "timestamp": "2026-01-29T22:27:33.393286"
+      "reason": "Candidato con el score m\u00e1s alto (6.0) y sirve a 2 casas.",
+      "timestamp": "2026-01-30T00:14:47.271262"
     },
     {
       "action": "place",
@@ -1869,8 +1842,8 @@
         0,
         0
       ],
-      "reason": "Candidato #10 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.394171"
+      "reason": "Siguiente candidato con el mejor score (3.0) y sirve a 1 casa, expandiendo la cobertura a una nueva zona.",
+      "timestamp": "2026-01-30T00:14:47.271265"
     },
     {
       "action": "place",
@@ -1878,8 +1851,8 @@
         0,
         1
       ],
-      "reason": "Candidato #1 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.404976"
+      "reason": "Posici\u00f3n de alta puntuaci\u00f3n para cobertura residencial, todas las industrias est\u00e1n satisfechas.",
+      "timestamp": "2026-01-30T00:14:53.882308"
     },
     {
       "action": "place",
@@ -1887,8 +1860,8 @@
         0,
         2
       ],
-      "reason": "Candidato #2 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.405527"
+      "reason": "Posici\u00f3n de alta puntuaci\u00f3n para cobertura residencial, todas las industrias est\u00e1n satisfechas.",
+      "timestamp": "2026-01-30T00:14:53.882318"
     },
     {
       "action": "place",
@@ -1896,8 +1869,8 @@
         0,
         4
       ],
-      "reason": "Candidato #3 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.406219"
+      "reason": "Posici\u00f3n de alta puntuaci\u00f3n para cobertura residencial, todas las industrias est\u00e1n satisfechas.",
+      "timestamp": "2026-01-30T00:14:53.882321"
     },
     {
       "action": "place",
@@ -1905,8 +1878,8 @@
         0,
         6
       ],
-      "reason": "Candidato #4 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.407103"
+      "reason": "Posici\u00f3n de alta puntuaci\u00f3n para cobertura residencial, todas las industrias est\u00e1n satisfechas.",
+      "timestamp": "2026-01-30T00:14:53.882324"
     },
     {
       "action": "place",
@@ -1914,8 +1887,8 @@
         0,
         7
       ],
-      "reason": "Candidato #5 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.407788"
+      "reason": "Posici\u00f3n de alta puntuaci\u00f3n para cobertura residencial, todas las industrias est\u00e1n satisfechas.",
+      "timestamp": "2026-01-30T00:14:53.882327"
     },
     {
       "action": "place",
@@ -1923,35 +1896,8 @@
         0,
         8
       ],
-      "reason": "Candidato #6 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.408313"
-    },
-    {
-      "action": "place",
-      "position": [
-        0,
-        14
-      ],
-      "reason": "Candidato #7 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.408972"
-    },
-    {
-      "action": "place",
-      "position": [
-        0,
-        15
-      ],
-      "reason": "Candidato #8 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.409627"
-    },
-    {
-      "action": "place",
-      "position": [
-        0,
-        16
-      ],
-      "reason": "Candidato #9 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.410185"
+      "reason": "Primera posici\u00f3n disponible en la fila 0, para iniciar cobertura en un nuevo sector.",
+      "timestamp": "2026-01-30T00:15:04.034493"
     },
     {
       "action": "place",
@@ -1959,17 +1905,8 @@
         0,
         18
       ],
-      "reason": "Candidato #10 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.410859"
-    },
-    {
-      "action": "place",
-      "position": [
-        0,
-        20
-      ],
-      "reason": "Candidato #1 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.420934"
+      "reason": "Posici\u00f3n espaciada en la fila 0 para cubrir una zona distinta y evitar redundancia con candidatos cercanos.",
+      "timestamp": "2026-01-30T00:15:04.034505"
     },
     {
       "action": "place",
@@ -1977,8 +1914,8 @@
         0,
         24
       ],
-      "reason": "Candidato #2 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.421561"
+      "reason": "Mayor dispersi\u00f3n en la fila 0 para maximizar la cobertura de diferentes casas.",
+      "timestamp": "2026-01-30T00:15:04.034509"
     },
     {
       "action": "place",
@@ -1986,44 +1923,8 @@
         1,
         1
       ],
-      "reason": "Candidato #3 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.422098"
-    },
-    {
-      "action": "place",
-      "position": [
-        1,
-        2
-      ],
-      "reason": "Candidato #4 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.422614"
-    },
-    {
-      "action": "place",
-      "position": [
-        1,
-        3
-      ],
-      "reason": "Candidato #5 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.423176"
-    },
-    {
-      "action": "place",
-      "position": [
-        1,
-        4
-      ],
-      "reason": "Candidato #6 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.423764"
-    },
-    {
-      "action": "place",
-      "position": [
-        1,
-        8
-      ],
-      "reason": "Candidato #7 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.424283"
+      "reason": "Primera posici\u00f3n disponible en la fila 1, para iniciar cobertura en un nuevo sector.",
+      "timestamp": "2026-01-30T00:15:04.034513"
     },
     {
       "action": "place",
@@ -2031,8 +1932,80 @@
         1,
         12
       ],
-      "reason": "Candidato #8 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.424801"
+      "reason": "Posici\u00f3n espaciada en la fila 1 para cubrir una zona distinta y evitar redundancia con candidatos cercanos.",
+      "timestamp": "2026-01-30T00:15:04.034516"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        14
+      ],
+      "reason": "Sirve a 1 casa, contribuyendo al objetivo general de colocaci\u00f3n. Las industrias ya est\u00e1n cubiertas.",
+      "timestamp": "2026-01-30T00:15:09.794393"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        15
+      ],
+      "reason": "Sirve a 1 casa, contribuyendo al objetivo general de colocaci\u00f3n. Las industrias ya est\u00e1n cubiertas.",
+      "timestamp": "2026-01-30T00:15:09.794406"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        16
+      ],
+      "reason": "Sirve a 1 casa, contribuyendo al objetivo general de colocaci\u00f3n. Las industrias ya est\u00e1n cubiertas.",
+      "timestamp": "2026-01-30T00:15:09.794410"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        20
+      ],
+      "reason": "Sirve a 1 casa, contribuyendo al objetivo general de colocaci\u00f3n. Las industrias ya est\u00e1n cubiertas.",
+      "timestamp": "2026-01-30T00:15:09.794413"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        2
+      ],
+      "reason": "Sirve a 1 casa, contribuyendo al objetivo general de colocaci\u00f3n. Las industrias ya est\u00e1n cubiertas.",
+      "timestamp": "2026-01-30T00:15:09.794417"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        3
+      ],
+      "reason": "Posici\u00f3n de alta puntuaci\u00f3n para cobertura de casas.",
+      "timestamp": "2026-01-30T00:15:15.783182"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        4
+      ],
+      "reason": "Posici\u00f3n de alta puntuaci\u00f3n para cobertura de casas.",
+      "timestamp": "2026-01-30T00:15:15.783193"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        8
+      ],
+      "reason": "Posici\u00f3n de alta puntuaci\u00f3n para cobertura de casas.",
+      "timestamp": "2026-01-30T00:15:15.783197"
     },
     {
       "action": "place",
@@ -2040,8 +2013,8 @@
         1,
         13
       ],
-      "reason": "Candidato #9 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.425299"
+      "reason": "Posici\u00f3n de alta puntuaci\u00f3n para cobertura de casas.",
+      "timestamp": "2026-01-30T00:15:15.783201"
     },
     {
       "action": "place",
@@ -2049,8 +2022,8 @@
         1,
         16
       ],
-      "reason": "Candidato #10 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.425792"
+      "reason": "Posici\u00f3n de alta puntuaci\u00f3n para cobertura de casas.",
+      "timestamp": "2026-01-30T00:15:15.783204"
     },
     {
       "action": "place",
@@ -2058,17 +2031,8 @@
         1,
         18
       ],
-      "reason": "Candidato #1 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.435311"
-    },
-    {
-      "action": "place",
-      "position": [
-        1,
-        19
-      ],
-      "reason": "Candidato #2 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.436035"
+      "reason": "Posici\u00f3n inicial estrat\u00e9gica para cobertura general y potencial soporte a industrias.",
+      "timestamp": "2026-01-30T00:15:23.615975"
     },
     {
       "action": "place",
@@ -2076,8 +2040,8 @@
         1,
         24
       ],
-      "reason": "Candidato #3 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.437170"
+      "reason": "Asegura cobertura en una secci\u00f3n diferente de la fila 1, complementando la primera elecci\u00f3n.",
+      "timestamp": "2026-01-30T00:15:23.615996"
     },
     {
       "action": "place",
@@ -2085,35 +2049,8 @@
         2,
         0
       ],
-      "reason": "Candidato #4 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.437779"
-    },
-    {
-      "action": "place",
-      "position": [
-        2,
-        2
-      ],
-      "reason": "Candidato #5 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.438297"
-    },
-    {
-      "action": "place",
-      "position": [
-        2,
-        3
-      ],
-      "reason": "Candidato #6 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.438790"
-    },
-    {
-      "action": "place",
-      "position": [
-        2,
-        8
-      ],
-      "reason": "Candidato #7 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.439283"
+      "reason": "Expande la cobertura a una nueva fila y el extremo izquierdo del mapa.",
+      "timestamp": "2026-01-30T00:15:23.616008"
     },
     {
       "action": "place",
@@ -2121,26 +2058,8 @@
         2,
         11
       ],
-      "reason": "Candidato #8 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.439771"
-    },
-    {
-      "action": "place",
-      "position": [
-        2,
-        15
-      ],
-      "reason": "Candidato #9 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.440262"
-    },
-    {
-      "action": "place",
-      "position": [
-        2,
-        16
-      ],
-      "reason": "Candidato #10 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.440905"
+      "reason": "Cubre una zona central en la fila 2, contribuyendo a la densidad de transformadores.",
+      "timestamp": "2026-01-30T00:15:23.616015"
     },
     {
       "action": "place",
@@ -2148,8 +2067,62 @@
         2,
         25
       ],
-      "reason": "Candidato #1 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.450120"
+      "reason": "Asegura cobertura en el extremo derecho de la fila 2, maximizando la distribuci\u00f3n espacial.",
+      "timestamp": "2026-01-30T00:15:23.616021"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        19
+      ],
+      "reason": "Expansi\u00f3n de cobertura residencial.",
+      "timestamp": "2026-01-30T00:15:28.396039"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        2
+      ],
+      "reason": "Expansi\u00f3n de cobertura residencial.",
+      "timestamp": "2026-01-30T00:15:28.396052"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        3
+      ],
+      "reason": "Expansi\u00f3n de cobertura residencial.",
+      "timestamp": "2026-01-30T00:15:28.396056"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        8
+      ],
+      "reason": "Expansi\u00f3n de cobertura residencial.",
+      "timestamp": "2026-01-30T00:15:28.396059"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        15
+      ],
+      "reason": "Expansi\u00f3n de cobertura residencial.",
+      "timestamp": "2026-01-30T00:15:28.396062"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        16
+      ],
+      "reason": "Fallback heur\u00edstico",
+      "timestamp": "2026-01-30T00:15:29.169161"
     },
     {
       "action": "place",
@@ -2157,8 +2130,8 @@
         2,
         26
       ],
-      "reason": "Candidato #2 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.450761"
+      "reason": "Posici\u00f3n pre-filtrada con buen score, sirve a casas.",
+      "timestamp": "2026-01-30T00:15:33.091811"
     },
     {
       "action": "place",
@@ -2166,8 +2139,8 @@
         2,
         28
       ],
-      "reason": "Candidato #3 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.451396"
+      "reason": "Posici\u00f3n pre-filtrada con buen score, sirve a casas.",
+      "timestamp": "2026-01-30T00:15:33.091823"
     },
     {
       "action": "place",
@@ -2175,8 +2148,8 @@
         2,
         29
       ],
-      "reason": "Candidato #4 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.452160"
+      "reason": "Posici\u00f3n pre-filtrada con buen score, sirve a casas.",
+      "timestamp": "2026-01-30T00:15:33.091828"
     },
     {
       "action": "place",
@@ -2184,8 +2157,8 @@
         2,
         30
       ],
-      "reason": "Candidato #5 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.452683"
+      "reason": "Posici\u00f3n pre-filtrada con buen score, sirve a casas.",
+      "timestamp": "2026-01-30T00:15:33.091831"
     },
     {
       "action": "place",
@@ -2193,8 +2166,8 @@
         3,
         1
       ],
-      "reason": "Candidato #6 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.453208"
+      "reason": "Posici\u00f3n pre-filtrada con buen score, sirve a casas.",
+      "timestamp": "2026-01-30T00:15:33.091834"
     },
     {
       "action": "place",
@@ -2202,8 +2175,8 @@
         3,
         3
       ],
-      "reason": "Candidato #7 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.453698"
+      "reason": "Selected as a top-ranked candidate to expand coverage and contribute to satisfying the critical requirement of >=2 transformers per industry within Manhattan radius <=3.",
+      "timestamp": "2026-01-30T00:15:40.903731"
     },
     {
       "action": "place",
@@ -2211,8 +2184,8 @@
         3,
         9
       ],
-      "reason": "Candidato #8 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.454200"
+      "reason": "Selected as a top-ranked candidate to expand coverage and contribute to satisfying the critical requirement of >=2 transformers per industry within Manhattan radius <=3.",
+      "timestamp": "2026-01-30T00:15:40.903742"
     },
     {
       "action": "place",
@@ -2220,8 +2193,8 @@
         3,
         10
       ],
-      "reason": "Candidato #9 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.454700"
+      "reason": "Selected as a top-ranked candidate to expand coverage and contribute to satisfying the critical requirement of >=2 transformers per industry within Manhattan radius <=3.",
+      "timestamp": "2026-01-30T00:15:40.903746"
     },
     {
       "action": "place",
@@ -2229,8 +2202,8 @@
         3,
         14
       ],
-      "reason": "Candidato #10 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.455180"
+      "reason": "Candidato top-ranked con score 3.0, contribuye a la cobertura general.",
+      "timestamp": "2026-01-30T00:15:48.345430"
     },
     {
       "action": "place",
@@ -2238,8 +2211,8 @@
         3,
         28
       ],
-      "reason": "Candidato #1 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.463901"
+      "reason": "Candidato top-ranked con score 3.0, contribuye a la cobertura general y es una posici\u00f3n distinta.",
+      "timestamp": "2026-01-30T00:15:48.345441"
     },
     {
       "action": "place",
@@ -2247,8 +2220,8 @@
         3,
         30
       ],
-      "reason": "Candidato #2 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.464621"
+      "reason": "Candidato top-ranked con score 3.0, contribuye a la cobertura general y es una posici\u00f3n distinta.",
+      "timestamp": "2026-01-30T00:15:48.345445"
     },
     {
       "action": "place",
@@ -2256,8 +2229,8 @@
         4,
         0
       ],
-      "reason": "Candidato #3 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.465203"
+      "reason": "Candidato de mayor puntuaci\u00f3n, contribuye a la cobertura general y beneficia a casas.",
+      "timestamp": "2026-01-30T00:15:53.447810"
     },
     {
       "action": "place",
@@ -2265,8 +2238,8 @@
         4,
         3
       ],
-      "reason": "Candidato #4 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.465723"
+      "reason": "Segundo candidato de mayor puntuaci\u00f3n, contribuye a la cobertura general y beneficia a casas.",
+      "timestamp": "2026-01-30T00:15:53.447823"
     },
     {
       "action": "place",
@@ -2274,8 +2247,8 @@
         4,
         9
       ],
-      "reason": "Candidato #5 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.466615"
+      "reason": "Tercer candidato de mayor puntuaci\u00f3n, contribuye a la cobertura general y beneficia a casas.",
+      "timestamp": "2026-01-30T00:15:53.447827"
     },
     {
       "action": "place",
@@ -2283,8 +2256,8 @@
         4,
         13
       ],
-      "reason": "Candidato #6 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.467331"
+      "reason": "All top candidates have identical scores and neighbor profiles (1 house, 0 industries). Without information on which industries have <2 transformers or if these candidates are near any industries, the first candidate is chosen as there is no further differentiating factor to apply the industry prioritization.",
+      "timestamp": "2026-01-30T00:16:01.845994"
     },
     {
       "action": "place",
@@ -2292,8 +2265,8 @@
         4,
         28
       ],
-      "reason": "Candidato #7 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.468018"
+      "reason": "Todos los candidatos tienen el mismo score y vecinos (1 casa, 0 industrias), sin informaci\u00f3n sobre industrias cercanas para aplicar la restricci\u00f3n cr\u00edtica. Se elige el primer candidato por orden.",
+      "timestamp": "2026-01-30T00:16:08.554996"
     },
     {
       "action": "place",
@@ -2301,8 +2274,8 @@
         4,
         29
       ],
-      "reason": "Candidato #8 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.468653"
+      "reason": "Todas las industrias est\u00e1n satisfechas, por lo que la prioridad de industrias con <2 transformadores no aplica. Se elige el primer candidato disponible con el score m\u00e1s alto (todos son 3.0) para continuar la colocaci\u00f3n de transformadores.",
+      "timestamp": "2026-01-30T00:16:12.099314"
     },
     {
       "action": "place",
@@ -2310,8 +2283,8 @@
         4,
         30
       ],
-      "reason": "Candidato #9 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.469222"
+      "reason": "Fallback heur\u00edstico",
+      "timestamp": "2026-01-30T00:16:12.874098"
     },
     {
       "action": "place",
@@ -2319,8 +2292,35 @@
         5,
         2
       ],
-      "reason": "Candidato #10 con score 3.0",
-      "timestamp": "2026-01-29T22:27:33.469734"
+      "reason": "All top candidates are equally scored and none have industry neighbors, thus not directly addressing the priority for industries needing more transformers. Choosing the first available candidate to cover a house.",
+      "timestamp": "2026-01-30T00:16:20.667417"
+    },
+    {
+      "action": "place",
+      "position": [
+        5,
+        9
+      ],
+      "reason": "Todas las industrias est\u00e1n satisfechas. Se elige el primer candidato disponible en el TOP 5 con el score m\u00e1s alto para completar la cuota de transformadores.",
+      "timestamp": "2026-01-30T00:16:24.987738"
+    },
+    {
+      "action": "place",
+      "position": [
+        5,
+        12
+      ],
+      "reason": "Todas las industrias est\u00e1n satisfechas. Todos los candidatos tienen el mismo score y perfil de vecinos. Se elige el primer candidato disponible para continuar la expansi\u00f3n de cobertura residencial.",
+      "timestamp": "2026-01-30T00:16:28.717621"
+    },
+    {
+      "action": "place",
+      "position": [
+        5,
+        16
+      ],
+      "reason": "Todas las industrias est\u00e1n satisfechas (11/11), cumpliendo la restricci\u00f3n cr\u00edtica. Los candidatos restantes tienen puntuaciones y vecinos similares, sin una ventaja clara para industrias o hospitales. Se elige el primer candidato de la lista.",
+      "timestamp": "2026-01-30T00:16:32.018726"
     }
   ],
   "final_check": {
