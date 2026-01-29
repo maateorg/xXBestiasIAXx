@@ -22,13 +22,28 @@ from llama_index.core.workflow import Workflow, Event, StartEvent, StopEvent, st
 # ==================== CONFIGURACIÓN ====================
 
 
-def initialize_llm(api_key: Optional[str] = None):
-    """Inicializa el LLM con API key desde variable de entorno o parámetro"""
-    
+class APIKeyRotator:
+    def __init__(self, api_keys):
+        if not api_keys:
+            raise ValueError("Lista de API keys vacía")
+        self.api_keys = api_keys
+        self.index = 0
+
+    @property
+    def current(self):
+        return self.api_keys[self.index]
+
+    def rotate(self):
+        self.index = (self.index + 1) % len(self.api_keys)
+        print(f"🔑 Rotando API key → usando #{self.index + 1}/{len(self.api_keys)}")
+
+
+
+def initialize_llm(rotator: APIKeyRotator):
     llm = GoogleGenAI(
         model="models/gemini-2.5-flash",
-        api_key=api_key,
-        temperature=0.0,  # Reducido a 0 para mayor consistencia
+        api_key=rotator.current,
+        temperature=0.0,
         request_timeout=600.0
     )
     Settings.llm = llm
@@ -331,9 +346,10 @@ class TransformerTools:
 class TransformerAgentWorkflow(Workflow):
     """Workflow principal del agente usando patrón ReAct optimizado"""
     
-    def __init__(self, tools: TransformerTools, max_iterations: int = 200, verbose: bool = True, *args, **kwargs):
+    def __init__(self, tools: TransformerTools,key_rotator, max_iterations: int = 200, verbose: bool = True, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tools = tools
+        self.key_rotator = key_rotator
         self.max_iterations = max_iterations
         self.iteration = 0
         self.llm = Settings.llm
@@ -348,6 +364,18 @@ class TransformerAgentWorkflow(Workflow):
         """Log condicional basado en verbose"""
         if self.verbose:
             print(message)
+
+    async def _with_key_rotation(self, coro):
+        try:
+            return await coro
+        except Exception as e:
+            msg = str(e).lower()
+            if "429" in msg or "quota" in msg:
+                self._log("🚨 429 / quota detectado → rotando API key")
+                self.key_rotator.rotate()
+                initialize_llm(self.key_rotator)
+                return await coro
+            raise
     
     @step
     async def think(self, ev: Union[StartEvent, LoopEvent]) -> ThoughtEvent:
@@ -458,7 +486,9 @@ class TransformerAgentWorkflow(Workflow):
             self._log(f"📋 Parámetros: {params}")
         
         # Ejecutar herramienta
-        tool_result = self._execute_tool(action, params)
+        tool_result = await self._with_key_rotation(
+            asyncio.to_thread(self._execute_tool, action, params)
+        )
         
         # Guardar candidatos
         if action == 'find_best_candidates' and tool_result.success:
@@ -588,7 +618,12 @@ async def main():
     
     # Configurar API key
     try:        
-        initialize_llm("AIzaSyDqNqEy0KilnH-hj3WUKdZ71I1YM55drSA")
+        api_keys = [
+            
+        ]
+
+        key_rotator = APIKeyRotator(api_keys)
+        initialize_llm(key_rotator)
         print("✓ LLM inicializado correctamente\n")
     except Exception as e:
         print(f"❌ Error configurando LLM: {e}")
@@ -627,7 +662,8 @@ async def main():
     tools = TransformerTools(grid, n_transformers)
     workflow = TransformerAgentWorkflow(
         tools=tools,
-        max_iterations=200,
+        key_rotator=key_rotator,
+        max_iterations=max(200, n_transformers * 3),
         verbose=True,
         timeout=600
     )

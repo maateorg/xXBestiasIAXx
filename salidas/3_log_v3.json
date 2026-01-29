@@ -1,0 +1,223 @@
+{
+  "grid": [
+    "--XCOC-CX--CTC-E----X--",
+    "X-CCXC-OC--CX-----X----",
+    "---TC--CX-----E--C-----",
+    "X---X-------X---O------",
+    "----E---X----C------X--",
+    "--X-------X--CT--------",
+    "X----O------X----------",
+    "------X-----------E----",
+    "---X-----TC--X---------",
+    "X--------CX-------O----",
+    "------X----------CX----",
+    "--TC------E------X-C---",
+    "---CX---------X---C----",
+    "-COC----X-----------T--",
+    "X-----------X-----CC---",
+    "------E-------O---XC---",
+    "----X---T---------X----",
+    "--X-----C-----X--------",
+    "-------XC----X------E--",
+    "X-------CO--------X----"
+  ],
+  "success": true,
+  "transformers_placed": 30,
+  "constraints_satisfied": true,
+  "iterations": 2,
+  "metrics": {
+    "llm_calls": 3,
+    "batches": 2,
+    "avg_placements_per_batch": 15.0,
+    "elapsed_seconds": 0.3,
+    "placements_per_second": 100.7
+  },
+  "llm_decisions": [
+    {
+      "iteration": 1,
+      "strategy": {}
+    }
+  ],
+  "history_sample": [
+    {
+      "action": "place",
+      "position": [
+        0,
+        3
+      ],
+      "reason": "Score: 86.0",
+      "timestamp": "2026-01-29T21:39:35.493158"
+    },
+    {
+      "action": "place",
+      "position": [
+        18,
+        8
+      ],
+      "reason": "Score: 83.0",
+      "timestamp": "2026-01-29T21:39:35.493173"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        2
+      ],
+      "reason": "Score: 78.0",
+      "timestamp": "2026-01-29T21:39:35.493188"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        11
+      ],
+      "reason": "Score: 78.0",
+      "timestamp": "2026-01-29T21:39:35.493203"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        13
+      ],
+      "reason": "Score: 78.0",
+      "timestamp": "2026-01-29T21:39:35.493218"
+    },
+    {
+      "action": "place",
+      "position": [
+        14,
+        19
+      ],
+      "reason": "Score: 78.0",
+      "timestamp": "2026-01-29T21:39:35.572308"
+    },
+    {
+      "action": "place",
+      "position": [
+        15,
+        19
+      ],
+      "reason": "Score: 36.0",
+      "timestamp": "2026-01-29T21:39:35.572337"
+    },
+    {
+      "action": "place",
+      "position": [
+        11,
+        19
+      ],
+      "reason": "Score: 33.0",
+      "timestamp": "2026-01-29T21:39:35.572355"
+    },
+    {
+      "action": "place",
+      "position": [
+        12,
+        18
+      ],
+      "reason": "Score: 33.0",
+      "timestamp": "2026-01-29T21:39:35.572372"
+    },
+    {
+      "action": "place",
+      "position": [
+        14,
+        18
+      ],
+      "reason": "Score: 33.0",
+      "timestamp": "2026-01-29T21:39:35.572388"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        8
+      ],
+      "reason": "Score: 26.0",
+      "timestamp": "2026-01-29T21:39:35.572403"
+    },
+    {
+      "action": "place",
+      "position": [
+        10,
+        17
+      ],
+      "reason": "Score: 26.0",
+      "timestamp": "2026-01-29T21:39:35.572419"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        5
+      ],
+      "reason": "Score: 23.0",
+      "timestamp": "2026-01-29T21:39:35.572434"
+    },
+    {
+      "action": "place",
+      "position": [
+        13,
+        1
+      ],
+      "reason": "Score: 23.0",
+      "timestamp": "2026-01-29T21:39:35.572450"
+    },
+    {
+      "action": "place",
+      "position": [
+        13,
+        3
+      ],
+      "reason": "Score: 23.0",
+      "timestamp": "2026-01-29T21:39:35.572466"
+    },
+    {
+      "action": "place",
+      "position": [
+        19,
+        8
+      ],
+      "reason": "Score: 23.0",
+      "timestamp": "2026-01-29T21:39:35.572481"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        5
+      ],
+      "reason": "Score: 23.0",
+      "timestamp": "2026-01-29T21:39:35.572497"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        7
+      ],
+      "reason": "Score: 23.0",
+      "timestamp": "2026-01-29T21:39:35.572511"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        7
+      ],
+      "reason": "Score: 23.0",
+      "timestamp": "2026-01-29T21:39:35.572526"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        17
+      ],
+      "reason": "Score: 23.0",
+      "timestamp": "2026-01-29T21:39:35.572541"
+    }
+  ]
+}

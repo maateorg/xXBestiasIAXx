@@ -1,0 +1,2333 @@
+{
+  "grid": [
+    [
+      "C",
+      "C",
+      "C",
+      "X",
+      "C",
+      "-",
+      "C",
+      "C",
+      "C",
+      "-",
+      "O",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "C",
+      "-",
+      "C",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "T",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "C",
+      "C",
+      "C",
+      "C",
+      "-",
+      "C",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "C",
+      "X",
+      "C",
+      "-",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "C",
+      "C",
+      "C",
+      "C",
+      "-",
+      "-",
+      "T",
+      "C",
+      "C",
+      "-",
+      "-",
+      "C",
+      "C",
+      "X",
+      "C",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "C",
+      "C",
+      "C",
+      "-",
+      "C",
+      "C",
+      "C"
+    ],
+    [
+      "-",
+      "C",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "C",
+      "X",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "O",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "C"
+    ],
+    [
+      "C",
+      "C",
+      "C",
+      "C",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "C",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "C"
+    ],
+    [
+      "C",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "T",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "O",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "-",
+      "-",
+      "-",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "T",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "O",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "C",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "T",
+      "C",
+      "-",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "C",
+      "O",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "T",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "O",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "T",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "O",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "T",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "C",
+      "O",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "T",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "O",
+      "-",
+      "-",
+      "-",
+      "C",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "T",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "C",
+      "-",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "O",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "T",
+      "-",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-"
+    ]
+  ],
+  "success": true,
+  "transformers_placed": 140,
+  "constraints_satisfied": true,
+  "iterations": 154,
+  "history": [
+    {
+      "action": "place",
+      "position": [
+        22,
+        3
+      ],
+      "reason": "Candidato #1 con score 105.0",
+      "timestamp": "2026-01-29T22:27:33.245916"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        25
+      ],
+      "reason": "Candidato #2 con score 90.0",
+      "timestamp": "2026-01-29T22:27:33.246724"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        6
+      ],
+      "reason": "Candidato #3 con score 90.0",
+      "timestamp": "2026-01-29T22:27:33.247327"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        26
+      ],
+      "reason": "Candidato #4 con score 90.0",
+      "timestamp": "2026-01-29T22:27:33.247864"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        7
+      ],
+      "reason": "Candidato #5 con score 90.0",
+      "timestamp": "2026-01-29T22:27:33.248376"
+    },
+    {
+      "action": "place",
+      "position": [
+        5,
+        18
+      ],
+      "reason": "Candidato #6 con score 90.0",
+      "timestamp": "2026-01-29T22:27:33.249238"
+    },
+    {
+      "action": "place",
+      "position": [
+        8,
+        9
+      ],
+      "reason": "Candidato #7 con score 90.0",
+      "timestamp": "2026-01-29T22:27:33.249799"
+    },
+    {
+      "action": "place",
+      "position": [
+        11,
+        3
+      ],
+      "reason": "Candidato #8 con score 90.0",
+      "timestamp": "2026-01-29T22:27:33.250415"
+    },
+    {
+      "action": "place",
+      "position": [
+        12,
+        23
+      ],
+      "reason": "Candidato #9 con score 90.0",
+      "timestamp": "2026-01-29T22:27:33.251102"
+    },
+    {
+      "action": "place",
+      "position": [
+        17,
+        11
+      ],
+      "reason": "Candidato #10 con score 90.0",
+      "timestamp": "2026-01-29T22:27:33.251657"
+    },
+    {
+      "action": "place",
+      "position": [
+        22,
+        25
+      ],
+      "reason": "Candidato #1 con score 90.0",
+      "timestamp": "2026-01-29T22:27:33.264733"
+    },
+    {
+      "action": "place",
+      "position": [
+        25,
+        12
+      ],
+      "reason": "Candidato #2 con score 90.0",
+      "timestamp": "2026-01-29T22:27:33.265367"
+    },
+    {
+      "action": "place",
+      "position": [
+        22,
+        26
+      ],
+      "reason": "Candidato #3 con score 65.0",
+      "timestamp": "2026-01-29T22:27:33.265922"
+    },
+    {
+      "action": "place",
+      "position": [
+        25,
+        13
+      ],
+      "reason": "Candidato #4 con score 65.0",
+      "timestamp": "2026-01-29T22:27:33.266947"
+    },
+    {
+      "action": "place",
+      "position": [
+        27,
+        11
+      ],
+      "reason": "Candidato #5 con score 65.0",
+      "timestamp": "2026-01-29T22:27:33.267896"
+    },
+    {
+      "action": "place",
+      "position": [
+        12,
+        3
+      ],
+      "reason": "Candidato #6 con score 60.0",
+      "timestamp": "2026-01-29T22:27:33.268535"
+    },
+    {
+      "action": "place",
+      "position": [
+        21,
+        4
+      ],
+      "reason": "Candidato #7 con score 60.0",
+      "timestamp": "2026-01-29T22:27:33.269052"
+    },
+    {
+      "action": "place",
+      "position": [
+        24,
+        12
+      ],
+      "reason": "Candidato #8 con score 56.0",
+      "timestamp": "2026-01-29T22:27:33.269635"
+    },
+    {
+      "action": "place",
+      "position": [
+        21,
+        25
+      ],
+      "reason": "Candidato #9 con score 53.0",
+      "timestamp": "2026-01-29T22:27:33.270173"
+    },
+    {
+      "action": "place",
+      "position": [
+        25,
+        25
+      ],
+      "reason": "Candidato #10 con score 53.0",
+      "timestamp": "2026-01-29T22:27:33.270669"
+    },
+    {
+      "action": "place",
+      "position": [
+        31,
+        5
+      ],
+      "reason": "Candidato #1 con score 53.0",
+      "timestamp": "2026-01-29T22:27:33.283736"
+    },
+    {
+      "action": "place",
+      "position": [
+        18,
+        11
+      ],
+      "reason": "Candidato #2 con score 48.0",
+      "timestamp": "2026-01-29T22:27:33.284483"
+    },
+    {
+      "action": "place",
+      "position": [
+        6,
+        18
+      ],
+      "reason": "Candidato #3 con score 45.0",
+      "timestamp": "2026-01-29T22:27:33.285106"
+    },
+    {
+      "action": "place",
+      "position": [
+        7,
+        9
+      ],
+      "reason": "Candidato #4 con score 45.0",
+      "timestamp": "2026-01-29T22:27:33.285643"
+    },
+    {
+      "action": "place",
+      "position": [
+        12,
+        22
+      ],
+      "reason": "Candidato #5 con score 45.0",
+      "timestamp": "2026-01-29T22:27:33.286187"
+    },
+    {
+      "action": "place",
+      "position": [
+        12,
+        24
+      ],
+      "reason": "Candidato #6 con score 45.0",
+      "timestamp": "2026-01-29T22:27:33.286762"
+    },
+    {
+      "action": "place",
+      "position": [
+        14,
+        24
+      ],
+      "reason": "Candidato #7 con score 45.0",
+      "timestamp": "2026-01-29T22:27:33.287278"
+    },
+    {
+      "action": "place",
+      "position": [
+        15,
+        12
+      ],
+      "reason": "Candidato #8 con score 45.0",
+      "timestamp": "2026-01-29T22:27:33.287894"
+    },
+    {
+      "action": "place",
+      "position": [
+        17,
+        10
+      ],
+      "reason": "Candidato #9 con score 45.0",
+      "timestamp": "2026-01-29T22:27:33.288780"
+    },
+    {
+      "action": "place",
+      "position": [
+        5,
+        17
+      ],
+      "reason": "Candidato #10 con score 33.0",
+      "timestamp": "2026-01-29T22:27:33.289439"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        24
+      ],
+      "reason": "Candidato #1 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.302399"
+    },
+    {
+      "action": "place",
+      "position": [
+        7,
+        4
+      ],
+      "reason": "Candidato #2 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.302970"
+    },
+    {
+      "action": "place",
+      "position": [
+        10,
+        22
+      ],
+      "reason": "Candidato #3 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.303526"
+    },
+    {
+      "action": "place",
+      "position": [
+        10,
+        23
+      ],
+      "reason": "Candidato #4 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.304347"
+    },
+    {
+      "action": "place",
+      "position": [
+        10,
+        24
+      ],
+      "reason": "Candidato #5 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.305106"
+    },
+    {
+      "action": "place",
+      "position": [
+        13,
+        1
+      ],
+      "reason": "Candidato #6 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.305706"
+    },
+    {
+      "action": "place",
+      "position": [
+        13,
+        3
+      ],
+      "reason": "Candidato #7 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.306361"
+    },
+    {
+      "action": "place",
+      "position": [
+        14,
+        1
+      ],
+      "reason": "Candidato #8 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.306935"
+    },
+    {
+      "action": "place",
+      "position": [
+        16,
+        16
+      ],
+      "reason": "Candidato #9 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.307459"
+    },
+    {
+      "action": "place",
+      "position": [
+        16,
+        17
+      ],
+      "reason": "Candidato #10 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.307959"
+    },
+    {
+      "action": "place",
+      "position": [
+        16,
+        18
+      ],
+      "reason": "Candidato #1 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.319708"
+    },
+    {
+      "action": "place",
+      "position": [
+        18,
+        9
+      ],
+      "reason": "Candidato #2 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.320576"
+    },
+    {
+      "action": "place",
+      "position": [
+        19,
+        9
+      ],
+      "reason": "Candidato #3 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.321266"
+    },
+    {
+      "action": "place",
+      "position": [
+        19,
+        11
+      ],
+      "reason": "Candidato #4 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.322119"
+    },
+    {
+      "action": "place",
+      "position": [
+        23,
+        1
+      ],
+      "reason": "Candidato #5 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.322729"
+    },
+    {
+      "action": "place",
+      "position": [
+        23,
+        3
+      ],
+      "reason": "Candidato #6 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.323250"
+    },
+    {
+      "action": "place",
+      "position": [
+        24,
+        1
+      ],
+      "reason": "Candidato #7 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.323775"
+    },
+    {
+      "action": "place",
+      "position": [
+        28,
+        3
+      ],
+      "reason": "Candidato #8 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.324361"
+    },
+    {
+      "action": "place",
+      "position": [
+        28,
+        9
+      ],
+      "reason": "Candidato #9 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.324893"
+    },
+    {
+      "action": "place",
+      "position": [
+        29,
+        7
+      ],
+      "reason": "Candidato #10 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.325557"
+    },
+    {
+      "action": "place",
+      "position": [
+        29,
+        9
+      ],
+      "reason": "Candidato #1 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.337312"
+    },
+    {
+      "action": "place",
+      "position": [
+        30,
+        7
+      ],
+      "reason": "Candidato #2 con score 18.0",
+      "timestamp": "2026-01-29T22:27:33.338080"
+    },
+    {
+      "action": "place",
+      "position": [
+        10,
+        1
+      ],
+      "reason": "Candidato #3 con score 15.0",
+      "timestamp": "2026-01-29T22:27:33.338631"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        11
+      ],
+      "reason": "Candidato #4 con score 9.0",
+      "timestamp": "2026-01-29T22:27:33.339156"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        14
+      ],
+      "reason": "Candidato #5 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.339698"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        1
+      ],
+      "reason": "Candidato #6 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.340238"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        12
+      ],
+      "reason": "Candidato #7 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.340839"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        14
+      ],
+      "reason": "Candidato #8 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.341390"
+    },
+    {
+      "action": "place",
+      "position": [
+        3,
+        11
+      ],
+      "reason": "Candidato #9 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.342027"
+    },
+    {
+      "action": "place",
+      "position": [
+        3,
+        13
+      ],
+      "reason": "Candidato #10 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.342647"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        1
+      ],
+      "reason": "Candidato #1 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.354018"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        2
+      ],
+      "reason": "Candidato #2 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.354768"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        12
+      ],
+      "reason": "Candidato #3 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.355698"
+    },
+    {
+      "action": "place",
+      "position": [
+        5,
+        0
+      ],
+      "reason": "Candidato #4 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.356292"
+    },
+    {
+      "action": "place",
+      "position": [
+        5,
+        10
+      ],
+      "reason": "Candidato #5 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.356933"
+    },
+    {
+      "action": "place",
+      "position": [
+        6,
+        1
+      ],
+      "reason": "Candidato #6 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.357518"
+    },
+    {
+      "action": "place",
+      "position": [
+        7,
+        17
+      ],
+      "reason": "Candidato #7 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.358076"
+    },
+    {
+      "action": "place",
+      "position": [
+        7,
+        18
+      ],
+      "reason": "Candidato #8 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.358608"
+    },
+    {
+      "action": "place",
+      "position": [
+        9,
+        18
+      ],
+      "reason": "Candidato #9 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.359113"
+    },
+    {
+      "action": "place",
+      "position": [
+        9,
+        19
+      ],
+      "reason": "Candidato #10 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.359775"
+    },
+    {
+      "action": "place",
+      "position": [
+        11,
+        5
+      ],
+      "reason": "Candidato #1 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.371254"
+    },
+    {
+      "action": "place",
+      "position": [
+        11,
+        18
+      ],
+      "reason": "Candidato #2 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.371856"
+    },
+    {
+      "action": "place",
+      "position": [
+        11,
+        19
+      ],
+      "reason": "Candidato #3 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.372572"
+    },
+    {
+      "action": "place",
+      "position": [
+        15,
+        24
+      ],
+      "reason": "Candidato #4 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.373113"
+    },
+    {
+      "action": "place",
+      "position": [
+        16,
+        24
+      ],
+      "reason": "Candidato #5 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.373654"
+    },
+    {
+      "action": "place",
+      "position": [
+        17,
+        16
+      ],
+      "reason": "Candidato #6 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.374232"
+    },
+    {
+      "action": "place",
+      "position": [
+        17,
+        18
+      ],
+      "reason": "Candidato #7 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.374744"
+    },
+    {
+      "action": "place",
+      "position": [
+        18,
+        1
+      ],
+      "reason": "Candidato #8 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.375239"
+    },
+    {
+      "action": "place",
+      "position": [
+        18,
+        16
+      ],
+      "reason": "Candidato #9 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.375808"
+    },
+    {
+      "action": "place",
+      "position": [
+        18,
+        18
+      ],
+      "reason": "Candidato #10 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.376615"
+    },
+    {
+      "action": "place",
+      "position": [
+        19,
+        21
+      ],
+      "reason": "Candidato #1 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.387898"
+    },
+    {
+      "action": "place",
+      "position": [
+        20,
+        21
+      ],
+      "reason": "Candidato #2 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.389083"
+    },
+    {
+      "action": "place",
+      "position": [
+        21,
+        5
+      ],
+      "reason": "Candidato #3 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.389651"
+    },
+    {
+      "action": "place",
+      "position": [
+        23,
+        12
+      ],
+      "reason": "Candidato #4 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.390188"
+    },
+    {
+      "action": "place",
+      "position": [
+        28,
+        1
+      ],
+      "reason": "Candidato #5 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.390910"
+    },
+    {
+      "action": "place",
+      "position": [
+        28,
+        21
+      ],
+      "reason": "Candidato #6 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.391499"
+    },
+    {
+      "action": "place",
+      "position": [
+        29,
+        19
+      ],
+      "reason": "Candidato #7 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.392010"
+    },
+    {
+      "action": "place",
+      "position": [
+        29,
+        20
+      ],
+      "reason": "Candidato #8 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.392518"
+    },
+    {
+      "action": "place",
+      "position": [
+        29,
+        21
+      ],
+      "reason": "Candidato #9 con score 6.0",
+      "timestamp": "2026-01-29T22:27:33.393286"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        0
+      ],
+      "reason": "Candidato #10 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.394171"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        1
+      ],
+      "reason": "Candidato #1 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.404976"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        2
+      ],
+      "reason": "Candidato #2 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.405527"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        4
+      ],
+      "reason": "Candidato #3 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.406219"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        6
+      ],
+      "reason": "Candidato #4 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.407103"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        7
+      ],
+      "reason": "Candidato #5 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.407788"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        8
+      ],
+      "reason": "Candidato #6 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.408313"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        14
+      ],
+      "reason": "Candidato #7 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.408972"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        15
+      ],
+      "reason": "Candidato #8 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.409627"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        16
+      ],
+      "reason": "Candidato #9 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.410185"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        18
+      ],
+      "reason": "Candidato #10 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.410859"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        20
+      ],
+      "reason": "Candidato #1 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.420934"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        24
+      ],
+      "reason": "Candidato #2 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.421561"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        1
+      ],
+      "reason": "Candidato #3 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.422098"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        2
+      ],
+      "reason": "Candidato #4 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.422614"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        3
+      ],
+      "reason": "Candidato #5 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.423176"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        4
+      ],
+      "reason": "Candidato #6 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.423764"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        8
+      ],
+      "reason": "Candidato #7 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.424283"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        12
+      ],
+      "reason": "Candidato #8 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.424801"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        13
+      ],
+      "reason": "Candidato #9 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.425299"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        16
+      ],
+      "reason": "Candidato #10 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.425792"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        18
+      ],
+      "reason": "Candidato #1 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.435311"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        19
+      ],
+      "reason": "Candidato #2 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.436035"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        24
+      ],
+      "reason": "Candidato #3 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.437170"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        0
+      ],
+      "reason": "Candidato #4 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.437779"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        2
+      ],
+      "reason": "Candidato #5 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.438297"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        3
+      ],
+      "reason": "Candidato #6 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.438790"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        8
+      ],
+      "reason": "Candidato #7 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.439283"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        11
+      ],
+      "reason": "Candidato #8 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.439771"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        15
+      ],
+      "reason": "Candidato #9 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.440262"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        16
+      ],
+      "reason": "Candidato #10 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.440905"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        25
+      ],
+      "reason": "Candidato #1 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.450120"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        26
+      ],
+      "reason": "Candidato #2 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.450761"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        28
+      ],
+      "reason": "Candidato #3 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.451396"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        29
+      ],
+      "reason": "Candidato #4 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.452160"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        30
+      ],
+      "reason": "Candidato #5 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.452683"
+    },
+    {
+      "action": "place",
+      "position": [
+        3,
+        1
+      ],
+      "reason": "Candidato #6 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.453208"
+    },
+    {
+      "action": "place",
+      "position": [
+        3,
+        3
+      ],
+      "reason": "Candidato #7 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.453698"
+    },
+    {
+      "action": "place",
+      "position": [
+        3,
+        9
+      ],
+      "reason": "Candidato #8 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.454200"
+    },
+    {
+      "action": "place",
+      "position": [
+        3,
+        10
+      ],
+      "reason": "Candidato #9 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.454700"
+    },
+    {
+      "action": "place",
+      "position": [
+        3,
+        14
+      ],
+      "reason": "Candidato #10 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.455180"
+    },
+    {
+      "action": "place",
+      "position": [
+        3,
+        28
+      ],
+      "reason": "Candidato #1 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.463901"
+    },
+    {
+      "action": "place",
+      "position": [
+        3,
+        30
+      ],
+      "reason": "Candidato #2 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.464621"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        0
+      ],
+      "reason": "Candidato #3 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.465203"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        3
+      ],
+      "reason": "Candidato #4 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.465723"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        9
+      ],
+      "reason": "Candidato #5 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.466615"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        13
+      ],
+      "reason": "Candidato #6 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.467331"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        28
+      ],
+      "reason": "Candidato #7 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.468018"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        29
+      ],
+      "reason": "Candidato #8 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.468653"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        30
+      ],
+      "reason": "Candidato #9 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.469222"
+    },
+    {
+      "action": "place",
+      "position": [
+        5,
+        2
+      ],
+      "reason": "Candidato #10 con score 3.0",
+      "timestamp": "2026-01-29T22:27:33.469734"
+    }
+  ],
+  "final_check": {
+    "success": true,
+    "message": "\u2713 Todas las restricciones cumplidas",
+    "data": {
+      "violations": 0
+    }
+  }
+}

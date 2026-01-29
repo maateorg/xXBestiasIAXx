@@ -4,11 +4,11 @@
       "-",
       "-",
       "X",
-      "C",
-      "O",
-      "C",
       "-",
-      "C",
+      "O",
+      "-",
+      "-",
+      "-",
       "X",
       "-",
       "-",
@@ -31,10 +31,10 @@
       "-",
       "C",
       "X",
-      "C",
+      "-",
       "-",
       "O",
-      "C",
+      "-",
       "-",
       "-",
       "-",
@@ -58,7 +58,7 @@
       "C",
       "-",
       "-",
-      "C",
+      "-",
       "X",
       "-",
       "-",
@@ -68,7 +68,7 @@
       "E",
       "-",
       "-",
-      "C",
+      "-",
       "-",
       "-",
       "-",
@@ -157,7 +157,7 @@
       "-",
       "-",
       "O",
-      "C",
+      "-",
       "-",
       "-",
       "-",
@@ -180,7 +180,7 @@
       "-",
       "-",
       "-",
-      "C",
+      "-",
       "-",
       "X",
       "-",
@@ -268,7 +268,7 @@
       "-",
       "-",
       "-",
-      "C",
+      "-",
       "X",
       "-",
       "-",
@@ -502,9 +502,9 @@
     ]
   ],
   "success": true,
-  "transformers_placed": 30,
+  "transformers_placed": 20,
   "constraints_satisfied": true,
-  "iterations": 33,
+  "iterations": 22,
   "history": [
     {
       "action": "place",
@@ -513,7 +513,7 @@
         3
       ],
       "reason": "Candidato #1 con score 108.0",
-      "timestamp": "2026-01-29T21:15:15.594780"
+      "timestamp": "2026-01-29T22:19:45.946302"
     },
     {
       "action": "place",
@@ -522,7 +522,7 @@
         4
       ],
       "reason": "Candidato #2 con score 93.0",
-      "timestamp": "2026-01-29T21:15:15.595359"
+      "timestamp": "2026-01-29T22:19:45.947332"
     },
     {
       "action": "place",
@@ -531,7 +531,7 @@
         11
       ],
       "reason": "Candidato #3 con score 90.0",
-      "timestamp": "2026-01-29T21:15:15.595866"
+      "timestamp": "2026-01-29T22:19:45.948029"
     },
     {
       "action": "place",
@@ -540,7 +540,7 @@
         13
       ],
       "reason": "Candidato #4 con score 90.0",
-      "timestamp": "2026-01-29T21:15:15.596349"
+      "timestamp": "2026-01-29T22:19:45.948608"
     },
     {
       "action": "place",
@@ -549,7 +549,7 @@
         13
       ],
       "reason": "Candidato #5 con score 90.0",
-      "timestamp": "2026-01-29T21:15:15.596817"
+      "timestamp": "2026-01-29T22:19:45.949338"
     },
     {
       "action": "place",
@@ -558,7 +558,7 @@
         10
       ],
       "reason": "Candidato #6 con score 90.0",
-      "timestamp": "2026-01-29T21:15:15.597284"
+      "timestamp": "2026-01-29T22:19:45.950022"
     },
     {
       "action": "place",
@@ -567,7 +567,7 @@
         9
       ],
       "reason": "Candidato #7 con score 90.0",
-      "timestamp": "2026-01-29T21:15:15.597781"
+      "timestamp": "2026-01-29T22:19:45.950872"
     },
     {
       "action": "place",
@@ -576,7 +576,7 @@
         3
       ],
       "reason": "Candidato #8 con score 90.0",
-      "timestamp": "2026-01-29T21:15:15.598257"
+      "timestamp": "2026-01-29T22:19:45.951823"
     },
     {
       "action": "place",
@@ -585,7 +585,7 @@
         8
       ],
       "reason": "Candidato #9 con score 90.0",
-      "timestamp": "2026-01-29T21:15:15.598747"
+      "timestamp": "2026-01-29T22:19:45.952660"
     },
     {
       "action": "place",
@@ -594,7 +594,7 @@
         3
       ],
       "reason": "Candidato #10 con score 80.0",
-      "timestamp": "2026-01-29T21:15:15.599233"
+      "timestamp": "2026-01-29T22:19:45.953424"
     },
     {
       "action": "place",
@@ -603,7 +603,7 @@
         19
       ],
       "reason": "Candidato #1 con score 65.0",
-      "timestamp": "2026-01-29T21:15:15.604969"
+      "timestamp": "2026-01-29T22:19:45.959551"
     },
     {
       "action": "place",
@@ -612,7 +612,7 @@
         8
       ],
       "reason": "Candidato #2 con score 48.0",
-      "timestamp": "2026-01-29T21:15:15.605513"
+      "timestamp": "2026-01-29T22:19:45.960186"
     },
     {
       "action": "place",
@@ -621,7 +621,7 @@
         13
       ],
       "reason": "Candidato #3 con score 45.0",
-      "timestamp": "2026-01-29T21:15:15.605985"
+      "timestamp": "2026-01-29T22:19:45.960734"
     },
     {
       "action": "place",
@@ -630,7 +630,7 @@
         13
       ],
       "reason": "Candidato #4 con score 45.0",
-      "timestamp": "2026-01-29T21:15:15.606449"
+      "timestamp": "2026-01-29T22:19:45.961276"
     },
     {
       "action": "place",
@@ -639,7 +639,7 @@
         7
       ],
       "reason": "Candidato #5 con score 45.0",
-      "timestamp": "2026-01-29T21:15:15.606909"
+      "timestamp": "2026-01-29T22:19:45.962198"
     },
     {
       "action": "place",
@@ -648,7 +648,7 @@
         12
       ],
       "reason": "Candidato #6 con score 33.0",
-      "timestamp": "2026-01-29T21:15:15.607379"
+      "timestamp": "2026-01-29T22:19:45.963236"
     },
     {
       "action": "place",
@@ -657,7 +657,7 @@
         14
       ],
       "reason": "Candidato #7 con score 33.0",
-      "timestamp": "2026-01-29T21:15:15.607841"
+      "timestamp": "2026-01-29T22:19:45.964007"
     },
     {
       "action": "place",
@@ -666,7 +666,7 @@
         8
       ],
       "reason": "Candidato #8 con score 33.0",
-      "timestamp": "2026-01-29T21:15:15.608311"
+      "timestamp": "2026-01-29T22:19:45.964750"
     },
     {
       "action": "place",
@@ -675,7 +675,7 @@
         8
       ],
       "reason": "Candidato #9 con score 33.0",
-      "timestamp": "2026-01-29T21:15:15.608764"
+      "timestamp": "2026-01-29T22:19:45.965975"
     },
     {
       "action": "place",
@@ -684,97 +684,7 @@
         19
       ],
       "reason": "Candidato #10 con score 31.0",
-      "timestamp": "2026-01-29T21:15:15.609226"
-    },
-    {
-      "action": "place",
-      "position": [
-        0,
-        3
-      ],
-      "reason": "Candidato #1 con score 21.0",
-      "timestamp": "2026-01-29T21:15:15.614558"
-    },
-    {
-      "action": "place",
-      "position": [
-        1,
-        8
-      ],
-      "reason": "Candidato #2 con score 21.0",
-      "timestamp": "2026-01-29T21:15:15.615057"
-    },
-    {
-      "action": "place",
-      "position": [
-        10,
-        17
-      ],
-      "reason": "Candidato #3 con score 21.0",
-      "timestamp": "2026-01-29T21:15:15.615526"
-    },
-    {
-      "action": "place",
-      "position": [
-        0,
-        5
-      ],
-      "reason": "Candidato #4 con score 18.0",
-      "timestamp": "2026-01-29T21:15:15.615990"
-    },
-    {
-      "action": "place",
-      "position": [
-        0,
-        7
-      ],
-      "reason": "Candidato #5 con score 18.0",
-      "timestamp": "2026-01-29T21:15:15.616448"
-    },
-    {
-      "action": "place",
-      "position": [
-        1,
-        5
-      ],
-      "reason": "Candidato #6 con score 18.0",
-      "timestamp": "2026-01-29T21:15:15.616986"
-    },
-    {
-      "action": "place",
-      "position": [
-        2,
-        7
-      ],
-      "reason": "Candidato #7 con score 18.0",
-      "timestamp": "2026-01-29T21:15:15.617454"
-    },
-    {
-      "action": "place",
-      "position": [
-        2,
-        17
-      ],
-      "reason": "Candidato #8 con score 18.0",
-      "timestamp": "2026-01-29T21:15:15.618001"
-    },
-    {
-      "action": "place",
-      "position": [
-        6,
-        6
-      ],
-      "reason": "Candidato #9 con score 18.0",
-      "timestamp": "2026-01-29T21:15:15.618875"
-    },
-    {
-      "action": "place",
-      "position": [
-        7,
-        4
-      ],
-      "reason": "Candidato #10 con score 18.0",
-      "timestamp": "2026-01-29T21:15:15.619500"
+      "timestamp": "2026-01-29T22:19:45.966871"
     }
   ],
   "final_check": {
