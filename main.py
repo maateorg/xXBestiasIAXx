@@ -1,6 +1,7 @@
 """
-Agente Autónomo de Colocación de Transformadores
-Implementación usando LlamaIndex + Google Gemini con patrón ReAct
+Agente Autónomo de Colocación de Transformadores - VERSIÓN MEJORADA
+Implementación usando LlamaIndex + Google Gemini con patrón ReAct optimizado
+Cambios principales: Más acción directa, menos análisis, mejor estrategia
 """
 
 import os
@@ -25,9 +26,9 @@ def initialize_llm(api_key: Optional[str] = None):
     """Inicializa el LLM con API key desde variable de entorno o parámetro"""
     
     llm = GoogleGenAI(
-        model="models/gemini-2.5-flash",  # Modelo más reciente
+        model="models/gemini-2.5-flash",
         api_key=api_key,
-        temperature=0.1,
+        temperature=0.0,  # Reducido a 0 para mayor consistencia
         request_timeout=600.0
     )
     Settings.llm = llm
@@ -137,21 +138,17 @@ class TransformerTools:
     
     def is_valid_position(self, row: int, col: int) -> bool:
         """Verifica si una posición es válida para colocar un transformador"""
-        # Dentro de límites
         if not (0 <= row < self.rows and 0 <= col < self.cols):
             return False
         
-        # Celda vacía
         if self.grid[row][col] != '-':
             return False
         
         neighbors = self.get_neighbors(row, col)
         
-        # Debe tener al menos una casa vecina
         if not any(self.grid[nr][nc] == 'X' for nr, nc in neighbors):
             return False
         
-        # No puede estar junto a estación eléctrica
         if any(self.grid[nr][nc] == 'E' for nr, nc in neighbors):
             return False
         
@@ -179,54 +176,35 @@ class TransformerTools:
                 if self.grid[r][c] == 'T']
     
     def calculate_position_score(self, row: int, col: int) -> float:
-        """Calcula un score heurístico para una posición"""
+        """Calcula un score heurístico mejorado para una posición"""
         if not self.is_valid_position(row, col):
             return -1000.0
         
         score = 0.0
         neighbors = self.get_neighbors(row, col)
         
-        # Bonificaciones por vecinos
-        score += sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'O') * 10.0  # Hospitales
-        score += sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'T') * 5.0   # Industrias
-        score += sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'X') * 2.0   # Casas
+        # Bonificaciones por vecinos importantes
+        hospital_neighbors = sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'O')
+        industry_neighbors = sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'T')
+        house_neighbors = sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'X')
         
-        # Bonificación por industrias desatendidas
-        for ind in self.find_industries():
+        score += hospital_neighbors * 15.0  # Hospitales MUY importantes
+        score += industry_neighbors * 12.0   # Industrias directas muy importantes
+        score += house_neighbors * 3.0       # Casas importantes
+        
+        # NUEVA LÓGICA: Priorizar industrias más desatendidas
+        industries = self.find_industries()
+        for ind in industries:
             dist = abs(row - ind[0]) + abs(col - ind[1])
             if dist <= 3:
                 current_count = self.count_transformers_near_industry(ind)
-                if current_count < 2:
-                    # Mayor bonificación si la industria está más desatendida
-                    score += (3 - dist) * (3 - current_count) * 3.0
+                # Bonificación MASIVA para industrias con 0 o 1 transformador
+                if current_count == 0:
+                    score += (4 - dist) * 25.0  # Crítico: 100 puntos si está muy cerca
+                elif current_count == 1:
+                    score += (4 - dist) * 15.0  # Muy importante: completar a 2
         
         return score
-    
-    # ========== HERRAMIENTAS DISPONIBLES PARA EL AGENTE ==========
-    
-    def analyze_position(self, row: int, col: int) -> ToolResult:
-        """Analiza una posición específica"""
-        if not (0 <= row < self.rows and 0 <= col < self.cols):
-            return ToolResult(False, f"Posición ({row}, {col}) fuera de límites")
-        
-        is_valid = self.is_valid_position(row, col)
-        score = self.calculate_position_score(row, col)
-        
-        neighbors_info = {}
-        for nr, nc in self.get_neighbors(row, col):
-            cell_type = self.grid[nr][nc]
-            neighbors_info[cell_type] = neighbors_info.get(cell_type, 0) + 1
-        
-        return ToolResult(
-            success=is_valid,
-            message=f"{'Válida' if is_valid else 'Inválida'} - Score: {score:.1f}",
-            data={
-                "valid": is_valid,
-                "score": score,
-                "neighbors": neighbors_info,
-                "current_cell": self.grid[row][col]
-            }
-        )
     
     def place_transformer(self, row: int, col: int, reason: str = "") -> ToolResult:
         """Coloca un transformador en una posición"""
@@ -247,7 +225,7 @@ class TransformerTools:
         
         return ToolResult(
             success=True,
-            message=f"Transformador colocado en ({row}, {col})",
+            message=f"Transformador #{self.transformers_placed} colocado en ({row}, {col})",
             data={
                 "total_placed": self.transformers_placed,
                 "remaining": self.n_transformers - self.transformers_placed,
@@ -280,17 +258,19 @@ class TransformerTools:
             data={"violations": violations}
         )
     
-    def find_best_candidates(self, top_n: int = 5) -> ToolResult:
-        """Encuentra las mejores posiciones candidatas"""
+    def find_best_candidates(self, top_n: int = 10) -> ToolResult:
+        """Encuentra las mejores posiciones candidatas con mejor scoring"""
         candidates = []
         
         for r in range(self.rows):
             for c in range(self.cols):
                 if self.is_valid_position(r, c):
+                    score = self.calculate_position_score(r, c)
                     neighbors = self.get_neighbors(r, c)
+                    
                     candidates.append({
                         "position": (r, c),
-                        "score": self.calculate_position_score(r, c),
+                        "score": score,
                         "neighbors": {
                             "X": sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'X'),
                             "O": sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'O'),
@@ -303,7 +283,7 @@ class TransformerTools:
         
         return ToolResult(
             success=True,
-            message=f"Encontrados {len(candidates)} candidatos (mostrando top {top_n})",
+            message=f"Encontrados {len(candidates)} candidatos (top {top_n} disponibles)",
             data={"candidates": top_candidates, "total": len(candidates)}
         )
     
@@ -327,8 +307,6 @@ class TransformerTools:
             data={"coverage": coverage, "satisfaction_rate": satisfied/total_industries if total_industries > 0 else 0}
         )
     
-    # ========== UTILIDADES ==========
-    
     def get_state(self) -> AgentState:
         """Obtiene el estado actual del agente"""
         return AgentState(
@@ -348,12 +326,12 @@ class TransformerTools:
         return '\n'.join([f"{k}: {v}" for k, v in self.legend.items()])
 
 
-# ==================== WORKFLOW REACT ====================
+# ==================== WORKFLOW REACT MEJORADO ====================
 
 class TransformerAgentWorkflow(Workflow):
-    """Workflow principal del agente usando patrón ReAct"""
+    """Workflow principal del agente usando patrón ReAct optimizado"""
     
-    def __init__(self, tools: TransformerTools, max_iterations: int = 30, verbose: bool = True, *args, **kwargs):
+    def __init__(self, tools: TransformerTools, max_iterations: int = 200, verbose: bool = True, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tools = tools
         self.max_iterations = max_iterations
@@ -362,148 +340,76 @@ class TransformerAgentWorkflow(Workflow):
         self.verbose = verbose
         self.recent_actions = deque(maxlen=5)
         self.best_candidates = None
-        self.consecutive_analyses = 0
+        self.consecutive_non_placements = 0  # Contador mejorado
+        self.last_candidate_refresh = 0
+        self.placements_since_refresh = 0
     
     def _log(self, message: str):
         """Log condicional basado en verbose"""
         if self.verbose:
             print(message)
     
-    # ========== STEP 1: THINK ==========
     @step
     async def think(self, ev: Union[StartEvent, LoopEvent]) -> ThoughtEvent:
-        """Paso de razonamiento: el agente piensa qué hacer"""
+        """Paso de razonamiento: decisión directa y eficiente"""
         self.iteration += 1
         self._log(f"\n{'='*60}\n🔄 ITERACIÓN {self.iteration}/{self.max_iterations}\n{'='*60}")
         
         state = self.tools.get_state().to_dict()
         
-        # Si ya cumplimos el objetivo, verificar restricciones
+        # Caso 1: Objetivo alcanzado
         if self.tools.transformers_placed >= self.tools.n_transformers:
-            self._log("🎯 Objetivo de transformadores alcanzado. Verificando restricciones...")
+            self._log("🎯 Objetivo alcanzado. Verificando restricciones...")
             return ThoughtEvent(
-                thought='{"thought": "Objetivo alcanzado", "action": "check_constraints", "parameters": {}}',
+                thought='{"thought": "Verificando restricciones finales", "action": "check_constraints", "parameters": {}}',
                 state=state
             )
         
-        # Construir prompt mejorado
-        prompt = self._build_prompt(state)
+        # Caso 2: Primera iteración - obtener candidatos
+        if self.iteration == 1:
+            self._log("🚀 Primera iteración: obteniendo candidatos iniciales")
+            return ThoughtEvent(
+                thought='{"thought": "Inicio: buscando mejores posiciones", "action": "find_best_candidates", "parameters": {"top_n": 15}}',
+                state=state
+            )
         
-        self._log("🧠 Analizando situación y decidiendo acción...")
-        
-        try:
-            response = await self.llm.acomplete(prompt)
-            response_text = response.text.strip()
-            self._log(f"💭 Decisión: {response_text[:150]}...")
+        # Caso 3: Tenemos candidatos válidos - COLOCAR DIRECTAMENTE
+        if self.best_candidates and self.best_candidates.get('candidates'):
+            candidates = self.best_candidates['candidates']
             
-            return ThoughtEvent(thought=response_text, state=state)
+            # Buscar el primer candidato válido
+            for i, candidate in enumerate(candidates[:10]):  # Revisar top 10
+                pos = candidate['position']
+                if self.tools.is_valid_position(pos[0], pos[1]):
+                    self._log(f"✅ Usando candidato #{i+1} (score: {candidate['score']:.1f})")
+                    self.placements_since_refresh += 1
+                    
+                    return ThoughtEvent(
+                        thought=f'{{"thought": "Colocando en mejor posición disponible", "action": "place_transformer", "parameters": {{"row": {pos[0]}, "col": {pos[1]}, "reason": "Candidato #{i+1} con score {candidate["score"]:.1f}"}}}}',
+                        state=state
+                    )
+            
+            # Si ningún candidato es válido, refrescar
+            self._log("⚠️ Candidatos no válidos. Refrescando lista...")
+            self.best_candidates = None
         
-        except Exception as e:
-            self._log(f"⚠️ Error en generación: {e}")
-            # Fallback: usar find_best_candidates
+        # Caso 4: Refrescar candidatos cada 8 colocaciones o si no hay
+        if self.placements_since_refresh >= 8 or not self.best_candidates:
+            self._log("🔄 Refrescando lista de candidatos...")
+            self.placements_since_refresh = 0
+            self.last_candidate_refresh = self.iteration
             return ThoughtEvent(
-                thought='{"thought": "Error en razonamiento, usando búsqueda de candidatos", "action": "find_best_candidates", "parameters": {"top_n": 5}}',
+                thought='{"thought": "Actualizando candidatos disponibles", "action": "find_best_candidates", "parameters": {"top_n": 15}}',
                 state=state
             )
+        
+        # Caso 5: Fallback - obtener candidatos
+        self._log("⚠️ Estado inesperado. Obteniendo candidatos...")
+        return ThoughtEvent(
+            thought='{"thought": "Fallback: buscando candidatos", "action": "find_best_candidates", "parameters": {"top_n": 15}}',
+            state=state
+        )
     
-    # ========== MODIFICACIÓN 3: Prompt más directivo ==========
-    def _build_prompt(self, state: Dict[str, Any]) -> str:
-        """Construye un prompt estructurado y detallado para el LLM"""
-        industries = self.tools.find_industries()
-        industry_status = []
-        for ind in industries:
-            count = self.tools.count_transformers_near_industry(ind)
-            industry_status.append(f"  - Industria en {ind}: {count}/2 transformadores")
-        
-        industry_info = '\n'.join(industry_status) if industry_status else "  - No hay industrias"
-        
-        # NUEVO: Calcular progreso
-        progress_pct = (state['transformers_placed'] / state['target_transformers']) * 100
-        
-        prompt = f"""Eres un agente DECISIVO de colocación de transformadores. Tu objetivo es COLOCAR transformadores, no solo analizarlos.
-
-    **ESTADO ACTUAL:**
-    ```
-    {self.tools.format_grid()}
-    ```
-
-    **LEYENDA:**
-    - X: Casa (requiere transformador vecino)
-    - O: Hospital (alta prioridad)
-    - T: Industria (requiere 2+ transformadores en radio 3)
-    - E: Estación eléctrica (no puede tener transformador vecino)
-    - C: Transformador (ya colocado)
-    - -: Espacio vacío
-
-    **PROGRESO: {state['transformers_placed']}/{state['target_transformers']} ({progress_pct:.1f}%)**
-    - Restantes: {state['remaining']}
-
-    **ESTADO INDUSTRIAS:**
-    {industry_info}
-
-    **RESTRICCIONES:**
-    1. El transformador debe ir en celda vacía (-)
-    2. Debe tener al menos una casa (X) vecina
-    3. NO puede estar junto a estación eléctrica (E)
-    4. Cada industria (T) necesita 2+ transformadores en radio Manhattan 3
-
-    **HERRAMIENTAS DISPONIBLES:**
-    - `find_best_candidates(top_n)`: Encuentra mejores posiciones (usar solo 1 vez cada 10 colocaciones)
-    - `place_transformer(row, col, reason)`: COLOCA transformador (USA ESTO FRECUENTEMENTE)
-    - `get_industry_coverage()`: Revisa cobertura (usar solo si necesitas info de industrias)
-    - `check_constraints()`: Verifica al final
-
-    **REGLAS CRÍTICAS:**
-    ⚠️ NO uses analyze_position - es innecesario, los candidatos ya están analizados
-    ⚠️ NO llames find_best_candidates más de 1 vez seguida
-    ⚠️ TU TRABAJO PRINCIPAL ES COLOCAR, no analizar
-
-    **TU TAREA:**
-    Responde con JSON en este formato:
-    {{
-        "thought": "razonamiento breve sobre qué hacer",
-        "action": "nombre_herramienta",
-        "parameters": {{parámetros}}
-    }}
-
-    **ESTRATEGIA OBLIGATORIA:**"""
-        
-        # NUEVO: Estrategia adaptativa según progreso
-        if state['transformers_placed'] == 0:
-            strategy = """
-    1. USA find_best_candidates(top_n=10) AHORA
-    2. En la SIGUIENTE iteración: place_transformer en la mejor posición
-    """
-        elif self.best_candidates and self.best_candidates.get('candidates'):
-            # Si ya tenemos candidatos, COLOCAR
-            best = self.best_candidates['candidates'][0]
-            strategy = f"""
-    📌 YA TIENES CANDIDATOS ANALIZADOS. 
-    🎯 ACCIÓN OBLIGATORIA: place_transformer en posición {best['position']} (score: {best['score']:.1f})
-
-    Ejemplo de respuesta:
-    {{
-        "thought": "Colocando en mejor candidato disponible cerca de hospital/industria",
-        "action": "place_transformer",
-        "parameters": {{"row": {best['position'][0]}, "col": {best['position'][1]}, "reason": "Mejor candidato con score {best['score']:.1f}"}}
-    }}
-    """
-        elif state['transformers_placed'] % 10 == 0 and state['transformers_placed'] > 0:
-            # Cada 10 colocaciones, actualizar candidatos
-            strategy = """
-    📊 Cada 10 transformadores, actualiza candidatos.
-    🎯 USA find_best_candidates(top_n=10) para refrescar opciones.
-    """
-        else:
-            # Buscar nuevos candidatos
-            strategy = """
-    ⚠️ No tienes candidatos actuales.
-    🎯 USA find_best_candidates(top_n=10) AHORA para obtener opciones.
-    """
-        
-        return f"{prompt}\n{strategy}\n\nResponde con el JSON:"
-    
-    # ========== STEP 2: ACT ==========
     @step
     async def act(self, ev: ThoughtEvent) -> ObservationEvent:
         """Paso de acción: ejecuta la decisión del agente"""
@@ -514,64 +420,52 @@ class TransformerAgentWorkflow(Workflow):
             decision = {
                 "thought": "Fallback por error de parseo",
                 "action": "find_best_candidates",
-                "parameters": {"top_n": 5}
+                "parameters": {"top_n": 15}
             }
         
         action = decision.get('action', 'find_best_candidates')
         params = decision.get('parameters', {})
         thought = decision.get('thought', 'Sin pensamiento')
-
-        # NUEVO: Rastrear análisis consecutivos
-        if action in ['analyze_position', 'find_best_candidates', 'get_industry_coverage']:
-            self.consecutive_analyses += 1
-        else:
-            self.consecutive_analyses = 0
-
-        # MEJORADO: Detección de loops más agresiva
-        if self.consecutive_analyses >= 3:  # Si analiza 3 veces seguidas sin colocar
-            self._log(f"⚠️ Demasiados análisis consecutivos ({self.consecutive_analyses}). Forzando colocación.")
-            if self.best_candidates and self.best_candidates.get('candidates'):
-                best_pos = self.best_candidates['candidates'][0]['position']
-                action = 'place_transformer'
-                params = {
-                    'row': best_pos[0],
-                    'col': best_pos[1],
-                    'reason': 'Colocación forzada: demasiados análisis sin acción'
-                }
-                self.consecutive_analyses = 0
         
-        # Detección de loops de acción repetida
-        if len(self.recent_actions) >= 4:
-            if all(a == action for a in list(self.recent_actions)[-4:]):
-                self._log(f"⚠️ Loop detectado con '{action}'. Forzando colocación.")
-                if self.best_candidates and self.best_candidates.get('candidates'):
-                    # Buscar el primer candidato que no hayamos intentado
-                    for i, candidate in enumerate(self.best_candidates['candidates'][:5]):
-                        best_pos = candidate['position']
-                        if self.tools.is_valid_position(best_pos[0], best_pos[1]):
-                            action = 'place_transformer'
-                            params = {
-                                'row': best_pos[0],
-                                'col': best_pos[1],
-                                'reason': f'Colocación forzada por loop (candidato #{i+1})'
-                            }
-                            break
+        # MEJORADO: Tracking de acciones no-placement
+        if action != 'place_transformer':
+            self.consecutive_non_placements += 1
+        else:
+            self.consecutive_non_placements = 0
+        
+        # CRÍTICO: Forzar colocación si hay demasiadas acciones sin colocar
+        if self.consecutive_non_placements >= 3:
+            self._log(f"🚨 FORZANDO COLOCACIÓN después de {self.consecutive_non_placements} acciones sin colocar")
+            
+            if self.best_candidates and self.best_candidates.get('candidates'):
+                # Buscar cualquier candidato válido
+                for candidate in self.best_candidates['candidates'][:15]:
+                    pos = candidate['position']
+                    if self.tools.is_valid_position(pos[0], pos[1]):
+                        action = 'place_transformer'
+                        params = {
+                            'row': pos[0],
+                            'col': pos[1],
+                            'reason': f'FORZADO: después de {self.consecutive_non_placements} iteraciones sin colocar'
+                        }
+                        self.consecutive_non_placements = 0
+                        break
         
         self.recent_actions.append(action)
         
         self._log(f"🎯 ACCIÓN: {action}")
-        self._log(f"📋 Parámetros: {params}")
+        if params:
+            self._log(f"📋 Parámetros: {params}")
         
         # Ejecutar herramienta
         tool_result = self._execute_tool(action, params)
         
-        # Guardar candidatos para uso futuro
+        # Guardar candidatos
         if action == 'find_best_candidates' and tool_result.success:
             self.best_candidates = tool_result.data
+            self._log(f"📊 Actualizados {len(tool_result.data.get('candidates', []))} candidatos")
         
         self._log(f"📤 RESULTADO: {tool_result.message}")
-        if tool_result.data and self.verbose:
-            self._log(f"   Datos: {json.dumps(tool_result.data, indent=2)[:200]}...")
         
         return ObservationEvent(
             thought=thought,
@@ -580,13 +474,12 @@ class TransformerAgentWorkflow(Workflow):
             result_data=tool_result.data,
             state=ev.state
         )
-
-    # ========== STEP 3: OBSERVE ==========
+    
     @step
     async def observe(self, ev: ObservationEvent) -> Union[LoopEvent, StopEvent]:
         """Paso de observación: decide si continuar o terminar"""
         
-        # Condición de éxito: todos los transformadores colocados
+        # Condición de éxito
         if self.tools.transformers_placed >= self.tools.n_transformers:
             self._log("\n✅ Objetivo de colocación cumplido. Verificando restricciones finales...")
             check_result = self.tools.check_constraints()
@@ -609,7 +502,7 @@ class TransformerAgentWorkflow(Workflow):
             
             return StopEvent(result=result)
         
-        # Condición de parada: máximo de iteraciones
+        # Condición de parada por iteraciones
         if self.iteration >= self.max_iterations:
             self._log(f"\n⏱️ Máximo de iteraciones alcanzado ({self.max_iterations})")
             return StopEvent(result={
@@ -621,38 +514,25 @@ class TransformerAgentWorkflow(Workflow):
                 "iterations": self.iteration
             })
         
-        # Continuar el ciclo
-        self._log("🔄 Continuando con siguiente iteración...")
+        # Continuar
         return LoopEvent()
-    
-    # ========== UTILIDADES ==========
     
     def _parse_llm_response(self, text: str) -> Optional[Dict]:
         """Parse robusto de la respuesta del LLM"""
         try:
-            # Limpiar markdown
             clean = text.replace("```json", "").replace("```", "").strip()
-            
-            # Buscar JSON en el texto
             match = re.search(r'\{.*\}', clean, re.DOTALL)
             if match:
                 json_str = match.group()
                 return json.loads(json_str)
-            
-            # Intentar parsear directamente
             return json.loads(clean)
-        
-        except json.JSONDecodeError as e:
-            self._log(f"⚠️ Error JSON: {e}")
-            return None
         except Exception as e:
-            self._log(f"⚠️ Error inesperado en parseo: {e}")
+            self._log(f"⚠️ Error en parseo: {e}")
             return None
     
     def _execute_tool(self, action: str, params: Dict) -> ToolResult:
         """Ejecuta una herramienta del agente"""
         tool_mapping = {
-            "analyze_position": self.tools.analyze_position,
             "place_transformer": self.tools.place_transformer,
             "check_constraints": self.tools.check_constraints,
             "find_best_candidates": self.tools.find_best_candidates,
@@ -701,22 +581,21 @@ def save_solution(grid: List[List[str]], filepath: str = "salidas/solucion.txt")
 
 async def main():
     """Función principal"""
-    print("🤖 AGENTE AUTÓNOMO DE COLOCACIÓN DE TRANSFORMADORES")
+    print("🤖 AGENTE AUTÓNOMO DE COLOCACIÓN DE TRANSFORMADORES v2.0")
+    print("="*60)
+    print("✨ Versión mejorada: Más resolución, menos análisis")
     print("="*60)
     
     # Configurar API key
     try:        
         initialize_llm("AIzaSyDqNqEy0KilnH-hj3WUKdZ71I1YM55drSA")
         print("✓ LLM inicializado correctamente\n")
-    
     except Exception as e:
         print(f"❌ Error configurando LLM: {e}")
         return
     
-    # Solicitar nombre del archivo (sin ruta)
+    # Solicitar nombre del archivo
     filename = input("📁 Nombre del archivo del mapa: ").strip()
-    
-    # Construir ruta de entrada
     input_dir = "entradas"
     map_file = os.path.join(input_dir, filename)
     
@@ -748,12 +627,12 @@ async def main():
     tools = TransformerTools(grid, n_transformers)
     workflow = TransformerAgentWorkflow(
         tools=tools,
-        max_iterations=300,
+        max_iterations=200,
         verbose=True,
         timeout=600
     )
     
-    print(f"\n🚀 Iniciando agente (máx {30} iteraciones)...\n")
+    print(f"\n🚀 Iniciando agente (máx {200} iteraciones)...\n")
     
     # Ejecutar workflow
     start_time = datetime.now()
@@ -762,6 +641,8 @@ async def main():
         result = await workflow.run()
     except Exception as e:
         print(f"\n❌ Error durante ejecución: {e}")
+        import traceback
+        traceback.print_exc()
         return
     
     end_time = datetime.now()
@@ -773,6 +654,7 @@ async def main():
     print("="*60)
     print(f"⏱️  Tiempo: {duration:.2f} segundos")
     print(f"🔄 Iteraciones: {workflow.iteration}")
+    print(f"⚡ Eficiencia: {(n_transformers / workflow.iteration * 100):.1f}% (colocaciones/iteración)")
     
     if isinstance(result, dict) and 'grid' in result:
         print_grid(result['grid'], "MAPA FINAL")
@@ -786,14 +668,14 @@ async def main():
         else:
             print(f"   Estado: ✗ {result.get('reason', 'Restricciones no cumplidas')}")
         
-        # Guardar solución con el mismo nombre en la carpeta salidas
+        # Guardar solución
         try:
             output_file = os.path.join("salidas", filename)
             save_solution(result['grid'], output_file)
         except Exception as e:
             print(f"⚠️  Error guardando solución: {e}")
         
-        # Guardar log detallado con nombre relacionado
+        # Guardar log
         try:
             base_name = os.path.splitext(filename)[0]
             log_file = os.path.join("salidas", f"{base_name}_log.json")

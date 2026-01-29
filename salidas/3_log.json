@@ -138,7 +138,7 @@
       "-",
       "X",
       "-",
-      "-",
+      "C",
       "C",
       "T",
       "-",
@@ -164,7 +164,7 @@
       "-",
       "-",
       "X",
-      "-",
+      "C",
       "-",
       "-",
       "-",
@@ -181,7 +181,7 @@
       "-",
       "-",
       "C",
-      "C",
+      "-",
       "X",
       "-",
       "-",
@@ -190,7 +190,7 @@
       "-",
       "-",
       "-",
-      "-",
+      "C",
       "-",
       "-",
       "-",
@@ -243,9 +243,9 @@
       "-",
       "-",
       "-",
-      "C",
+      "-",
       "O",
-      "C",
+      "-",
       "-",
       "-",
       "-"
@@ -270,7 +270,7 @@
       "-",
       "C",
       "X",
-      "C",
+      "-",
       "-",
       "-",
       "-"
@@ -327,9 +327,9 @@
     ],
     [
       "-",
-      "C",
+      "-",
       "O",
-      "C",
+      "-",
       "-",
       "-",
       "-",
@@ -352,14 +352,14 @@
     ],
     [
       "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
       "C",
-      "-",
-      "-",
-      "-",
-      "-",
-      "-",
-      "-",
-      "-",
       "-",
       "-",
       "-",
@@ -395,7 +395,7 @@
       "-",
       "-",
       "X",
-      "-",
+      "C",
       "-",
       "-",
       "-"
@@ -433,7 +433,7 @@
       "-",
       "-",
       "-",
-      "-",
+      "C",
       "C",
       "-",
       "-",
@@ -484,7 +484,7 @@
       "-",
       "-",
       "-",
-      "-",
+      "C",
       "O",
       "-",
       "-",
@@ -501,10 +501,10 @@
       "-"
     ]
   ],
-  "success": false,
+  "success": true,
   "transformers_placed": 30,
-  "constraints_satisfied": false,
-  "iterations": 90,
+  "constraints_satisfied": true,
+  "iterations": 33,
   "history": [
     {
       "action": "place",
@@ -512,17 +512,17 @@
         1,
         3
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:52.317184"
+      "reason": "Candidato #1 con score 108.0",
+      "timestamp": "2026-01-29T21:15:15.594780"
     },
     {
       "action": "place",
       "position": [
-        12,
-        3
+        2,
+        4
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:52.616193"
+      "reason": "Candidato #2 con score 93.0",
+      "timestamp": "2026-01-29T21:15:15.595359"
     },
     {
       "action": "place",
@@ -530,8 +530,17 @@
         0,
         11
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:52.896203"
+      "reason": "Candidato #3 con score 90.0",
+      "timestamp": "2026-01-29T21:15:15.595866"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        13
+      ],
+      "reason": "Candidato #4 con score 90.0",
+      "timestamp": "2026-01-29T21:15:15.596349"
     },
     {
       "action": "place",
@@ -539,8 +548,8 @@
         5,
         13
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:53.172775"
+      "reason": "Candidato #5 con score 90.0",
+      "timestamp": "2026-01-29T21:15:15.596817"
     },
     {
       "action": "place",
@@ -548,35 +557,8 @@
         8,
         10
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:53.444928"
-    },
-    {
-      "action": "place",
-      "position": [
-        17,
-        8
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:53.716382"
-    },
-    {
-      "action": "place",
-      "position": [
-        2,
-        4
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:53.995912"
-    },
-    {
-      "action": "place",
-      "position": [
-        0,
-        13
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:54.293818"
+      "reason": "Candidato #6 con score 90.0",
+      "timestamp": "2026-01-29T21:15:15.597284"
     },
     {
       "action": "place",
@@ -584,8 +566,8 @@
         9,
         9
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:54.577589"
+      "reason": "Candidato #7 con score 90.0",
+      "timestamp": "2026-01-29T21:15:15.597781"
     },
     {
       "action": "place",
@@ -593,8 +575,35 @@
         11,
         3
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:54.855634"
+      "reason": "Candidato #8 con score 90.0",
+      "timestamp": "2026-01-29T21:15:15.598257"
+    },
+    {
+      "action": "place",
+      "position": [
+        17,
+        8
+      ],
+      "reason": "Candidato #9 con score 90.0",
+      "timestamp": "2026-01-29T21:15:15.598747"
+    },
+    {
+      "action": "place",
+      "position": [
+        12,
+        3
+      ],
+      "reason": "Candidato #10 con score 80.0",
+      "timestamp": "2026-01-29T21:15:15.599233"
+    },
+    {
+      "action": "place",
+      "position": [
+        14,
+        19
+      ],
+      "reason": "Candidato #1 con score 65.0",
+      "timestamp": "2026-01-29T21:15:15.604969"
     },
     {
       "action": "place",
@@ -602,44 +611,8 @@
         18,
         8
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:55.176891"
-    },
-    {
-      "action": "place",
-      "position": [
-        14,
-        19
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:55.460755"
-    },
-    {
-      "action": "place",
-      "position": [
-        0,
-        3
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:55.746202"
-    },
-    {
-      "action": "place",
-      "position": [
-        1,
-        8
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:56.012777"
-    },
-    {
-      "action": "place",
-      "position": [
-        10,
-        17
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:56.316189"
+      "reason": "Candidato #2 con score 48.0",
+      "timestamp": "2026-01-29T21:15:15.605513"
     },
     {
       "action": "place",
@@ -647,8 +620,98 @@
         4,
         13
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:56.607039"
+      "reason": "Candidato #3 con score 45.0",
+      "timestamp": "2026-01-29T21:15:15.605985"
+    },
+    {
+      "action": "place",
+      "position": [
+        6,
+        13
+      ],
+      "reason": "Candidato #4 con score 45.0",
+      "timestamp": "2026-01-29T21:15:15.606449"
+    },
+    {
+      "action": "place",
+      "position": [
+        17,
+        7
+      ],
+      "reason": "Candidato #5 con score 45.0",
+      "timestamp": "2026-01-29T21:15:15.606909"
+    },
+    {
+      "action": "place",
+      "position": [
+        5,
+        12
+      ],
+      "reason": "Candidato #6 con score 33.0",
+      "timestamp": "2026-01-29T21:15:15.607379"
+    },
+    {
+      "action": "place",
+      "position": [
+        7,
+        14
+      ],
+      "reason": "Candidato #7 con score 33.0",
+      "timestamp": "2026-01-29T21:15:15.607841"
+    },
+    {
+      "action": "place",
+      "position": [
+        14,
+        8
+      ],
+      "reason": "Candidato #8 con score 33.0",
+      "timestamp": "2026-01-29T21:15:15.608311"
+    },
+    {
+      "action": "place",
+      "position": [
+        19,
+        8
+      ],
+      "reason": "Candidato #9 con score 33.0",
+      "timestamp": "2026-01-29T21:15:15.608764"
+    },
+    {
+      "action": "place",
+      "position": [
+        15,
+        19
+      ],
+      "reason": "Candidato #10 con score 31.0",
+      "timestamp": "2026-01-29T21:15:15.609226"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        3
+      ],
+      "reason": "Candidato #1 con score 21.0",
+      "timestamp": "2026-01-29T21:15:15.614558"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        8
+      ],
+      "reason": "Candidato #2 con score 21.0",
+      "timestamp": "2026-01-29T21:15:15.615057"
+    },
+    {
+      "action": "place",
+      "position": [
+        10,
+        17
+      ],
+      "reason": "Candidato #3 con score 21.0",
+      "timestamp": "2026-01-29T21:15:15.615526"
     },
     {
       "action": "place",
@@ -656,8 +719,8 @@
         0,
         5
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:56.885357"
+      "reason": "Candidato #4 con score 18.0",
+      "timestamp": "2026-01-29T21:15:15.615990"
     },
     {
       "action": "place",
@@ -665,8 +728,8 @@
         0,
         7
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:57.172982"
+      "reason": "Candidato #5 con score 18.0",
+      "timestamp": "2026-01-29T21:15:15.616448"
     },
     {
       "action": "place",
@@ -674,8 +737,8 @@
         1,
         5
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:57.553532"
+      "reason": "Candidato #6 con score 18.0",
+      "timestamp": "2026-01-29T21:15:15.616986"
     },
     {
       "action": "place",
@@ -683,8 +746,8 @@
         2,
         7
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:57.840290"
+      "reason": "Candidato #7 con score 18.0",
+      "timestamp": "2026-01-29T21:15:15.617454"
     },
     {
       "action": "place",
@@ -692,8 +755,8 @@
         2,
         17
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:58.133235"
+      "reason": "Candidato #8 con score 18.0",
+      "timestamp": "2026-01-29T21:15:15.618001"
     },
     {
       "action": "place",
@@ -701,8 +764,8 @@
         6,
         6
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:58.429301"
+      "reason": "Candidato #9 con score 18.0",
+      "timestamp": "2026-01-29T21:15:15.618875"
     },
     {
       "action": "place",
@@ -710,87 +773,15 @@
         7,
         4
       ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:58.707353"
-    },
-    {
-      "action": "place",
-      "position": [
-        7,
-        5
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:58.982385"
-    },
-    {
-      "action": "place",
-      "position": [
-        9,
-        17
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:59.250247"
-    },
-    {
-      "action": "place",
-      "position": [
-        9,
-        19
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:59.537444"
-    },
-    {
-      "action": "place",
-      "position": [
-        10,
-        19
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:10:59.875436"
-    },
-    {
-      "action": "place",
-      "position": [
-        13,
-        1
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:11:00.148132"
-    },
-    {
-      "action": "place",
-      "position": [
-        13,
-        3
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:11:00.417953"
-    },
-    {
-      "action": "place",
-      "position": [
-        14,
-        1
-      ],
-      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
-      "timestamp": "2026-01-29T21:11:00.696029"
+      "reason": "Candidato #10 con score 18.0",
+      "timestamp": "2026-01-29T21:15:15.619500"
     }
   ],
   "final_check": {
-    "success": false,
-    "message": "\u2717 1 industrias sin cobertura adecuada",
+    "success": true,
+    "message": "\u2713 Todas las restricciones cumplidas",
     "data": {
-      "violations": [
-        {
-          "position": [
-            13,
-            20
-          ],
-          "current_transformers": 1,
-          "required": 2
-        }
-      ]
+      "violations": 0
     }
   }
 }

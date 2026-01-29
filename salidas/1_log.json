@@ -32,7 +32,7 @@
   "success": true,
   "transformers_placed": 2,
   "constraints_satisfied": true,
-  "iterations": 8,
+  "iterations": 3,
   "history": [
     {
       "action": "place",
@@ -40,8 +40,8 @@
         0,
         2
       ],
-      "reason": "Colocaci\u00f3n forzada por loop detection",
-      "timestamp": "2026-01-29T20:53:19.607523"
+      "reason": "Candidato #1 con score 105.0",
+      "timestamp": "2026-01-29T21:14:44.307610"
     },
     {
       "action": "place",
@@ -49,8 +49,8 @@
         1,
         1
       ],
-      "reason": "Colocaci\u00f3n forzada por loop detection",
-      "timestamp": "2026-01-29T20:53:21.937019"
+      "reason": "Candidato #2 con score 93.0",
+      "timestamp": "2026-01-29T21:14:44.308188"
     }
   ],
   "final_check": {
