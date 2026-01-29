@@ -1,0 +1,200 @@
+{
+  "grid": [
+    [
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "X",
+      "C",
+      "-",
+      "E",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "C",
+      "C",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X"
+    ],
+    [
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "C",
+      "-",
+      "E"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "X",
+      "T",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "C",
+      "O",
+      "-"
+    ]
+  ],
+  "success": true,
+  "transformers_placed": 7,
+  "constraints_satisfied": true,
+  "iterations": 28,
+  "history": [
+    {
+      "action": "place",
+      "position": [
+        9,
+        7
+      ],
+      "reason": "Colocaci\u00f3n forzada por loop detection",
+      "timestamp": "2026-01-29T21:01:25.380705"
+    },
+    {
+      "action": "place",
+      "position": [
+        7,
+        7
+      ],
+      "reason": "Colocaci\u00f3n forzada por loop detection",
+      "timestamp": "2026-01-29T21:01:25.765624"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        2
+      ],
+      "reason": "Colocaci\u00f3n forzada por loop detection",
+      "timestamp": "2026-01-29T21:01:26.209676"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        2
+      ],
+      "reason": "Colocaci\u00f3n forzada por loop detection",
+      "timestamp": "2026-01-29T21:01:26.743205"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        2
+      ],
+      "reason": "Colocaci\u00f3n forzada por loop detection",
+      "timestamp": "2026-01-29T21:01:27.297852"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        6
+      ],
+      "reason": "Colocaci\u00f3n forzada por loop detection",
+      "timestamp": "2026-01-29T21:01:27.795306"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        7
+      ],
+      "reason": "Colocaci\u00f3n forzada por loop detection",
+      "timestamp": "2026-01-29T21:01:30.374732"
+    }
+  ],
+  "final_check": {
+    "success": true,
+    "message": "\u2713 Todas las restricciones cumplidas",
+    "data": {
+      "violations": 0
+    }
+  }
+}

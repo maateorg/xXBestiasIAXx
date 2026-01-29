@@ -2,8 +2,8 @@ from collections import deque
 import os
 
 # --- VARIABLES GLOBALES ---
-NOMBRE_MAPA = "1.txt"
-CANTIDAD_C = 2  # Cantidad esperada de transformadores 'C'
+NOMBRE_MAPA = "3.txt"
+CANTIDAD_C = 100  # Cantidad esperada de transformadores 'C'
 
 # --- 1. Leer mapas original y generado ---
 ruta_entrada = f"entradas/{NOMBRE_MAPA}"

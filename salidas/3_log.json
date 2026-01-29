@@ -1,0 +1,796 @@
+{
+  "grid": [
+    [
+      "-",
+      "-",
+      "X",
+      "C",
+      "O",
+      "C",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "C",
+      "T",
+      "C",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "-",
+      "-",
+      "C",
+      "X",
+      "C",
+      "-",
+      "O",
+      "C",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "T",
+      "C",
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "O",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "C",
+      "T",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "O",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "T",
+      "C",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "O",
+      "C",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "T",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "C",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "C",
+      "O",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "T",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "O",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "T",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-"
+    ],
+    [
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "C",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "E",
+      "-",
+      "-"
+    ],
+    [
+      "X",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "O",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "-",
+      "X",
+      "-",
+      "-",
+      "-",
+      "-"
+    ]
+  ],
+  "success": false,
+  "transformers_placed": 30,
+  "constraints_satisfied": false,
+  "iterations": 90,
+  "history": [
+    {
+      "action": "place",
+      "position": [
+        1,
+        3
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:52.317184"
+    },
+    {
+      "action": "place",
+      "position": [
+        12,
+        3
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:52.616193"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        11
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:52.896203"
+    },
+    {
+      "action": "place",
+      "position": [
+        5,
+        13
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:53.172775"
+    },
+    {
+      "action": "place",
+      "position": [
+        8,
+        10
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:53.444928"
+    },
+    {
+      "action": "place",
+      "position": [
+        17,
+        8
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:53.716382"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        4
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:53.995912"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        13
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:54.293818"
+    },
+    {
+      "action": "place",
+      "position": [
+        9,
+        9
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:54.577589"
+    },
+    {
+      "action": "place",
+      "position": [
+        11,
+        3
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:54.855634"
+    },
+    {
+      "action": "place",
+      "position": [
+        18,
+        8
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:55.176891"
+    },
+    {
+      "action": "place",
+      "position": [
+        14,
+        19
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:55.460755"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        3
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:55.746202"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        8
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:56.012777"
+    },
+    {
+      "action": "place",
+      "position": [
+        10,
+        17
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:56.316189"
+    },
+    {
+      "action": "place",
+      "position": [
+        4,
+        13
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:56.607039"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        5
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:56.885357"
+    },
+    {
+      "action": "place",
+      "position": [
+        0,
+        7
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:57.172982"
+    },
+    {
+      "action": "place",
+      "position": [
+        1,
+        5
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:57.553532"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        7
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:57.840290"
+    },
+    {
+      "action": "place",
+      "position": [
+        2,
+        17
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:58.133235"
+    },
+    {
+      "action": "place",
+      "position": [
+        6,
+        6
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:58.429301"
+    },
+    {
+      "action": "place",
+      "position": [
+        7,
+        4
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:58.707353"
+    },
+    {
+      "action": "place",
+      "position": [
+        7,
+        5
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:58.982385"
+    },
+    {
+      "action": "place",
+      "position": [
+        9,
+        17
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:59.250247"
+    },
+    {
+      "action": "place",
+      "position": [
+        9,
+        19
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:59.537444"
+    },
+    {
+      "action": "place",
+      "position": [
+        10,
+        19
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:10:59.875436"
+    },
+    {
+      "action": "place",
+      "position": [
+        13,
+        1
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:11:00.148132"
+    },
+    {
+      "action": "place",
+      "position": [
+        13,
+        3
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:11:00.417953"
+    },
+    {
+      "action": "place",
+      "position": [
+        14,
+        1
+      ],
+      "reason": "Colocaci\u00f3n forzada: demasiados an\u00e1lisis sin acci\u00f3n",
+      "timestamp": "2026-01-29T21:11:00.696029"
+    }
+  ],
+  "final_check": {
+    "success": false,
+    "message": "\u2717 1 industrias sin cobertura adecuada",
+    "data": {
+      "violations": [
+        {
+          "position": [
+            13,
+            20
+          ],
+          "current_transformers": 1,
+          "required": 2
+        }
+      ]
+    }
+  }
+}

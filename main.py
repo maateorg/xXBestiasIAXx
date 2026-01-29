@@ -362,6 +362,7 @@ class TransformerAgentWorkflow(Workflow):
         self.verbose = verbose
         self.recent_actions = deque(maxlen=5)
         self.best_candidates = None
+        self.consecutive_analyses = 0
     
     def _log(self, message: str):
         """Log condicional basado en verbose"""
@@ -405,6 +406,7 @@ class TransformerAgentWorkflow(Workflow):
                 state=state
             )
     
+    # ========== MODIFICACIÓN 3: Prompt más directivo ==========
     def _build_prompt(self, state: Dict[str, Any]) -> str:
         """Construye un prompt estructurado y detallado para el LLM"""
         industries = self.tools.find_industries()
@@ -415,80 +417,91 @@ class TransformerAgentWorkflow(Workflow):
         
         industry_info = '\n'.join(industry_status) if industry_status else "  - No hay industrias"
         
-        prompt = f"""Eres un agente experto en colocación óptima de transformadores eléctricos.
-
-**ESTADO ACTUAL:**
-```
-{self.tools.format_grid()}
-```
-
-**LEYENDA:**
-- X: Casa (requiere transformador vecino)
-- O: Hospital (alta prioridad)
-- T: Industria (requiere 2+ transformadores en radio 3)
-- E: Estación eléctrica (no puede tener transformador vecino)
-- C: Transformador (ya colocado)
-- -: Espacio vacío
-
-**PROGRESO:**
-- Transformadores colocados: {state['transformers_placed']}/{state['target_transformers']}
-- Restantes: {state['remaining']}
-
-**ESTADO INDUSTRIAS:**
-{industry_info}
-
-**RESTRICCIONES:**
-1. El transformador debe ir en celda vacía (-)
-2. Debe tener al menos una casa (X) vecina
-3. NO puede estar junto a estación eléctrica (E)
-4. Cada industria (T) necesita 2+ transformadores en radio Manhattan 3
-
-**HERRAMIENTAS DISPONIBLES:**
-- `analyze_position(row, col)`: Analiza una posición específica
-- `place_transformer(row, col, reason)`: Coloca transformador con justificación
-- `check_constraints()`: Verifica restricciones de industrias
-- `find_best_candidates(top_n)`: Encuentra mejores posiciones (default top_n=5)
-- `get_industry_coverage()`: Revisa cobertura de industrias
-
-**TU TAREA:**
-Responde ÚNICAMENTE con un objeto JSON válido con este formato exacto:
-{{
-    "thought": "tu razonamiento paso a paso sobre qué hacer y por qué",
-    "action": "nombre_de_la_herramienta",
-    "parameters": {{parámetros de la herramienta}}
-}}
-
-**ESTRATEGIA RECOMENDADA:**
-1. Si quedan transformadores: usar find_best_candidates para ver opciones
-2. Analizar las mejores opciones con analyze_position
-3. Colocar con place_transformer incluyendo reason detallado
-4. Priorizar industrias desatendidas y hospitales
-5. Al terminar: usar check_constraints
-
-Responde ahora con el JSON:"""
+        # NUEVO: Calcular progreso
+        progress_pct = (state['transformers_placed'] / state['target_transformers']) * 100
         
+        prompt = f"""Eres un agente DECISIVO de colocación de transformadores. Tu objetivo es COLOCAR transformadores, no solo analizarlos.
+
+    **ESTADO ACTUAL:**
+    ```
+    {self.tools.format_grid()}
+    ```
+
+    **LEYENDA:**
+    - X: Casa (requiere transformador vecino)
+    - O: Hospital (alta prioridad)
+    - T: Industria (requiere 2+ transformadores en radio 3)
+    - E: Estación eléctrica (no puede tener transformador vecino)
+    - C: Transformador (ya colocado)
+    - -: Espacio vacío
+
+    **PROGRESO: {state['transformers_placed']}/{state['target_transformers']} ({progress_pct:.1f}%)**
+    - Restantes: {state['remaining']}
+
+    **ESTADO INDUSTRIAS:**
+    {industry_info}
+
+    **RESTRICCIONES:**
+    1. El transformador debe ir en celda vacía (-)
+    2. Debe tener al menos una casa (X) vecina
+    3. NO puede estar junto a estación eléctrica (E)
+    4. Cada industria (T) necesita 2+ transformadores en radio Manhattan 3
+
+    **HERRAMIENTAS DISPONIBLES:**
+    - `find_best_candidates(top_n)`: Encuentra mejores posiciones (usar solo 1 vez cada 10 colocaciones)
+    - `place_transformer(row, col, reason)`: COLOCA transformador (USA ESTO FRECUENTEMENTE)
+    - `get_industry_coverage()`: Revisa cobertura (usar solo si necesitas info de industrias)
+    - `check_constraints()`: Verifica al final
+
+    **REGLAS CRÍTICAS:**
+    ⚠️ NO uses analyze_position - es innecesario, los candidatos ya están analizados
+    ⚠️ NO llames find_best_candidates más de 1 vez seguida
+    ⚠️ TU TRABAJO PRINCIPAL ES COLOCAR, no analizar
+
+    **TU TAREA:**
+    Responde con JSON en este formato:
+    {{
+        "thought": "razonamiento breve sobre qué hacer",
+        "action": "nombre_herramienta",
+        "parameters": {{parámetros}}
+    }}
+
+    **ESTRATEGIA OBLIGATORIA:**"""
         
-        
-        strategy_hint = ""
+        # NUEVO: Estrategia adaptativa según progreso
         if state['transformers_placed'] == 0:
-            strategy_hint = """
-            **PRIMERA ACCIÓN OBLIGATORIA:**
-            Usa find_best_candidates(top_n=5) para identificar las mejores posiciones disponibles.
-            """
-        elif state['transformers_placed'] < state['target_transformers']:
-            strategy_hint = """
-        **SIGUIENTE PASO:**
-        1. Si ya conoces candidatos: usa analyze_position en la mejor opción
-        2. Si analizaste una posición válida: usa place_transformer AHORA
-        3. Si no tienes candidatos: usa find_best_candidates
-        """
-    
-            prompt = f"""{prompt}
+            strategy = """
+    1. USA find_best_candidates(top_n=10) AHORA
+    2. En la SIGUIENTE iteración: place_transformer en la mejor posición
+    """
+        elif self.best_candidates and self.best_candidates.get('candidates'):
+            # Si ya tenemos candidatos, COLOCAR
+            best = self.best_candidates['candidates'][0]
+            strategy = f"""
+    📌 YA TIENES CANDIDATOS ANALIZADOS. 
+    🎯 ACCIÓN OBLIGATORIA: place_transformer en posición {best['position']} (score: {best['score']:.1f})
 
-        {strategy_hint}
-
-        Responde ahora con el JSON:"""
-        return prompt
+    Ejemplo de respuesta:
+    {{
+        "thought": "Colocando en mejor candidato disponible cerca de hospital/industria",
+        "action": "place_transformer",
+        "parameters": {{"row": {best['position'][0]}, "col": {best['position'][1]}, "reason": "Mejor candidato con score {best['score']:.1f}"}}
+    }}
+    """
+        elif state['transformers_placed'] % 10 == 0 and state['transformers_placed'] > 0:
+            # Cada 10 colocaciones, actualizar candidatos
+            strategy = """
+    📊 Cada 10 transformadores, actualiza candidatos.
+    🎯 USA find_best_candidates(top_n=10) para refrescar opciones.
+    """
+        else:
+            # Buscar nuevos candidatos
+            strategy = """
+    ⚠️ No tienes candidatos actuales.
+    🎯 USA find_best_candidates(top_n=10) AHORA para obtener opciones.
+    """
+        
+        return f"{prompt}\n{strategy}\n\nResponde con el JSON:"
     
     # ========== STEP 2: ACT ==========
     @step
@@ -508,18 +521,41 @@ Responde ahora con el JSON:"""
         params = decision.get('parameters', {})
         thought = decision.get('thought', 'Sin pensamiento')
 
-        # Detección de loops
-        if len(self.recent_actions) >= 3:
-            if all(a == action for a in list(self.recent_actions)[-3:]):
+        # NUEVO: Rastrear análisis consecutivos
+        if action in ['analyze_position', 'find_best_candidates', 'get_industry_coverage']:
+            self.consecutive_analyses += 1
+        else:
+            self.consecutive_analyses = 0
+
+        # MEJORADO: Detección de loops más agresiva
+        if self.consecutive_analyses >= 3:  # Si analiza 3 veces seguidas sin colocar
+            self._log(f"⚠️ Demasiados análisis consecutivos ({self.consecutive_analyses}). Forzando colocación.")
+            if self.best_candidates and self.best_candidates.get('candidates'):
+                best_pos = self.best_candidates['candidates'][0]['position']
+                action = 'place_transformer'
+                params = {
+                    'row': best_pos[0],
+                    'col': best_pos[1],
+                    'reason': 'Colocación forzada: demasiados análisis sin acción'
+                }
+                self.consecutive_analyses = 0
+        
+        # Detección de loops de acción repetida
+        if len(self.recent_actions) >= 4:
+            if all(a == action for a in list(self.recent_actions)[-4:]):
                 self._log(f"⚠️ Loop detectado con '{action}'. Forzando colocación.")
                 if self.best_candidates and self.best_candidates.get('candidates'):
-                    best_pos = self.best_candidates['candidates'][0]['position']
-                    action = 'place_transformer'
-                    params = {
-                        'row': best_pos[0],
-                        'col': best_pos[1],
-                        'reason': 'Colocación forzada por loop detection'
-                    }
+                    # Buscar el primer candidato que no hayamos intentado
+                    for i, candidate in enumerate(self.best_candidates['candidates'][:5]):
+                        best_pos = candidate['position']
+                        if self.tools.is_valid_position(best_pos[0], best_pos[1]):
+                            action = 'place_transformer'
+                            params = {
+                                'row': best_pos[0],
+                                'col': best_pos[1],
+                                'reason': f'Colocación forzada por loop (candidato #{i+1})'
+                            }
+                            break
         
         self.recent_actions.append(action)
         
@@ -544,7 +580,7 @@ Responde ahora con el JSON:"""
             result_data=tool_result.data,
             state=ev.state
         )
-    
+
     # ========== STEP 3: OBSERVE ==========
     @step
     async def observe(self, ev: ObservationEvent) -> Union[LoopEvent, StopEvent]:
@@ -712,9 +748,9 @@ async def main():
     tools = TransformerTools(grid, n_transformers)
     workflow = TransformerAgentWorkflow(
         tools=tools,
-        max_iterations=30,
+        max_iterations=300,
         verbose=True,
-        timeout=120
+        timeout=600
     )
     
     print(f"\n🚀 Iniciando agente (máx {30} iteraciones)...\n")
