@@ -3,7 +3,7 @@ import os
 
 # --- VARIABLES GLOBALES ---
 NOMBRE_MAPA = "2.txt"
-CANTIDAD_C = 7  # Cantidad esperada de transformadores 'C'
+CANTIDAD_C = 7 # Cantidad esperada de transformadores 'C'
 
 # --- 1. Leer mapas original y generado ---
 ruta_entrada = f"entradas/{NOMBRE_MAPA}"

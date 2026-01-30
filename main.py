@@ -1,7 +1,6 @@
 """
-Agente Autónomo de Colocación de Transformadores - VERSIÓN MEJORADA
-Implementación usando LlamaIndex + Google Gemini con patrón ReAct
-MEJORAS: Estrategia industria-centrada, verificación dinámica, batching inteligente
+Agente Autónomo de Colocación de Transformadores - VERSIÓN MEJORADA v4.0.1
+CORRECCIÓN: Priorización absoluta de industrias críticas + Fix rotación API
 """
 
 import os
@@ -200,100 +199,131 @@ class TransformerTools:
                 unsatisfied.append(ind)
         return unsatisfied
     
-    def calculate_position_score_v2(self, row: int, col: int) -> float:
-        """Calcula score MEJORADO priorizando industrias insatisfechas"""
+    def get_critical_industries(self) -> Dict[str, List[Tuple[int, int]]]:
+        """Clasifica industrias por nivel de criticidad"""
+        critical = []  # 0 transformadores
+        urgent = []    # 1 transformador
+        
+        for ind in self.industries:
+            count = self.count_transformers_near_industry(ind)
+            if count == 0:
+                critical.append(ind)
+            elif count == 1:
+                urgent.append(ind)
+        
+        return {
+            "critical": critical,
+            "urgent": urgent
+        }
+    
+    def calculate_position_score_v3(self, row: int, col: int) -> float:
+        """Calcula score MEJORADO v3 con MÁXIMA prioridad a industrias críticas"""
         if not self.is_valid_position(row, col):
             return -1000.0
         
         score = 0.0
         neighbors = self.get_neighbors(row, col)
         
-        # Bonificaciones básicas por vecinos
+        # Bonificaciones básicas por vecinos (reducidas)
         hospital_neighbors = sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'O')
         industry_neighbors = sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'T')
         house_neighbors = sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'X')
         
-        score += hospital_neighbors * 10.0
-        score += industry_neighbors * 8.0
-        score += house_neighbors * 2.0
+        score += hospital_neighbors * 5.0
+        score += industry_neighbors * 3.0
+        score += house_neighbors * 1.0
         
-        # ESTRATEGIA CLAVE: Priorizar industrias insatisfechas
-        unsatisfied = self.get_unsatisfied_industries()
+        # ESTRATEGIA CRÍTICA: Priorizar industrias insatisfechas
+        classification = self.get_critical_industries()
+        critical = classification["critical"]
+        urgent = classification["urgent"]
         
-        for ind in unsatisfied:
+        # MÁXIMA PRIORIDAD: Industrias con 0 transformadores
+        for ind in critical:
             dist = abs(row - ind[0]) + abs(col - ind[1])
             if dist <= 3:
-                current_count = self.count_transformers_near_industry(ind)
-                
-                # BONIFICACIÓN MASIVA para industrias con 0 transformadores
-                if current_count == 0:
-                    score += (4 - dist) * 50.0  # Hasta 200 puntos
-                elif current_count == 1:
-                    score += (4 - dist) * 30.0  # Hasta 120 puntos
+                # BONIFICACIÓN EXPONENCIAL
+                score += (4 - dist) * 200.0  # Hasta 800 puntos
         
-        # Penalización por estar cerca de industrias ya satisfechas
-        satisfied = [ind for ind in self.industries if ind not in unsatisfied]
+        # ALTA PRIORIDAD: Industrias con 1 transformador
+        for ind in urgent:
+            dist = abs(row - ind[0]) + abs(col - ind[1])
+            if dist <= 3:
+                score += (4 - dist) * 100.0  # Hasta 400 puntos
+        
+        # Penalización FUERTE por estar cerca de industrias satisfechas
+        satisfied = [ind for ind in self.industries 
+                    if ind not in critical and ind not in urgent]
         for ind in satisfied:
             dist = abs(row - ind[0]) + abs(col - ind[1])
             if dist <= 3:
-                score -= 5.0  # Pequeña penalización
+                score -= 20.0
         
         return score
     
     def find_strategic_positions_for_industries(self, top_n: int = 20) -> ToolResult:
-        """Encuentra posiciones estratégicas que maximicen cobertura de industrias"""
-        unsatisfied = self.get_unsatisfied_industries()
+        """Encuentra posiciones estratégicas priorizando industrias críticas"""
+        classification = self.get_critical_industries()
+        critical = classification["critical"]
+        urgent = classification["urgent"]
         
-        if not unsatisfied:
+        if not critical and not urgent:
             return self.find_best_candidates(top_n)
         
-        # Para cada industria insatisfecha, encontrar las mejores posiciones cercanas
-        industry_candidates = defaultdict(list)
+        # Primero buscar para CRÍTICAS (0 transformadores)
+        all_candidates = []
         
-        for ind in unsatisfied:
+        for ind in critical:
             ir, ic = ind
-            current_count = self.count_transformers_near_industry(ind)
-            needed = 2 - current_count
-            
-            # Buscar posiciones en radio 3
             for r in range(max(0, ir-3), min(self.rows, ir+4)):
                 for c in range(max(0, ic-3), min(self.cols, ic+4)):
                     dist = abs(r - ir) + abs(c - ic)
                     if dist <= 3 and self.is_valid_position(r, c):
-                        score = self.calculate_position_score_v2(r, c)
-                        industry_candidates[ind].append({
+                        score = self.calculate_position_score_v3(r, c)
+                        all_candidates.append({
                             "position": (r, c),
                             "score": score,
                             "distance": dist,
                             "industry": ind,
-                            "needed": needed
+                            "current_count": 0,
+                            "priority": "CRÍTICA"
                         })
         
-        # Consolidar y ordenar todos los candidatos
-        all_candidates = []
-        for ind, candidates in industry_candidates.items():
-            candidates.sort(key=lambda x: x['score'], reverse=True)
-            all_candidates.extend(candidates[:5])  # Top 5 por industria
+        # Luego para URGENTES (1 transformador)
+        for ind in urgent:
+            ir, ic = ind
+            for r in range(max(0, ir-3), min(self.rows, ir+4)):
+                for c in range(max(0, ic-3), min(self.cols, ic+4)):
+                    dist = abs(r - ir) + abs(c - ic)
+                    if dist <= 3 and self.is_valid_position(r, c):
+                        score = self.calculate_position_score_v3(r, c)
+                        all_candidates.append({
+                            "position": (r, c),
+                            "score": score,
+                            "distance": dist,
+                            "industry": ind,
+                            "current_count": 1,
+                            "priority": "URGENTE"
+                        })
         
-        # Eliminar duplicados y ordenar
-        seen = set()
-        unique_candidates = []
+        # Eliminar duplicados manteniendo el mejor score
+        position_best = {}
         for cand in all_candidates:
             pos = cand['position']
-            if pos not in seen:
-                seen.add(pos)
-                unique_candidates.append(cand)
+            if pos not in position_best or cand['score'] > position_best[pos]['score']:
+                position_best[pos] = cand
         
+        unique_candidates = list(position_best.values())
         unique_candidates.sort(key=lambda x: x['score'], reverse=True)
-        top_candidates = unique_candidates[:top_n]
         
         return ToolResult(
             success=True,
-            message=f"Encontradas {len(top_candidates)} posiciones estratégicas para {len(unsatisfied)} industrias insatisfechas",
+            message=f"Encontradas {len(unique_candidates[:top_n])} posiciones estratégicas",
             data={
-                "candidates": top_candidates,
-                "unsatisfied_industries": len(unsatisfied),
-                "total_industries": len(self.industries)
+                "candidates": unique_candidates[:top_n],
+                "critical_industries": len(critical),
+                "urgent_industries": len(urgent),
+                "total_unsatisfied": len(critical) + len(urgent)
             }
         )
     
@@ -405,7 +435,7 @@ class TransformerTools:
         for r in range(self.rows):
             for c in range(self.cols):
                 if self.is_valid_position(r, c):
-                    score = self.calculate_position_score_v2(r, c)
+                    score = self.calculate_position_score_v3(r, c)
                     neighbors = self.get_neighbors(r, c)
                     
                     candidates.append({
@@ -485,19 +515,32 @@ class ImprovedTransformerWorkflow(Workflow):
         if self.verbose:
             print(message)
 
-    async def _with_key_rotation(self, coro):
-        try:
-            return await coro
-        except Exception as e:
-            msg = str(e).lower()
-            if "429" in msg or "quota" in msg or "resource_exhausted" in msg:
-                self._log("🚨 429 / quota detectado → rotando API key")
-                self.key_rotator.rotate()
-                initialize_llm(self.key_rotator)
-                self.llm = Settings.llm
-                self.iteration -= 1
-                return await coro
-            raise
+    async def _with_key_rotation(self, coro_func, *args, **kwargs):
+        """Ejecuta una función con reintentos y rotación de API key"""
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                # Ejecutar la coroutine
+                if asyncio.iscoroutinefunction(coro_func):
+                    return await coro_func(*args, **kwargs)
+                else:
+                    return await coro_func
+            except Exception as e:
+                msg = str(e).lower()
+                if "429" in msg or "quota" in msg or "resource_exhausted" in msg or "permission_denied" in msg:
+                    if attempt < max_retries - 1:
+                        self._log(f"🚨 Error API detectado (intento {attempt + 1}/{max_retries}) → rotando key")
+                        self.key_rotator.rotate()
+                        initialize_llm(self.key_rotator)
+                        self.llm = Settings.llm
+                        await asyncio.sleep(1)  # Pequeña pausa
+                        continue
+                    else:
+                        self._log(f"❌ Máximo de reintentos alcanzado")
+                        raise
+                else:
+                    raise
+        raise Exception("No se pudo completar la operación después de varios reintentos")
     
     @step
     async def think(self, ev: Union[StartEvent, LoopEvent]) -> ThoughtEvent:
@@ -516,15 +559,18 @@ class ImprovedTransformerWorkflow(Workflow):
             )
         
         remaining = self.tools.n_transformers - self.tools.transformers_placed
-        unsatisfied = self.tools.get_unsatisfied_industries()
+        classification = self.tools.get_critical_industries()
+        critical = classification["critical"]
+        urgent = classification["urgent"]
         
         self._log(f"📊 Estado: {self.tools.transformers_placed}/{self.tools.n_transformers} colocados")
-        self._log(f"🏭 Industrias insatisfechas: {len(unsatisfied)}/{len(self.tools.industries)}")
+        self._log(f"🔴 Industrias CRÍTICAS (0 transf): {len(critical)}")
+        self._log(f"🟡 Industrias URGENTES (1 transf): {len(urgent)}")
         
-        # ESTRATEGIA: Usar find_strategic_positions si hay industrias insatisfechas
-        if unsatisfied:
-            self._log(f"⚡ Buscando posiciones estratégicas para {len(unsatisfied)} industrias...")
-            candidates_result = self.tools.find_strategic_positions_for_industries(top_n=15)
+        # ESTRATEGIA: Priorizar industrias críticas
+        if critical or urgent:
+            self._log(f"⚡ Buscando posiciones para industrias insatisfechas...")
+            candidates_result = self.tools.find_strategic_positions_for_industries(top_n=20)
         else:
             self._log("⚡ Todas las industrias satisfechas, buscando candidatos generales...")
             candidates_result = self.tools.find_best_candidates(top_n=15)
@@ -544,93 +590,109 @@ class ImprovedTransformerWorkflow(Workflow):
         
         self.consecutive_failures = 0
         candidates = candidates_result.data['candidates']
-        coverage = self.tools.get_industry_coverage()
         
-        # Decidir batch size
+        # Decidir batch size adaptativo
         batch_size = 1
-        if remaining >= 15:
-            batch_size = min(5, remaining // 3)
+        if len(critical) > 0 and remaining >= 2:
+            # Si hay críticas, colocar múltiples
+            batch_size = min(len(critical) * 2, remaining, 5)
+        elif len(urgent) > 0 and remaining >= 2:
+            batch_size = min(len(urgent), remaining, 3)
         elif remaining >= 10:
             batch_size = min(3, remaining // 3)
         elif remaining >= 5:
             batch_size = 2
         
-        # Preparar info de candidatos para LLM
+        # Preparar info para LLM
         candidates_str = "\n".join([
-            f"{i+1}. Pos ({c['position'][0]}, {c['position'][1]}) - Score: {c['score']:.1f}" +
-            (f" - Industria {c.get('industry', 'N/A')} (dist: {c.get('distance', 'N/A')})" if 'industry' in c else "")
-            for i, c in enumerate(candidates[:10])
+            f"{i+1}. ({c['position'][0]},{c['position'][1]}) Score:{c['score']:.0f} "
+            f"[{c.get('priority', 'N/A')}] Ind:{c.get('industry', 'N/A')} "
+            f"Actual:{c.get('current_count', '?')}/2"
+            for i, c in enumerate(candidates[:15])
         ])
         
-        unsatisfied_str = "\n".join([
-            f"  - Industria en {ind}: {self.tools.count_transformers_near_industry(ind)}/2 transformadores"
-            for ind in unsatisfied[:5]
+        critical_str = "\n".join([
+            f"  🔴 {ind}: 0/2 transformadores"
+            for ind in critical[:5]
+        ])
+        
+        urgent_str = "\n".join([
+            f"  🟡 {ind}: 1/2 transformadores"
+            for ind in urgent[:5]
         ])
         
         if batch_size > 1:
-            prompt = f"""Eres un experto colocando transformadores con restricción CRÍTICA:
+            prompt = f"""URGENTE: Colocar transformadores para industrias CRÍTICAS.
 
 **ESTADO:**
 - Colocados: {self.tools.transformers_placed}/{self.tools.n_transformers}
 - Restantes: {remaining}
-- Industrias INSATISFECHAS: {len(unsatisfied)}/{len(self.tools.industries)}
+- CRÍTICAS (0 transf): {len(critical)}
+- URGENTES (1 transf): {len(urgent)}
 
-**INDUSTRIAS QUE NECESITAN ATENCIÓN:**
-{unsatisfied_str if unsatisfied else "  ✓ Todas satisfechas"}
+**INDUSTRIAS CRÍTICAS:**
+{critical_str if critical else "  ✓ Ninguna"}
 
-**RESTRICCIÓN ABSOLUTA:**
-Cada industria (T) DEBE tener ≥2 transformadores en radio Manhattan ≤3.
+**INDUSTRIAS URGENTES:**
+{urgent_str if urgent else "  ✓ Ninguna"}
 
-**TOP CANDIDATOS (ordenados por prioridad estratégica):**
+**CANDIDATOS (ordenados por prioridad):**
 {candidates_str}
 
+**RESTRICCIÓN ABSOLUTA:**
+Cada industria DEBE tener ≥2 transformadores en radio Manhattan ≤3.
+
 **DECISIÓN:**
-Elige {batch_size} candidatos de la lista para colocar transformadores.
-PRIORIZA industrias con 0 o 1 transformador actual.
+Elige {batch_size} posiciones de la lista.
+PRIORIDAD MÁXIMA: Industrias con 0 transformadores.
 
 **RESPONDE SOLO JSON:**
 {{
-  "thought": "[Estrategia breve]",
+  "thought": "[estrategia]",
   "action": "place_multiple_transformers",
   "parameters": {{
     "positions": [
-      {{"row": X, "col": Y, "reason": "Para industria en (A,B)"}},
+      {{"row": X, "col": Y, "reason": "Para industria (A,B)"}},
       ...
     ]
   }}
 }}"""
         else:
-            prompt = f"""Eres un experto colocando transformadores con restricción CRÍTICA:
+            prompt = f"""URGENTE: Colocar transformador para industria CRÍTICA.
 
 **ESTADO:**
 - Colocados: {self.tools.transformers_placed}/{self.tools.n_transformers}
 - Restantes: {remaining}
-- Industrias INSATISFECHAS: {len(unsatisfied)}/{len(self.tools.industries)}
+- CRÍTICAS (0 transf): {len(critical)}
+- URGENTES (1 transf): {len(urgent)}
 
-**INDUSTRIAS QUE NECESITAN ATENCIÓN:**
-{unsatisfied_str if unsatisfied else "  ✓ Todas satisfechas"}
+**INDUSTRIAS CRÍTICAS:**
+{critical_str if critical else "  ✓ Ninguna"}
 
-**RESTRICCIÓN ABSOLUTA:**
-Cada industria (T) DEBE tener ≥2 transformadores en radio Manhattan ≤3.
+**INDUSTRIAS URGENTES:**
+{urgent_str if urgent else "  ✓ Ninguna"}
 
-**TOP CANDIDATOS:**
+**CANDIDATOS:**
 {candidates_str}
 
 **DECISIÓN:**
-Elige UNO de los candidatos. PRIORIZA industrias con 0 o 1 transformador.
+Elige UNA posición. PRIORIDAD MÁXIMA a industrias con 0 transformadores.
 
 **RESPONDE SOLO JSON:**
 {{
-  "thought": "[Por qué este]",
+  "thought": "[razón]",
   "action": "place_transformer",
   "parameters": {{"row": X, "col": Y, "reason": "[razón]"}}
 }}"""
         
         try:
-            self._log(f"🤖 LLM eligiendo {batch_size} posición/es...")
-            response = await self._with_key_rotation(
-                asyncio.to_thread(self.llm.complete, prompt)
-            )
+            self._log(f"🤖 LLM decidiendo {batch_size} posición/es...")
+            
+            # Crear función async para llamar al LLM
+            async def llm_complete():
+                return await asyncio.to_thread(self.llm.complete, prompt)
+            
+            response = await self._with_key_rotation(llm_complete)
             thought = response.text.strip()
             
             return ThoughtEvent(thought=thought, state=state)
@@ -675,9 +737,11 @@ Elige UNO de los candidatos. PRIORIZA industrias con 0 o 1 transformador.
         
         self._log(f"🎯 ACCIÓN: {action}")
         
-        tool_result = await self._with_key_rotation(
-            asyncio.to_thread(self._execute_tool, action, params)
-        )
+        # Crear función async para ejecutar la herramienta
+        async def execute_tool():
+            return await asyncio.to_thread(self._execute_tool, action, params)
+        
+        tool_result = await self._with_key_rotation(execute_tool)
         
         self._log(f"📤 RESULTADO: {tool_result.message}")
         
@@ -783,14 +847,16 @@ def save_solution(grid: List[List[str]], filepath: str = "salidas/solucion.txt")
 # ==================== MAIN ====================
 
 async def main():
-    print("🤖 AGENTE MEJORADO DE TRANSFORMADORES v4.0")
+    print("🤖 AGENTE MEJORADO DE TRANSFORMADORES v4.0.1")
     print("="*60)
-    print("⚡ Estrategia industria-centrada + verificación dinámica")
+    print("⚡ CORRECCIÓN: Máxima prioridad a industrias críticas")
     print("="*60)
     
     # Configurar API
     api_keys = [
-            
+           
+
+
         ]
     
     if not api_keys or not api_keys[0]:
