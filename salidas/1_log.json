@@ -40,8 +40,14 @@
         0,
         2
       ],
-      "reason": "Fallback heur\u00edstico",
-      "timestamp": "2026-01-30T00:08:31.923970"
+      "reason": "Fallback",
+      "timestamp": "2026-01-30T09:33:19.703105",
+      "industries_affected": [
+        [
+          1,
+          2
+        ]
+      ]
     },
     {
       "action": "place",
@@ -49,8 +55,14 @@
         1,
         1
       ],
-      "reason": "Es el \u00fanico candidato que cubre una industria, contribuyendo a la restricci\u00f3n cr\u00edtica de \u22652 transformadores por industria (actualmente 0/1 satisfechas). Adem\u00e1s, tiene el score m\u00e1s alto.",
-      "timestamp": "2026-01-30T00:08:36.177681"
+      "reason": "Fallback",
+      "timestamp": "2026-01-30T09:33:20.401872",
+      "industries_affected": [
+        [
+          1,
+          2
+        ]
+      ]
     }
   ],
   "final_check": {

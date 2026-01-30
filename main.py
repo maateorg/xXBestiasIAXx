@@ -1,7 +1,7 @@
 """
-Agente Autónomo de Colocación de Transformadores - VERSIÓN HÍBRIDA
+Agente Autónomo de Colocación de Transformadores - VERSIÓN MEJORADA
 Implementación usando LlamaIndex + Google Gemini con patrón ReAct
-HÍBRIDO: Heurística genera candidatos + LLM elige el mejor (RÁPIDO + INTELIGENTE)
+MEJORAS: Estrategia industria-centrada, verificación dinámica, batching inteligente
 """
 
 import os
@@ -11,7 +11,7 @@ import time
 import asyncio
 from typing import List, Tuple, Dict, Optional, Any, Union
 from dataclasses import dataclass
-from collections import deque
+from collections import deque, defaultdict
 from datetime import datetime
 
 # Importaciones de LlamaIndex y Google
@@ -20,7 +20,6 @@ from llama_index.core import Settings
 from llama_index.core.workflow import Workflow, Event, StartEvent, StopEvent, step
 
 # ==================== CONFIGURACIÓN ====================
-
 
 class APIKeyRotator:
     def __init__(self, api_keys):
@@ -36,7 +35,6 @@ class APIKeyRotator:
     def rotate(self):
         self.index = (self.index + 1) % len(self.api_keys)
         print(f"🔑 Rotando API key → usando #{self.index + 1}/{len(self.api_keys)}")
-
 
 
 def initialize_llm(rotator: APIKeyRotator):
@@ -118,10 +116,10 @@ class AgentState:
         }
 
 
-# ==================== HERRAMIENTAS DEL AGENTE ====================
+# ==================== HERRAMIENTAS MEJORADAS ====================
 
 class TransformerTools:
-    """Herramientas disponibles para el agente"""
+    """Herramientas disponibles para el agente con estrategia mejorada"""
     
     def __init__(self, grid: List[List[str]], n_transformers: int):
         self.grid = [list(row) for row in grid]
@@ -138,6 +136,9 @@ class TransformerTools:
             'C': 'Transformador',
             '-': 'Vacío'
         }
+        # Cache de industrias
+        self.industries = self._find_industries()
+        self.industry_coverage = {ind: 0 for ind in self.industries}
     
     def get_neighbors(self, row: int, col: int) -> List[Tuple[int, int]]:
         """Obtiene los vecinos de una celda (8-conectado)"""
@@ -184,42 +185,117 @@ class TransformerTools:
         cells = self.get_cells_within_radius(ir, ic, 3)
         return sum(1 for r, c in cells if self.grid[r][c] == 'C')
     
-    def find_industries(self) -> List[Tuple[int, int]]:
+    def _find_industries(self) -> List[Tuple[int, int]]:
         """Encuentra todas las industrias en el mapa"""
         return [(r, c) for r in range(self.rows) 
                 for c in range(self.cols) 
                 if self.grid[r][c] == 'T']
     
-    def calculate_position_score(self, row: int, col: int) -> float:
-        """Calcula un score heurístico mejorado para una posición"""
+    def get_unsatisfied_industries(self) -> List[Tuple[int, int]]:
+        """Obtiene industrias que necesitan más transformadores"""
+        unsatisfied = []
+        for ind in self.industries:
+            count = self.count_transformers_near_industry(ind)
+            if count < 2:
+                unsatisfied.append(ind)
+        return unsatisfied
+    
+    def calculate_position_score_v2(self, row: int, col: int) -> float:
+        """Calcula score MEJORADO priorizando industrias insatisfechas"""
         if not self.is_valid_position(row, col):
             return -1000.0
         
         score = 0.0
         neighbors = self.get_neighbors(row, col)
         
-        # Bonificaciones por vecinos importantes
+        # Bonificaciones básicas por vecinos
         hospital_neighbors = sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'O')
         industry_neighbors = sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'T')
         house_neighbors = sum(1 for nr, nc in neighbors if self.grid[nr][nc] == 'X')
         
-        score += hospital_neighbors * 15.0  # Hospitales MUY importantes
-        score += industry_neighbors * 12.0   # Industrias directas muy importantes
-        score += house_neighbors * 3.0       # Casas importantes
+        score += hospital_neighbors * 10.0
+        score += industry_neighbors * 8.0
+        score += house_neighbors * 2.0
         
-        # NUEVA LÓGICA: Priorizar industrias más desatendidas
-        industries = self.find_industries()
-        for ind in industries:
+        # ESTRATEGIA CLAVE: Priorizar industrias insatisfechas
+        unsatisfied = self.get_unsatisfied_industries()
+        
+        for ind in unsatisfied:
             dist = abs(row - ind[0]) + abs(col - ind[1])
             if dist <= 3:
                 current_count = self.count_transformers_near_industry(ind)
-                # Bonificación MASIVA para industrias con 0 o 1 transformador
+                
+                # BONIFICACIÓN MASIVA para industrias con 0 transformadores
                 if current_count == 0:
-                    score += (4 - dist) * 25.0  # Crítico: 100 puntos si está muy cerca
+                    score += (4 - dist) * 50.0  # Hasta 200 puntos
                 elif current_count == 1:
-                    score += (4 - dist) * 15.0  # Muy importante: completar a 2
+                    score += (4 - dist) * 30.0  # Hasta 120 puntos
+        
+        # Penalización por estar cerca de industrias ya satisfechas
+        satisfied = [ind for ind in self.industries if ind not in unsatisfied]
+        for ind in satisfied:
+            dist = abs(row - ind[0]) + abs(col - ind[1])
+            if dist <= 3:
+                score -= 5.0  # Pequeña penalización
         
         return score
+    
+    def find_strategic_positions_for_industries(self, top_n: int = 20) -> ToolResult:
+        """Encuentra posiciones estratégicas que maximicen cobertura de industrias"""
+        unsatisfied = self.get_unsatisfied_industries()
+        
+        if not unsatisfied:
+            return self.find_best_candidates(top_n)
+        
+        # Para cada industria insatisfecha, encontrar las mejores posiciones cercanas
+        industry_candidates = defaultdict(list)
+        
+        for ind in unsatisfied:
+            ir, ic = ind
+            current_count = self.count_transformers_near_industry(ind)
+            needed = 2 - current_count
+            
+            # Buscar posiciones en radio 3
+            for r in range(max(0, ir-3), min(self.rows, ir+4)):
+                for c in range(max(0, ic-3), min(self.cols, ic+4)):
+                    dist = abs(r - ir) + abs(c - ic)
+                    if dist <= 3 and self.is_valid_position(r, c):
+                        score = self.calculate_position_score_v2(r, c)
+                        industry_candidates[ind].append({
+                            "position": (r, c),
+                            "score": score,
+                            "distance": dist,
+                            "industry": ind,
+                            "needed": needed
+                        })
+        
+        # Consolidar y ordenar todos los candidatos
+        all_candidates = []
+        for ind, candidates in industry_candidates.items():
+            candidates.sort(key=lambda x: x['score'], reverse=True)
+            all_candidates.extend(candidates[:5])  # Top 5 por industria
+        
+        # Eliminar duplicados y ordenar
+        seen = set()
+        unique_candidates = []
+        for cand in all_candidates:
+            pos = cand['position']
+            if pos not in seen:
+                seen.add(pos)
+                unique_candidates.append(cand)
+        
+        unique_candidates.sort(key=lambda x: x['score'], reverse=True)
+        top_candidates = unique_candidates[:top_n]
+        
+        return ToolResult(
+            success=True,
+            message=f"Encontradas {len(top_candidates)} posiciones estratégicas para {len(unsatisfied)} industrias insatisfechas",
+            data={
+                "candidates": top_candidates,
+                "unsatisfied_industries": len(unsatisfied),
+                "total_industries": len(self.industries)
+            }
+        )
     
     def place_transformer(self, row: int, col: int, reason: str = "") -> ToolResult:
         """Coloca un transformador en una posición"""
@@ -231,11 +307,19 @@ class TransformerTools:
         
         self.grid[row][col] = 'C'
         self.transformers_placed += 1
+        
+        # Actualizar cobertura de industrias
+        for ind in self.industries:
+            dist = abs(row - ind[0]) + abs(col - ind[1])
+            if dist <= 3:
+                self.industry_coverage[ind] += 1
+        
         self.history.append({
             "action": "place",
             "position": (row, col),
             "reason": reason,
-            "timestamp": datetime.now().isoformat()
+            "timestamp": datetime.now().isoformat(),
+            "industries_affected": [ind for ind in self.industries if abs(row - ind[0]) + abs(col - ind[1]) <= 3]
         })
         
         return ToolResult(
@@ -244,7 +328,8 @@ class TransformerTools:
             data={
                 "total_placed": self.transformers_placed,
                 "remaining": self.n_transformers - self.transformers_placed,
-                "reason": reason
+                "reason": reason,
+                "unsatisfied_industries": len(self.get_unsatisfied_industries())
             }
         )
     
@@ -283,14 +368,15 @@ class TransformerTools:
                 "positions": placed,
                 "failed": failed,
                 "total_placed": self.transformers_placed,
-                "remaining": self.n_transformers - self.transformers_placed
+                "remaining": self.n_transformers - self.transformers_placed,
+                "unsatisfied_industries": len(self.get_unsatisfied_industries())
             }
         )
     
     def check_constraints(self) -> ToolResult:
         """Verifica que se cumplan las restricciones de industrias"""
         violations = []
-        for ind in self.find_industries():
+        for ind in self.industries:
             count = self.count_transformers_near_industry(ind)
             if count < 2:
                 violations.append({
@@ -313,13 +399,13 @@ class TransformerTools:
         )
     
     def find_best_candidates(self, top_n: int = 10) -> ToolResult:
-        """Encuentra las mejores posiciones candidatas con mejor scoring"""
+        """Encuentra las mejores posiciones candidatas (fallback)"""
         candidates = []
         
         for r in range(self.rows):
             for c in range(self.cols):
                 if self.is_valid_position(r, c):
-                    score = self.calculate_position_score(r, c)
+                    score = self.calculate_position_score_v2(r, c)
                     neighbors = self.get_neighbors(r, c)
                     
                     candidates.append({
@@ -344,7 +430,7 @@ class TransformerTools:
     def get_industry_coverage(self) -> ToolResult:
         """Obtiene la cobertura actual de cada industria"""
         coverage = []
-        for ind in self.find_industries():
+        for ind in self.industries:
             count = self.count_transformers_near_industry(ind)
             coverage.append({
                 "position": ind,
@@ -358,7 +444,11 @@ class TransformerTools:
         return ToolResult(
             success=True,
             message=f"Cobertura: {satisfied}/{total_industries} industrias satisfechas",
-            data={"coverage": coverage, "satisfaction_rate": satisfied/total_industries if total_industries > 0 else 0}
+            data={
+                "coverage": coverage,
+                "satisfaction_rate": satisfied/total_industries if total_industries > 0 else 0,
+                "unsatisfied": [c for c in coverage if not c["satisfied"]]
+            }
         )
     
     def get_state(self) -> AgentState:
@@ -374,16 +464,12 @@ class TransformerTools:
     def format_grid(self) -> str:
         """Formatea el grid como string"""
         return '\n'.join([''.join(row) for row in self.grid])
-    
-    def get_legend(self) -> str:
-        """Retorna la leyenda del mapa"""
-        return '\n'.join([f"{k}: {v}" for k, v in self.legend.items()])
 
 
-# ==================== WORKFLOW REACT MEJORADO ====================
+# ==================== WORKFLOW MEJORADO ====================
 
-class TransformerAgentWorkflow(Workflow):
-    """Workflow principal del agente usando patrón ReAct optimizado"""
+class ImprovedTransformerWorkflow(Workflow):
+    """Workflow mejorado con estrategia industria-centrada"""
     
     def __init__(self, tools: TransformerTools, key_rotator, max_iterations: int = 200, verbose: bool = True, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -393,38 +479,35 @@ class TransformerAgentWorkflow(Workflow):
         self.iteration = 0
         self.llm = Settings.llm
         self.verbose = verbose
-        self.recent_actions = deque(maxlen=5)
+        self.consecutive_failures = 0
     
     def _log(self, message: str):
-        """Log condicional basado en verbose"""
         if self.verbose:
             print(message)
 
     async def _with_key_rotation(self, coro):
-        """Ejecuta una coroutine con rotación automática de API key si hay error de cuota"""
         try:
             return await coro
         except Exception as e:
             msg = str(e).lower()
             if "429" in msg or "quota" in msg or "resource_exhausted" in msg:
-                self._log("🚨 429 / quota detectado → rotando API key (SIN contar iteración)")
+                self._log("🚨 429 / quota detectado → rotando API key")
                 self.key_rotator.rotate()
                 initialize_llm(self.key_rotator)
-                self.llm = Settings.llm  # Actualizar referencia
-                # Decrementar iteración porque vamos a reintentar
+                self.llm = Settings.llm
                 self.iteration -= 1
                 return await coro
             raise
     
     @step
     async def think(self, ev: Union[StartEvent, LoopEvent]) -> ThoughtEvent:
-        """Paso de razonamiento: HÍBRIDO (heurística + LLM)"""
+        """Paso de razonamiento mejorado"""
         self.iteration += 1
         self._log(f"\n{'='*60}\n🔄 ITERACIÓN {self.iteration}/{self.max_iterations}\n{'='*60}")
         
         state = self.tools.get_state().to_dict()
         
-        # Objetivo alcanzado - verificar restricciones
+        # Verificar si ya terminamos
         if self.tools.transformers_placed >= self.tools.n_transformers:
             self._log("🎯 Objetivo alcanzado. Verificando restricciones...")
             return ThoughtEvent(
@@ -433,160 +516,155 @@ class TransformerAgentWorkflow(Workflow):
             )
         
         remaining = self.tools.n_transformers - self.tools.transformers_placed
+        unsatisfied = self.tools.get_unsatisfied_industries()
         
-        # PASO 1: Usar heurística para generar CANDIDATOS (RÁPIDO)
-        # Si quedan muchos transformadores, generar más candidatos
-        if remaining >= 500:
-            num_candidates = min(30, remaining // 20)  # Más candidatos para batches grandes
-        elif remaining >= 100:
-            num_candidates = min(20, remaining // 10)
-        elif remaining >= 20:
-            num_candidates = min(15, remaining // 3)
+        self._log(f"📊 Estado: {self.tools.transformers_placed}/{self.tools.n_transformers} colocados")
+        self._log(f"🏭 Industrias insatisfechas: {len(unsatisfied)}/{len(self.tools.industries)}")
+        
+        # ESTRATEGIA: Usar find_strategic_positions si hay industrias insatisfechas
+        if unsatisfied:
+            self._log(f"⚡ Buscando posiciones estratégicas para {len(unsatisfied)} industrias...")
+            candidates_result = self.tools.find_strategic_positions_for_industries(top_n=15)
         else:
-            num_candidates = min(10, max(5, remaining // 2))
-        
-        self._log(f"⚡ Generando {num_candidates} candidatos con heurística...")
-        candidates_result = self.tools.find_best_candidates(top_n=num_candidates)
+            self._log("⚡ Todas las industrias satisfechas, buscando candidatos generales...")
+            candidates_result = self.tools.find_best_candidates(top_n=15)
         
         if not candidates_result.success or not candidates_result.data.get('candidates'):
             self._log("⚠️ No hay candidatos disponibles")
+            self.consecutive_failures += 1
+            if self.consecutive_failures >= 3:
+                return ThoughtEvent(
+                    thought='{"thought": "No hay posiciones válidas tras múltiples intentos", "action": "check_constraints", "parameters": {}}',
+                    state=state
+                )
             return ThoughtEvent(
-                thought='{"thought": "No hay posiciones válidas", "action": "check_constraints", "parameters": {}}',
+                thought='{"thought": "Reintentar búsqueda", "action": "find_best_candidates", "parameters": {"top_n": 10}}',
                 state=state
             )
         
+        self.consecutive_failures = 0
         candidates = candidates_result.data['candidates']
         coverage = self.tools.get_industry_coverage()
         
-        # Decidir si colocar múltiples transformadores - BATCHING ESCALADO
+        # Decidir batch size
         batch_size = 1
-        if remaining >= 500:
-            batch_size = 20  # Batch grande para 500+
-        elif remaining >= 100:
-            batch_size = 10  # Batch medio para 100+
-        elif remaining >= 20:
-            batch_size = min(5, remaining // 4)  # Hasta 5 para 20+
+        if remaining >= 15:
+            batch_size = min(5, remaining // 3)
         elif remaining >= 10:
-            batch_size = min(3, remaining // 3)  # Hasta 3 para 10+
+            batch_size = min(3, remaining // 3)
+        elif remaining >= 5:
+            batch_size = 2
         
-        # PASO 2: LLM elige entre los candidatos (RÁPIDO porque son pocos)
+        # Preparar info de candidatos para LLM
         candidates_str = "\n".join([
-            f"{i+1}. Posición ({c['position'][0]}, {c['position'][1]}) - Score: {c['score']:.1f}\n"
-            f"   Vecinos: {c['neighbors']['X']} casas, {c['neighbors']['O']} hospitales, {c['neighbors']['T']} industrias"
-            for i, c in enumerate(candidates[:num_candidates])
+            f"{i+1}. Pos ({c['position'][0]}, {c['position'][1]}) - Score: {c['score']:.1f}" +
+            (f" - Industria {c.get('industry', 'N/A')} (dist: {c.get('distance', 'N/A')})" if 'industry' in c else "")
+            for i, c in enumerate(candidates[:10])
+        ])
+        
+        unsatisfied_str = "\n".join([
+            f"  - Industria en {ind}: {self.tools.count_transformers_near_industry(ind)}/2 transformadores"
+            for ind in unsatisfied[:5]
         ])
         
         if batch_size > 1:
-            prompt = f"""Eres un agente experto en colocar transformadores.
+            prompt = f"""Eres un experto colocando transformadores con restricción CRÍTICA:
 
 **ESTADO:**
 - Colocados: {self.tools.transformers_placed}/{self.tools.n_transformers}
 - Restantes: {remaining}
+- Industrias INSATISFECHAS: {len(unsatisfied)}/{len(self.tools.industries)}
 
-**COBERTURA INDUSTRIAS:**
-{coverage.message}
+**INDUSTRIAS QUE NECESITAN ATENCIÓN:**
+{unsatisfied_str if unsatisfied else "  ✓ Todas satisfechas"}
 
-**TOP {num_candidates} CANDIDATOS (pre-filtrados por heurística):**
-{candidates_str}
-
-**RESTRICCIÓN CRÍTICA:**
+**RESTRICCIÓN ABSOLUTA:**
 Cada industria (T) DEBE tener ≥2 transformadores en radio Manhattan ≤3.
 
-**DECIDE:**
-Quedan MUCHOS transformadores ({remaining}). Elige {batch_size} candidatos de la lista para colocar MÚLTIPLES transformadores a la vez.
-Prioriza industrias con <2 transformadores y evita posiciones redundantes.
+**TOP CANDIDATOS (ordenados por prioridad estratégica):**
+{candidates_str}
 
-**RESPONDE JSON:**
+**DECISIÓN:**
+Elige {batch_size} candidatos de la lista para colocar transformadores.
+PRIORIZA industrias con 0 o 1 transformador actual.
+
+**RESPONDE SOLO JSON:**
 {{
-  "thought": "[Tu decisión breve]",
+  "thought": "[Estrategia breve]",
   "action": "place_multiple_transformers",
   "parameters": {{
     "positions": [
-      {{"row": <fila>, "col": <columna>, "reason": "[razón]"}},
-      {{"row": <fila>, "col": <columna>, "reason": "[razón]"}},
+      {{"row": X, "col": Y, "reason": "Para industria en (A,B)"}},
       ...
     ]
   }}
-}}
-
-SOLO JSON, sin más texto."""
+}}"""
         else:
-            prompt = f"""Eres un agente experto en colocar transformadores.
+            prompt = f"""Eres un experto colocando transformadores con restricción CRÍTICA:
 
 **ESTADO:**
 - Colocados: {self.tools.transformers_placed}/{self.tools.n_transformers}
 - Restantes: {remaining}
+- Industrias INSATISFECHAS: {len(unsatisfied)}/{len(self.tools.industries)}
 
-**COBERTURA INDUSTRIAS:**
-{coverage.message}
+**INDUSTRIAS QUE NECESITAN ATENCIÓN:**
+{unsatisfied_str if unsatisfied else "  ✓ Todas satisfechas"}
 
-**TOP {num_candidates} CANDIDATOS (pre-filtrados por heurística):**
-{candidates_str}
-
-**RESTRICCIÓN CRÍTICA:**
+**RESTRICCIÓN ABSOLUTA:**
 Cada industria (T) DEBE tener ≥2 transformadores en radio Manhattan ≤3.
 
-**DECIDE:**
-Elige UNO de los candidatos. Prioriza industrias con <2 transformadores.
+**TOP CANDIDATOS:**
+{candidates_str}
 
-**RESPONDE JSON:**
+**DECISIÓN:**
+Elige UNO de los candidatos. PRIORIZA industrias con 0 o 1 transformador.
+
+**RESPONDE SOLO JSON:**
 {{
-  "thought": "[Tu decisión breve]",
+  "thought": "[Por qué este]",
   "action": "place_transformer",
-  "parameters": {{
-    "row": <fila del candidato elegido>,
-    "col": <columna del candidato elegido>,
-    "reason": "[Por qué este candidato]"
-  }}
-}}
-
-SOLO JSON, sin más texto."""
+  "parameters": {{"row": X, "col": Y, "reason": "[razón]"}}
+}}"""
         
         try:
-            self._log(f"🤖 LLM eligiendo {batch_size} transformador{'es' if batch_size > 1 else ''}...")
+            self._log(f"🤖 LLM eligiendo {batch_size} posición/es...")
             response = await self._with_key_rotation(
                 asyncio.to_thread(self.llm.complete, prompt)
             )
             thought = response.text.strip()
-            self._log(f"💬 LLM decidió: {thought[:100]}...")
             
-            return ThoughtEvent(
-                thought=thought,
-                state=state
-            )
+            return ThoughtEvent(thought=thought, state=state)
         except Exception as e:
-            self._log(f"❌ Error LLM: {e} → usando mejor candidato")
-            # Fallback: usar el mejor candidato heurístico
+            self._log(f"❌ Error LLM: {e} → fallback al mejor candidato")
             best = candidates[0]
             return ThoughtEvent(
-                thought=f'{{"thought": "Fallback: mejor candidato heurístico", "action": "place_transformer", "parameters": {{"row": {best["position"][0]}, "col": {best["position"][1]}, "reason": "Fallback heurístico"}}}}',
+                thought=f'{{"thought": "Fallback heurístico", "action": "place_transformer", "parameters": {{"row": {best["position"][0]}, "col": {best["position"][1]}, "reason": "Fallback"}}}}',
                 state=state
             )
     
     @step
     async def act(self, ev: ThoughtEvent) -> ObservationEvent:
-        """Paso de acción: ejecuta la decisión de la LLM"""
+        """Ejecuta la acción decidida"""
         decision = self._parse_llm_response(ev.thought)
         
         if not decision or 'action' not in decision:
-            self._log("⚠️ Error al parsear respuesta de LLM.")
-            # Buscar cualquier posición válida como fallback
+            self._log("⚠️ Error parseando → usando fallback")
+            # Buscar primera posición válida
             for r in range(self.tools.rows):
                 for c in range(self.tools.cols):
                     if self.tools.is_valid_position(r, c):
                         decision = {
-                            "thought": "Fallback por error de parseo",
+                            "thought": "Fallback por error",
                             "action": "place_transformer",
-                            "parameters": {"row": r, "col": c, "reason": "Posición de fallback"}
+                            "parameters": {"row": r, "col": c, "reason": "Fallback"}
                         }
                         break
                 if decision and 'action' in decision:
                     break
             
             if not decision or 'action' not in decision:
-                # Si no hay posiciones válidas, verificar restricciones
                 decision = {
-                    "thought": "No hay posiciones válidas",
+                    "thought": "Sin posiciones válidas",
                     "action": "check_constraints",
                     "parameters": {}
                 }
@@ -595,13 +673,8 @@ SOLO JSON, sin más texto."""
         params = decision.get('parameters', {})
         thought = decision.get('thought', 'Sin pensamiento')
         
-        self.recent_actions.append(action)
-        
         self._log(f"🎯 ACCIÓN: {action}")
-        if params:
-            self._log(f"📋 Parámetros: {params}")
         
-        # Ejecutar herramienta
         tool_result = await self._with_key_rotation(
             asyncio.to_thread(self._execute_tool, action, params)
         )
@@ -618,32 +691,29 @@ SOLO JSON, sin más texto."""
     
     @step
     async def observe(self, ev: ObservationEvent) -> Union[LoopEvent, StopEvent]:
-        """Paso de observación: decide si continuar o terminar"""
+        """Decide si continuar o terminar"""
         
-        # Condición de éxito
         if self.tools.transformers_placed >= self.tools.n_transformers:
-            self._log("\n✅ Objetivo de colocación cumplido. Verificando restricciones finales...")
+            self._log("\n✅ Objetivo cumplido. Verificando restricciones...")
             check_result = self.tools.check_constraints()
             
-            success = check_result.success
             result = {
                 "grid": self.tools.grid,
-                "success": success,
+                "success": check_result.success,
                 "transformers_placed": self.tools.transformers_placed,
-                "constraints_satisfied": success,
+                "constraints_satisfied": check_result.success,
                 "iterations": self.iteration,
                 "history": self.tools.history,
                 "final_check": check_result.to_dict()
             }
             
-            if success:
+            if check_result.success:
                 self._log("🎉 ¡Todas las restricciones cumplidas!")
             else:
                 self._log(f"⚠️ Restricciones no cumplidas: {check_result.message}")
             
             return StopEvent(result=result)
         
-        # Condición de parada por iteraciones
         if self.iteration >= self.max_iterations:
             self._log(f"\n⏱️ Máximo de iteraciones alcanzado ({self.max_iterations})")
             return StopEvent(result={
@@ -655,29 +725,25 @@ SOLO JSON, sin más texto."""
                 "iterations": self.iteration
             })
         
-        # Continuar
         return LoopEvent()
     
     def _parse_llm_response(self, text: str) -> Optional[Dict]:
-        """Parse robusto de la respuesta del LLM"""
         try:
             clean = text.replace("```json", "").replace("```", "").strip()
             match = re.search(r'\{.*\}', clean, re.DOTALL)
             if match:
-                json_str = match.group()
-                return json.loads(json_str)
+                return json.loads(match.group())
             return json.loads(clean)
-        except Exception as e:
-            self._log(f"⚠️ Error en parseo: {e}")
+        except:
             return None
     
     def _execute_tool(self, action: str, params: Dict) -> ToolResult:
-        """Ejecuta una herramienta del agente"""
         tool_mapping = {
             "place_transformer": self.tools.place_transformer,
             "place_multiple_transformers": self.tools.place_multiple_transformers,
             "check_constraints": self.tools.check_constraints,
             "find_best_candidates": self.tools.find_best_candidates,
+            "find_strategic_positions_for_industries": self.tools.find_strategic_positions_for_industries,
             "get_industry_coverage": self.tools.get_industry_coverage,
         }
         
@@ -686,8 +752,6 @@ SOLO JSON, sin más texto."""
         
         try:
             return tool_mapping[action](**params)
-        except TypeError as e:
-            return ToolResult(False, f"Parámetros incorrectos para {action}: {e}")
         except Exception as e:
             return ToolResult(False, f"Error ejecutando {action}: {e}")
 
@@ -695,7 +759,6 @@ SOLO JSON, sin más texto."""
 # ==================== UTILIDADES ====================
 
 def print_grid(grid: List[List[str]], title: str = "MAPA"):
-    """Imprime el grid de forma visual"""
     print(f"\n{'='*50}")
     print(f"  {title}")
     print('='*50)
@@ -705,13 +768,11 @@ def print_grid(grid: List[List[str]], title: str = "MAPA"):
 
 
 def parse_grid_file(filepath: str) -> List[List[str]]:
-    """Lee y parsea un archivo de mapa"""
     with open(filepath, 'r') as file:
         return [list(line.strip()) for line in file if line.strip()]
 
 
 def save_solution(grid: List[List[str]], filepath: str = "salidas/solucion.txt"):
-    """Guarda la solución en un archivo"""
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
     with open(filepath, 'w') as f:
         for row in grid:
@@ -722,73 +783,102 @@ def save_solution(grid: List[List[str]], filepath: str = "salidas/solucion.txt")
 # ==================== MAIN ====================
 
 async def main():
-    """Función principal"""
-    print("🤖 AGENTE AUTÓNOMO DE COLOCACIÓN DE TRANSFORMADORES v3.5")
+    print("🤖 AGENTE MEJORADO DE TRANSFORMADORES v4.0")
     print("="*60)
-    print("⚡ Versión HÍBRIDA: Heurística + LLM (rápido e inteligente)")
+    print("⚡ Estrategia industria-centrada + verificación dinámica")
     print("="*60)
     
-    # Configurar API key
-    try:        
-        api_keys = [
-            
+    # Configurar API
+    api_keys = [
+            "AIzaSyDC63z3vOh92SV8480DOT3VtpudchTUB6o",
+            "AIzaSyD9CaSXRAL-N5U8Gnx8sP-htW537uVm-4",
+            "AIzaSyAYEdt7jxPlti2WVaBcgaID_2cXfK-v4Aw",
+            "AIzaSyDwIK9uP1uuCxUjQhTOcyteOeUDShZfstU",
+            "AIzaSyAXwDVyMhKS65MzWsscn9RnvsuE9kV9ars",
+            "AIzaSyB0XfHor7g1wwisemTvubRJl6-bzAqpiYU",
+            "AIzaSyDUILlsCqUeXC8_SUOtt0i3GA62uKsxmYY",
+            "AIzaSyB5jJ23C3DBSCid33TQtJCwbcepYF1uha8",
+            "AIzaSyDckZ2I1J8e6PyZWP3I1Dssoi-6BJ0gl_s",
+            "AIzaSyCJtyhGS3iFp1jI7g9ZQV6Vztsh6C64_7I",
+            "AIzaSyAVEBVp7R5IgVId0HBMNUJDTuYpRPUKWk8",
+            "AIzaSyAZuRfiZfWdcWcW9XxT3pslUGfc6Svp1hw",
+            "AIzaSyAvQb6smQ-nBgxoDrmwAi_fsWBpGXsISCA",
+            "AIzaSyDF742oqAbzp_2kwT37Fkl7BnzziXY10Bs",
+            "AIzaSyAyudSmUtONdqMl4gqiuUgVfQxeEcNthrI",
+            "AIzaSyBfz3yCjug072zYPfayvpIeEKkJDtQwGOM",
+            "AIzaSyBc9meShmHUNEzc_zy_T5tuVwhPjwzZE-M",
+            "AIzaSyAGmFwK4Mn0W0IlvtBfP6qmxS8UVZijGc4",
+            "AIzaSyDraXlWqmHi9SOMTU-jaBop2tOd7nVnfec",
+            "AIzaSyArcctGMu4s4xWAEIAgT2Hi8B7-es3KtXo"
         ]
-
+    
+    if not api_keys or not api_keys[0]:
+        print("❌ Configura tus API keys en el código")
+        return
+    
+    try:
         key_rotator = APIKeyRotator(api_keys)
         initialize_llm(key_rotator)
-        print("✓ LLM inicializado correctamente\n")
+        print("✓ LLM inicializado\n")
     except Exception as e:
         print(f"❌ Error configurando LLM: {e}")
         return
     
-    # Solicitar nombre del archivo
-    filename = input("📁 Nombre del archivo del mapa: ").strip()
-    input_dir = "entradas"
-    map_file = os.path.join(input_dir, filename)
+    # Solicitar archivo y número
+    filename = input("📁 Archivo del mapa: ").strip()
+    map_file = os.path.join("entradas", filename)
     
     if not os.path.exists(map_file):
-        print(f"❌ El archivo '{filename}' no existe en la carpeta '{input_dir}/'")
+        print(f"❌ Archivo no encontrado: {map_file}")
         return
     
-    # Solicitar número de transformadores
     try:
         n_transformers = int(input("🔢 Número de transformadores: ").strip())
         if n_transformers <= 0:
-            print("❌ El número debe ser positivo")
+            print("❌ Número debe ser positivo")
             return
     except ValueError:
-        print("❌ Debe ingresar un número válido")
+        print("❌ Número inválido")
         return
     
     # Cargar mapa
     try:
         grid = parse_grid_file(map_file)
-        print(f"\n✓ Mapa cargado: {len(grid)}x{len(grid[0]) if grid else 0}")
+        print(f"\n✓ Mapa cargado: {len(grid)}x{len(grid[0])}")
     except Exception as e:
         print(f"❌ Error leyendo mapa: {e}")
         return
     
     print_grid(grid, "MAPA INICIAL")
     
-    # Crear herramientas y workflow
+    # Crear workflow
     tools = TransformerTools(grid, n_transformers)
-    workflow = TransformerAgentWorkflow(
+    
+    print(f"\n📊 Análisis inicial:")
+    print(f"   - Industrias totales: {len(tools.industries)}")
+    print(f"   - Transformadores necesarios: {n_transformers}")
+    print(f"   - Ratio mínimo esperado: {len(tools.industries) * 2}")
+    
+    if n_transformers < len(tools.industries) * 2:
+        print(f"\n⚠️  ADVERTENCIA: {n_transformers} transformadores podrían ser insuficientes")
+        print(f"   Se necesitan al menos {len(tools.industries) * 2} para cubrir todas las industrias")
+    
+    workflow = ImprovedTransformerWorkflow(
         tools=tools,
         key_rotator=key_rotator,
-        max_iterations=max(400, n_transformers * 3),
+        max_iterations=max(300, n_transformers * 4),
         verbose=True,
         timeout=600
     )
     
-    print(f"\n🚀 Iniciando agente (máx {200} iteraciones)...\n")
+    print(f"\n🚀 Iniciando agente...\n")
     
-    # Ejecutar workflow
     start_time = datetime.now()
     
     try:
         result = await workflow.run()
     except Exception as e:
-        print(f"\n❌ Error durante ejecución: {e}")
+        print(f"\n❌ Error: {e}")
         import traceback
         traceback.print_exc()
         return
@@ -796,43 +886,42 @@ async def main():
     end_time = datetime.now()
     duration = (end_time - start_time).total_seconds()
     
-    # Mostrar resultados
+    # Resultados
     print("\n" + "="*60)
     print("🏁 EJECUCIÓN FINALIZADA")
     print("="*60)
-    print(f"⏱️  Tiempo: {duration:.2f} segundos")
+    print(f"⏱️  Tiempo: {duration:.2f}s")
     print(f"🔄 Iteraciones: {workflow.iteration}")
-    print(f"⚡ Eficiencia: {(n_transformers / workflow.iteration * 100):.1f}% (colocaciones/iteración)")
     
     if isinstance(result, dict) and 'grid' in result:
         print_grid(result['grid'], "MAPA FINAL")
         
         print(f"\n📊 RESULTADOS:")
-        print(f"   Transformadores colocados: {result.get('transformers_placed', '?')}/{n_transformers}")
+        print(f"   Colocados: {result.get('transformers_placed', 0)}/{n_transformers}")
         print(f"   Éxito: {'✅ SÍ' if result.get('success') else '❌ NO'}")
         
         if result.get('success'):
             print(f"   Estado: ✓ Todas las restricciones cumplidas")
         else:
-            print(f"   Estado: ✗ {result.get('reason', 'Restricciones no cumplidas')}")
+            final_check = result.get('final_check', {})
+            violations = final_check.get('data', {}).get('violations', [])
+            print(f"   Estado: ✗ {len(violations)} industrias sin cobertura")
+            if violations:
+                print(f"\n   Industrias insatisfechas:")
+                for v in violations[:5]:
+                    print(f"     - {v['position']}: {v['current_transformers']}/2")
         
-        # Guardar solución
+        # Guardar
         try:
             output_file = os.path.join("salidas", filename)
             save_solution(result['grid'], output_file)
-        except Exception as e:
-            print(f"⚠️  Error guardando solución: {e}")
-        
-        # Guardar log
-        try:
-            base_name = os.path.splitext(filename)[0]
-            log_file = os.path.join("salidas", f"{base_name}_log.json")
-            os.makedirs("salidas", exist_ok=True)
+            
+            log_file = os.path.join("salidas", f"{os.path.splitext(filename)[0]}_log.json")
             with open(log_file, 'w') as f:
                 json.dump(result, f, indent=2, default=str)
-            print(f"📝 Log guardado en: {log_file}")
+            print(f"📝 Log guardado: {log_file}")
         except Exception as e:
-            print(f"⚠️  Error guardando log: {e}")
+            print(f"⚠️  Error guardando: {e}")
 
 
 if __name__ == "__main__":
