@@ -790,26 +790,7 @@ async def main():
     
     # Configurar API
     api_keys = [
-            "AIzaSyDC63z3vOh92SV8480DOT3VtpudchTUB6o",
-            "AIzaSyD9CaSXRAL-N5U8Gnx8sP-htW537uVm-4",
-            "AIzaSyAYEdt7jxPlti2WVaBcgaID_2cXfK-v4Aw",
-            "AIzaSyDwIK9uP1uuCxUjQhTOcyteOeUDShZfstU",
-            "AIzaSyAXwDVyMhKS65MzWsscn9RnvsuE9kV9ars",
-            "AIzaSyB0XfHor7g1wwisemTvubRJl6-bzAqpiYU",
-            "AIzaSyDUILlsCqUeXC8_SUOtt0i3GA62uKsxmYY",
-            "AIzaSyB5jJ23C3DBSCid33TQtJCwbcepYF1uha8",
-            "AIzaSyDckZ2I1J8e6PyZWP3I1Dssoi-6BJ0gl_s",
-            "AIzaSyCJtyhGS3iFp1jI7g9ZQV6Vztsh6C64_7I",
-            "AIzaSyAVEBVp7R5IgVId0HBMNUJDTuYpRPUKWk8",
-            "AIzaSyAZuRfiZfWdcWcW9XxT3pslUGfc6Svp1hw",
-            "AIzaSyAvQb6smQ-nBgxoDrmwAi_fsWBpGXsISCA",
-            "AIzaSyDF742oqAbzp_2kwT37Fkl7BnzziXY10Bs",
-            "AIzaSyAyudSmUtONdqMl4gqiuUgVfQxeEcNthrI",
-            "AIzaSyBfz3yCjug072zYPfayvpIeEKkJDtQwGOM",
-            "AIzaSyBc9meShmHUNEzc_zy_T5tuVwhPjwzZE-M",
-            "AIzaSyAGmFwK4Mn0W0IlvtBfP6qmxS8UVZijGc4",
-            "AIzaSyDraXlWqmHi9SOMTU-jaBop2tOd7nVnfec",
-            "AIzaSyArcctGMu4s4xWAEIAgT2Hi8B7-es3KtXo"
+            
         ]
     
     if not api_keys or not api_keys[0]:
